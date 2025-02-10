@@ -1,0 +1,56 @@
+---
+import { Image } from 'astro:assets';
+import image1 from '/public/serviceimg/service30.jpg';
+---
+
+<header class="relative overflow-hidden bg-gradient-to-b from-white to-gray-50">
+  <div class="container mx-auto px-4 py-4 lg:py-16 sm:px-6 lg:px-8">
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center">
+      
+      <!-- Image Section - Now shows on all screens -->
+      <div class="relative transform transition-all duration-500 hover:scale-[1.02]">
+        <div class="absolute inset-0 bg-gradient-to-r from-yellow-400/20 to-red-500/20 rounded-3xl transform rotate-3"></div>
+        <Image 
+          src={image1} 
+          alt="Travel Platform Showcase" 
+          class="relative rounded-3xl shadow-2xl w-full h-[300px] lg:h-[500px] object-cover"
+        />
+      </div>
+
+      <!-- Content Section -->
+      <div class="space-y-8">
+        <div class="text-center lg:text-left">
+          <h1 class="text-3xl sm:text-4xl font-bold text-gray-900">
+            Travel Platform
+            <span class="block mt-3 text-xl sm:text-2xl font-medium text-yellow-500">
+              Redefining Travel Experiences with Dedication and Excellence!
+            </span>
+          </h1>
+        </div>
+
+        <!-- Stats Grid -->
+        <div class="grid grid-cols-3 gap-4">
+          <div class="group p-4 bg-white rounded-2xl shadow-sm hover:shadow-md transition-all duration-300">
+            <p class="text-2xl sm:text-3xl font-bold text-red-600 group-hover:scale-110 transition-transform">10</p>
+            <p class="text-sm font-medium text-yellow-500">Years Experience</p>
+          </div>
+          <div class="group p-4 bg-white rounded-2xl shadow-sm hover:shadow-md transition-all duration-300">
+            <p class="text-2xl sm:text-3xl font-bold text-red-600 group-hover:scale-110 transition-transform">100+</p>
+            <p class="text-sm font-medium text-yellow-500">Tour Guide</p>
+          </div>
+          <div class="group p-4 bg-white rounded-2xl shadow-sm hover:shadow-md transition-all duration-300">
+            <p class="text-2xl sm:text-3xl font-bold text-red-600 group-hover:scale-110 transition-transform">500+</p>
+            <p class="text-sm font-medium text-yellow-500">Traveler Connect</p>
+          </div>
+        </div>
+
+        <!-- Description -->
+        <div class="bg-white/80 backdrop-blur-sm rounded-2xl p-6 shadow-sm">
+          <p class="text-justify text-gray-700 leading-relaxed">
+            Based in the vibrant city of Dubai, Travel Platform stands tall as a renowned travel management company. Our reputation and success have been nurtured by the unwavering support of our valued customers and fueled by the tireless efforts and passionate energy of our dedicated staff. We strive not only to meet but to surpass customer expectations, ensuring their utmost satisfaction in every aspect of their journey. Our commitment to excellence has been recognized through numerous accolades and awards, serving as a testament to our unwavering dedication. We take pride in our ability to consistently deliver exceptional travel experiences that create lasting memories for our clients.
+          </p>          
+        </div>
+      </div>
+    </div>
+  </div>
+</header>

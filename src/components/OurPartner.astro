@@ -1,0 +1,114 @@
+---
+// filepath: /C:/Users/Adeeb/OneDrive - K L University/Desktop/astrotravel/travel/src/components/OurPartner.astro
+const partners = [
+  { id: 1, image: './src/assets/partners/partners1.jpg' },
+  { id: 2, image: './src/assets/partners/partners2.jpg' },
+  { id: 3, image: './src/assets/partners/partners3.jpg' },
+  { id: 4, image: './src/assets/partners/partners4.jpg' },
+  { id: 5, image: './src/assets/partners/partners5.jpg' },
+  { id: 6, image: './src/assets/partners/partners6.jpg' },
+  { id: 7, image: './src/assets/partners/partners7.jpg' },
+  { id: 8, image: './src/assets/partners/partners8.jpg' },
+  { id: 9, image: './src/assets/partners/partners9.jpg' },
+  { id: 10, image: './src/assets/partners/partners10.jpg' }
+];
+---
+
+<div class="text-center">
+  <h2 class="text-4xl font-bold mb-14">Our Partners</h2>
+  <div class="relative -z-50 overflow-hidden w-full">
+    <!-- Auto-scrolling container -->
+    <div class="scroll-wrapper">
+      <div class="scroll-container flex space-x-4">
+        {/* First set of partners */}
+        {partners.map(partner => (
+          <div class="partner-card flex-shrink-0 w-48 sm:w-64 p-4 relative border" id={`partner-${partner.id}`}>
+            <div class="absolute top-2 left-2 flex space-x-1">
+              <div class="w-3 h-3 bg-red-500 rounded-full"></div>
+              <div class="w-3 h-3 bg-blue-500 rounded-full"></div>
+              <div class="w-3 h-3 bg-green-500 rounded-full"></div>
+              <div class="w-3 h-3 bg-yellow-500 rounded-full"></div>
+            </div>
+            <div class="parallelogram absolute bottom-2 right-2 text-xs">
+              <p class="text-xs text-white transform skew-x-12 ml-10">Fly with us!</p>
+            </div>
+            <img src={partner.image} alt={`Partner ${partner.id}`} class="w-full h-auto" />
+          </div>
+        ))}
+        {/* Duplicate set for seamless scrolling */}
+        {partners.map(partner => (
+          <div class="partner-card flex-shrink-0 w-48 sm:w-64 p-4 relative border" id={`partner-${partner.id}-duplicate`}>
+            <div class="absolute top-2 left-2 flex space-x-1">
+              <div class="w-3 h-3 bg-red-500 rounded-full"></div>
+              <div class="w-3 h-3 bg-blue-500 rounded-full"></div>
+              <div class="w-3 h-3 bg-green-500 rounded-full"></div>
+              <div class="w-3 h-3 bg-yellow-500 rounded-full"></div>
+            </div>
+            <div class="parallelogram absolute bottom-2 right-2 text-xs">
+              <p class="text-xs text-white transform skew-x-12 ml-10">Fly with us!</p>
+            </div>
+            <img src={partner.image} alt={`Partner ${partner.id}`} class="w-full h-auto" />
+          </div>
+        ))}
+      </div>
+    </div>
+  </div>
+</div>
+
+<style>
+  .parallelogram {
+    height: 2rem;
+    background: #fbbf24;
+    transform: skewX(-20deg);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0 1rem;
+    cursor: pointer;
+  }
+
+  .scroll-wrapper {
+    width: 100%;
+    overflow: hidden;
+    -webkit-overflow-scrolling: touch; /* For smooth scrolling on iOS */
+  }
+
+  .scroll-container {
+    animation: scroll 60s linear infinite; /* Increased from 40s to 60s for slower speed */
+    width: fit-content; /* Ensure container fits all items */
+    will-change: transform; /* Optimize animation performance */
+    touch-action: pan-y pinch-zoom; /* Better touch handling */
+  }
+
+  @keyframes scroll {
+    0% {
+      transform: translateX(0);
+    }
+    100% {
+      transform: translateX(-50%);
+    }
+  }
+
+  /* Pause animation on hover/touch */
+  .scroll-container:hover,
+  .scroll-container:active {
+    animation-play-state: paused;
+  }
+
+  /* Media query for mobile devices */
+  @media (max-width: 768px) {
+    .scroll-container {
+      animation-duration: 50s; /* Increased from 30s to 50s for slower speed on mobile */
+    }
+    
+    .partner-card {
+      width: 200px; /* Smaller cards on mobile */
+    }
+  }
+
+  /* Prevent text selection during scroll */
+  .scroll-container {
+    user-select: none;
+    -webkit-user-select: none;
+  }
+</style>
