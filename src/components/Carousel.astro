@@ -93,6 +93,8 @@ import bannerPlane from '../assets/carousel/bannerplane.svg';
     transform: translateY(-50%);
     filter: drop-shadow(2px 2px 2px rgba(0,0,0,0.3));
     animation: flyAcross 4.5s linear infinite;
+    width: 450px;
+    height: 450px;
   }
 
   @keyframes flyAcross {
@@ -107,27 +109,27 @@ import bannerPlane from '../assets/carousel/bannerplane.svg';
   /* Media query for mobile view */
   @media (max-width: 768px) {
     .carousel-container {
-      height: 600px; /* Adjust carousel height for mobile */
-      margin-bottom: -150px;
+      height: 300px; /* Added fixed height for tablets */
+      margin-bottom: 0;
     }
 
     .carousel-image {
-      object-fit: contain; /* Ensure image fills the available space */
+      object-fit: contain;
     }
 
     .airplane {
-      display: none; /* Hide airplane in mobile view */
+      display: none;
     }
 
     .nav-dot {
-      width: 10px; /* Scale down navigation dots for mobile */
+      width: 10px;
       height: 10px;
     }
 
-    /* Additional styles for very small screens (e.g., mobile phones) */
+    /* Additional styles for very small screens */
     @media (max-width: 480px) {
       .carousel-container {
-        height: 500px; /* Further reduce height for smaller screens */
+        height: 250px; /* Added fixed height for mobile phones */
       }
     }
   }
