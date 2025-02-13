@@ -1,6 +1,6 @@
 // https://docs.astro.build/en/guides/content-collections/#defining-collections
 
-import { z, defineCollection } from 'astro:content';
+import { defineCollection, z } from 'astro:content';
 
 const servicesCollection = defineCollection({
   schema: ({ image }) => z.object ({
@@ -23,7 +23,11 @@ const packagesCollection = defineCollection({
 		description: z.string(),
 		publishedTime: z.string(),
 		modifiedTime: z.string(),
-		
+		price: z.number(),
+		currency: z.string(),
+		image: z.string(),
+		route: z.string(),
+		pdfUrl: z.string().optional()
   }),
 });
 export const collections = {

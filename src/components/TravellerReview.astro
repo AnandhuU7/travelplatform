@@ -1,11 +1,16 @@
 ---
+import { Image } from 'astro:assets';
+import image1 from '/src/assets/testi/testi1.png';
+import image2 from '/src/assets/testi/testi2.png';
+import image3 from '/src/assets/testi/testi3.png';
+
 const testimonials = [
   {
     id: 1,
     name: "Arun Manoj",
     designation: "Adventure Enthusiast",
     review: "Absolutely magical experience! The personalized itinerary crafted by travelplatform transformed my dream vacation into reality. From hidden gems to luxury stays, every moment was picture-perfect.",
-    image: "./src/assets/testi/testi1.png",
+    image: image1,
     location: "Explored Bali, Indonesia"
   },
   {
@@ -13,7 +18,7 @@ const testimonials = [
     name: "M Samuels",
     designation: "Travel Blogger",
     review: "Mind-blowing service! Their attention to detail and local expertise made my solo trip extraordinary. The cultural experiences they arranged were authentic and unforgettable.",
-    image: "./src/assets/testi/testi2.png",
+    image: image2,
     location: "Toured Japan"
   },
   {
@@ -21,7 +26,7 @@ const testimonials = [
     name: "Sarah Williams",
     designation: "Photography Expert",
     review: "Perfect planning! Every sunset location, every restaurant recommendation was spot on. They truly understand what modern travelers want. Can't wait for my next adventure with them!",
-    image: "./src/assets/testi/testi3.png",
+    image: image3,
     location: "Visited Santorini, Greece"
   },
   {
@@ -29,7 +34,7 @@ const testimonials = [
     name: "Raj Malhotra",
     designation: "Family Traveler",
     review: "Outstanding family experience! They planned activities that kept both kids and adults entertained. The seamless coordination and 24/7 support made our trip stress-free.",
-    image: "./src/assets/testi/testi1.png",
+    image: image1,
     location: "Family Trip to Switzerland"
   }
 ];
@@ -73,7 +78,7 @@ const testimonials = [
                   <div class="flex items-center mb-6">
                     <div class="relative">
                       <img
-                        src={testimonial.image}
+                        src={testimonial.image.src}
                         alt={testimonial.name}
                         class="w-16 h-16 rounded-full object-cover border-4 border-white shadow-lg"
                       />
@@ -139,7 +144,7 @@ const testimonials = [
 
     let currentPosition = 0;
     let slideWidth = getSlideWidth();
-    let autoSlideInterval: NodeJS.Timeout | undefined;
+    let autoSlideInterval: number | undefined;
 
     window.addEventListener('resize', () => {
       slideWidth = getSlideWidth();

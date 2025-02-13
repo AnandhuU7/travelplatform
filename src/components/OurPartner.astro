@@ -1,16 +1,27 @@
 ---
+import { Image } from 'astro:assets';
+import image1 from '/src/assets/partners/partners1.jpg';
+import image2 from '/src/assets/partners/partners2.jpg';
+import image3 from '/src/assets/partners/partners3.jpg';
+import image4 from '/src/assets/partners/partners4.jpg';
+import image5 from '/src/assets/partners/partners5.jpg';
+import image6 from '/src/assets/partners/partners6.jpg';
+import image7 from '/src/assets/partners/partners7.jpg';
+import image8 from '/src/assets/partners/partners8.jpg';
+import image9 from '/src/assets/partners/partners9.jpg';
+import image10 from '/src/assets/partners/partners10.jpg';
 // filepath: /C:/Users/Adeeb/OneDrive - K L University/Desktop/astrotravel/travel/src/components/OurPartner.astro
 const partners = [
-  { id: 1, image: './src/assets/partners/partners1.jpg' },
-  { id: 2, image: './src/assets/partners/partners2.jpg' },
-  { id: 3, image: './src/assets/partners/partners3.jpg' },
-  { id: 4, image: './src/assets/partners/partners4.jpg' },
-  { id: 5, image: './src/assets/partners/partners5.jpg' },
-  { id: 6, image: './src/assets/partners/partners6.jpg' },
-  { id: 7, image: './src/assets/partners/partners7.jpg' },
-  { id: 8, image: './src/assets/partners/partners8.jpg' },
-  { id: 9, image: './src/assets/partners/partners9.jpg' },
-  { id: 10, image: './src/assets/partners/partners10.jpg' }
+  { id: 1, image: image1 },
+  { id: 2, image: image2 },
+  { id: 3, image: image3 },
+  { id: 4, image: image4 },
+  { id: 5, image: image5 },
+  { id: 6, image: image6 },
+  { id: 7, image: image7 },
+  { id: 8, image: image8 },
+  { id: 9, image: image9 },
+  { id: 10, image: image10 }
 ];
 ---
 
@@ -32,7 +43,7 @@ const partners = [
             <div class="parallelogram absolute bottom-2 right-2 text-xs">
               <p class="text-xs text-white transform skew-x-12 ml-10">Fly with us!</p>
             </div>
-            <img src={partner.image} alt={`Partner ${partner.id}`} class="w-full h-auto" />
+            <img src={partner.image.src} alt={`Partner ${partner.id}`} class="w-full h-auto" />
           </div>
         ))}
         {/* Duplicate set for seamless scrolling */}
@@ -47,7 +58,7 @@ const partners = [
             <div class="parallelogram absolute bottom-2 right-2 text-xs">
               <p class="text-xs text-white transform skew-x-12 ml-10">Fly with us!</p>
             </div>
-            <img src={partner.image} alt={`Partner ${partner.id}`} class="w-full h-auto" />
+            <img src={partner.image.src} alt={`Partner ${partner.id}`} class="w-full h-auto" />
           </div>
         ))}
       </div>

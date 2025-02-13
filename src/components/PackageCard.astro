@@ -1,0 +1,40 @@
+---
+interface Props {
+  packageData: {
+    data: {
+      title: string;
+      description?: string;
+      image: string;
+      price: number;
+    };
+    slug: string;
+  };
+}
+
+const { packageData } = Astro.props;
+const { title, description, image, price } = packageData.data;
+---
+
+<div class="relative border border-gray-300 rounded-lg md:p-4 pb-8 text-center flex flex-col justify-between hover:shadow-lg transition-shadow duration-300">
+  <div class="absolute -top-4 left-2 md:-left-4">
+    <div class="bg-yellow-500 w-32 h-6 transform -skew-x-12 flex items-center justify-center">
+      <span class="text-white text-xs">Limited Time Offer!</span>
+    </div>
+  </div>
+  <img
+    src={image}
+    alt={title}
+    class="w-full h-48 object-cover rounded-lg mb-4"
+  />
+  <h3 class="text-xl font-bold mb-2">{title}</h3>
+  {description && <p class="mb-4 text-gray-600">{description}</p>}
+  <div class="mt-auto">
+    <p class="text-lg font-semibold text-blue-600">AED {price}</p>
+    <a
+      href={`/packages/${packageData.slug}`}
+      class="inline-block mt-4 px-6 py-2 bg-blue-600 text-white rounded-full hover:bg-blue-700 transition-colors duration-300"
+    >
+      View Details
+    </a>
+  </div>
+</div>

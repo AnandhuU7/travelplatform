@@ -4,6 +4,8 @@ import Layout from "../layouts/Layout.astro";
 import Visionmission from "../components/visionmission.astro";
 import TravellerReviews from "../components/TravellerReview.astro";
 import JoinUs from "../components/JoinUs.astro";
+import { Image } from 'astro:assets';
+import image1 from '/src/assets/about/about1.png';
 const title = "Travel Platform - About Us";
 const description:string ="djdxkgjdklgjdfl"
 const structuredData = 
@@ -37,7 +39,7 @@ const structuredData =
       </div>
       <img
         class="w-full h-full object-cover opacity-40 scale-110"
-        src="/src/assets/about/about1.png"
+        src={image1.src}
         alt="Services Hero"
       />
     </div>

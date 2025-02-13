@@ -5,6 +5,8 @@ import { getCollection } from "astro:content";
 import type { CollectionEntry } from "astro:content";
 import Service from '../../components/Service.astro';
 const title: string= "Travel Platform - Services";
+import { Image } from 'astro:assets';
+import image1 from '/src/assets/about/about1.png';
 interface Props {
 	serviceEntry: CollectionEntry<"services">;
 }
@@ -57,7 +59,7 @@ const structuredData =
     </div>
     <img
       class="w-full h-full object-cover opacity-40 scale-110"
-      src="/src/assets/about/about1.png"
+      src={image1.src}
       alt="Services Hero"
     />
   </div>
