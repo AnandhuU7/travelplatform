@@ -1,55 +1,81 @@
 ---
-import { getCollection } from 'astro:content';
-import Layout from '../../layouts/Layout.astro';
-import JoinUs from '../../components/JoinUs.astro';
-import PackageCard from '../../components/PackageCard.astro';
+import { getCollection } from "astro:content";
+import Layout from "../../layouts/Layout.astro";
+import JoinUs from "../../components/JoinUs.astro";
+import PackageCard from "../../components/PackageCard.astro";
+import banner from "/src/assets/about/about1.png"
 
 const title = "Travel Platform - Packages";
-const packageData = (await getCollection("packages")).sort(
-  (a, b) => {
-    return new Date(b.data.publishedTime).valueOf() - new Date(a.data.publishedTime).valueOf();
-  }
-);
+const packageData = (await getCollection("packages")).sort((a, b) => {
+  return (
+    new Date(b.data.publishedTime).valueOf() -
+    new Date(a.data.publishedTime).valueOf()
+  );
+});
 
 const structuredData = {
   "@context": "https://schema.org",
   "@type": "ItemList",
-  "name": title,
-  "description": "Explore a range of travel packages designed for your perfect trip.",
-  "url": `${Astro.url.origin}/packages`,
-  "numberOfItems": packageData.length,
-  "itemListElement": packageData.map((pkg, index) => ({
+  name: title,
+  description:
+    "Explore a range of travel packages designed for your perfect trip.",
+  url: `${Astro.url.origin}/packages`,
+  numberOfItems: packageData.length,
+  itemListElement: packageData.map((pkg, index) => ({
     "@type": "ListItem",
-    "position": index + 1,
-    "url": `${Astro.url.origin}/packages/${pkg.slug}`,
-    "name": pkg.data.title,
-    "image": pkg.data.image,
-    "offers": {
+    position: index + 1,
+    url: `${Astro.url.origin}/packages/${pkg.slug}`,
+    name: pkg.data.title,
+    image: pkg.data.image,
+    offers: {
       "@type": "Offer",
-      "priceCurrency": "AED",
-      "price": pkg.data.price,
-      "availability": "https://schema.org/InStock",
-    }
-  }))
+      priceCurrency: "AED",
+      price: pkg.data.price,
+      availability: "https://schema.org/InStock",
+    },
+  })),
 };
 ---
 
-<Layout title={title} description="Explore a wide range of travel packages." structuredData={structuredData}>
-  <div class="relative isolate overflow-hidden">
-    <div class="absolute inset-0">
+<Layout
+  title={title}
+  description="Explore a wide range of travel packages."
+  structuredData={structuredData}
+>
+  
+  <div
+    class="relative h-[35vh] sm:h-[45vh] md:h-[60vh] bg-gradient-to-r from-blue-900 via-purple-900 to-blue-900 overflow-hidden"
+  >
+    <div
+      class="absolute inset-0 transform-gpu"
+      style="transform: translateY(var(--scrollY))"
+    >
+      <div
+        class="absolute inset-0 bg-gradient-to-b from-transparent to-black/70"
+      >
+      </div>
       <img
-        src="/src/assets/about/about1.png"
+        src={banner.src}
         alt="Packages Hero"
         class="w-full h-[60vh] sm:h-[50vh] md:h-[60vh] object-cover brightness-50"
       />
     </div>
-    <div class="relative mx-auto max-w-7xl px-6 py-24 sm:py-32 lg:px-8 text-center">
-      <h1 class="text-4xl sm:text-5xl md:text-7xl font-black text-white tracking-tight">
-        Our <span class="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-purple-400">Packages</span>
-      </h1>
-      <p class="mt-6 text-lg sm:text-xl md:text-2xl text-gray-200 max-w-3xl mx-auto">
+    <div class="relative h-full flex items-center justify-center">
+      <div class="text-center space-y-6 px-4 sm:px-6 lg:px-8">
+        <h1
+          class="text-3xl sm:text-5xl md:text-7xl font-black text-white tracking-tight animate-fade-in"
+        >
+          Our <span
+            class="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-purple-400"
+            >Packages</span
+          >
+        </h1>
+        <p
+          class="text-lg sm:text-xl md:text-2xl text-gray-200 max-w-3xl mx-auto animate-fade-in-up"
+        >
         Explore a wide range of travel packages designed for your perfect trip.
-      </p>
+        </p>
+      </div>
     </div>
   </div>
 
@@ -57,23 +83,39 @@ const structuredData = {
   <div class="bg-gray-100 py-24">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       <div class="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3">
-        {packageData.map((pkg) => (
-          <PackageCard packageData={pkg} />
-        ))}
+        {packageData.map((pkg) => <PackageCard packageData={pkg} />)}
       </div>
     </div>
   </div>
   <div class="bg-yellow-500">
-    <div class="max-w-7xl mx-auto py-12 px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row items-center justify-between">
+    <div
+      class="max-w-7xl mx-auto py-12 px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row items-center justify-between"
+    >
       <div class="text-center md:text-left">
-        <h2 class="text-3xl font-extrabold text-white">Ready to start your journey?</h2>
-        <p class="mt-3 text-lg text-yellow-100">Contact us today to plan your perfect trip.</p>
+        <h2 class="text-3xl font-extrabold text-white">
+          Ready to start your journey?
+        </h2>
+        <p class="mt-3 text-lg text-yellow-100">
+          Contact us today to plan your perfect trip.
+        </p>
       </div>
       <div class="mt-8 md:mt-0">
-        <a href="/contact" class="inline-flex items-center px-6 py-3 border border-transparent text-base font-medium rounded-md text-yellow-600 bg-white hover:bg-yellow-50">
+        <a
+          href="/contact"
+          class="inline-flex items-center px-6 py-3 border border-transparent text-base font-medium rounded-md text-yellow-600 bg-white hover:bg-yellow-50"
+        >
           Contact Us
-          <svg class="ml-3 -mr-1 h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3" />
+          <svg
+            class="ml-3 -mr-1 h-5 w-5"
+            fill="none"
+            stroke="currentColor"
+            viewBox="0 0 24 24"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M14 5l7 7m0 0l-7 7m7-7H3"></path>
           </svg>
         </a>
       </div>

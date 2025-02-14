@@ -2,6 +2,7 @@
 import { getCollection, type CollectionEntry } from 'astro:content';
 import Layout from '../../layouts/Layout.astro';
 import JoinUs from '../../components/JoinUs.astro';
+import banner from "/src/assets/about/about1.png";
 
 export async function getStaticPaths() {
   const packages = await getCollection('packages');
@@ -29,20 +30,34 @@ const structuredData = {
 ---
 
 <Layout title={packageData.data.title} description={packageData.data.description} structuredData={structuredData}>
-  <div class="relative isolate overflow-hidden">
-    <div class="absolute inset-0">
+
+  <div class="relative h-[35vh] sm:h-[45vh] md:h-[60vh] bg-gradient-to-r from-blue-900 via-purple-900 to-blue-900 overflow-hidden">
+    <div class="absolute inset-0 transform-gpu" style="transform: translateY(var(--scrollY))">
+      <div class="absolute inset-0 bg-gradient-to-b from-transparent to-black/70"></div>
       <img
-        src={packageData.data.image}
-        alt={packageData.data.title}
-        class="h-full w-full object-cover brightness-50"
+        class="w-full h-full object-cover opacity-40 scale-110"
+        src={banner.src}
+        alt="Pacakages Hero"
       />
     </div>
-    <div class="relative mx-auto max-w-7xl px-6 py-24 sm:py-32 lg:px-8">
-      <h1 class="text-4xl font-bold tracking-tight text-white sm:text-6xl">{packageData.data.title}</h1>
-      <p class="mt-6 text-lg leading-8 text-gray-300 max-w-3xl">{packageData.data.description}</p>
+    <div class="relative h-full flex items-center justify-center">
+      <div class="text-center space-y-6 px-4 sm:px-6 lg:px-8">
+        <h1
+          class="text-3xl sm:text-5xl md:text-7xl font-black text-white tracking-tight animate-fade-in"
+        >
+          Transform Your <span
+            class="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-purple-400"
+            >Travel Experience</span
+          >
+        </h1>
+        <p
+          class="text-lg sm:text-xl md:text-2xl text-gray-200 max-w-3xl mx-auto animate-fade-in-up"
+        >
+          {packageData.data.description}
+        </p>
+      </div>
     </div>
   </div>
-
   <div class="mx-auto w-full max-w-7xl p-0 lg:px-6 lg:py-12 sm:py-16">
     <div class="bg-white rounded-xl shadow-lg p-6 sm:p-8 flex flex-col sm:flex-row items-center gap-6">
       <!-- Content on top for mobile, left for desktop -->
@@ -54,10 +69,10 @@ const structuredData = {
         </div>
         <p class="mt-4 text-gray-600">{packageData.data.description}</p>
         <ul class="mt-4 space-y-2 text-gray-700">
-          <li class="flex items-center gap-2"><span class="text-green-500">✔</span> Real-time Availability</li>
-          <li class="flex items-center gap-2"><span class="text-green-500">✔</span> Competitive Pricing</li>
-          <li class="flex items-center gap-2"><span class="text-green-500">✔</span> Instant Confirmations</li>
-          <li class="flex items-center gap-2"><span class="text-green-500">✔</span> 24/7 Support</li>
+          <li class="flex items-center gap-2"><span class="text-green-500">&#10004;</span> Real-time Availability</li>
+          <li class="flex items-center gap-2"><span class="text-green-500">&#10004;</span> Competitive Pricing</li>
+          <li class="flex items-center gap-2"><span class="text-green-500">&#10004;</span> Instant Confirmations</li>
+          <li class="flex items-center gap-2"><span class="text-green-500">&#10004;</span> 24/7 Support</li>
         </ul>
         <!-- Buttons below content for mobile -->
         <div class="mt-6 flex flex-col sm:flex-row gap-4">
