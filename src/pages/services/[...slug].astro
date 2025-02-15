@@ -47,7 +47,7 @@ const structuredData = {
     },
     address: {
       "@type": "PostalAddress",
-      streetAddress: "Mango Hyper Market, Near Al Khail Gate, Al Qouz",
+      streetAddress: "Al Muhaisnah 2,Dubai",
       addressLocality: "Dubai",
       addressCountry: "UAE",
     },
@@ -59,41 +59,39 @@ const structuredData = {
 
 <Layout title={services.data.title}  description={services.data.description} structuredData={structuredData}>
   <div
-    class="relative h-[60vh] sm:h-[50vh] md:h-[60vh] bg-gradient-to-r from-blue-900 via-purple-900 to-blue-900 overflow-hidden"
+  class="relative h-[35vh] sm:h-[45vh] md:h-[60vh] bg-gradient-to-r from-blue-900 via-purple-900 to-blue-900 overflow-hidden"
+>
+  <div
+    class="absolute inset-0 transform-gpu"
+    style="transform: translateY(var(--scrollY))"
   >
     <div
-      class="absolute inset-0 transform-gpu"
-      style="transform: translateY(var(--scrollY))"
+      class="absolute inset-0 bg-gradient-to-b from-transparent to-black/70"
     >
-      <div
-        class="absolute inset-0 bg-gradient-to-b from-transparent to-black/70"
-      >
-      </div>
-      <img
-        class="w-full h-full object-cover opacity-40 scale-110"
-        src={banner.src}
-        alt="Services Hero"
-      />
     </div>
-    <div class="relative h-full flex items-center justify-center">
-      <div class="text-center space-y-6 px-4 sm:px-6 lg:px-8">
-        <h1
-          class="text-3xl sm:text-5xl md:text-7xl font-black text-white tracking-tight animate-fade-in"
+    <img
+      class="w-full h-full object-cover opacity-40 scale-110"
+      src={banner.src}
+      alt="Services Hero"
+    />
+  </div>
+  <div class="relative h-full flex items-center justify-center pt-10 sm:pt-16">
+    <div class="text-center space-y-4 sm:space-y-6 px-4 sm:px-6 lg:px-8">
+      <h1
+        class="text-2xl sm:text-3xl md:text-5xl lg:text-6xl font-black text-white tracking-tight animate-fade-in"
+      >
+        Transform Your <span
+          class="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-purple-400"
+          >Travel Experience</span
         >
-          Transform Your <span
-            class="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-purple-400"
-            >Travel Experience</span
-          >
-        </h1>
-        <p
-          class="text-lg sm:text-xl md:text-2xl text-gray-200 max-w-3xl mx-auto animate-fade-in-up"
-        >
-          Innovative solutions for modern travel challenges
-        </p>
-      </div>
+      </h1>
+      <p
+        class="text-base sm:text-lg md:text-2xl text-gray-200 max-w-3xl mx-auto animate-fade-in-up"
+      >
+        Innovative solutions for modern travel challenges
+      </p>
     </div>
   </div>
-
   <section class="py-10 sm:py-20 bg-gray-50">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
            <div class="bg-white rounded-2xl shadow-xl overflow-hidden mb-10 sm:mb-20">

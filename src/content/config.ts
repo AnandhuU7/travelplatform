@@ -17,21 +17,22 @@ const servicesCollection = defineCollection({
   details: z.array(z.string().optional()),
   }),
 });
+
 const packagesCollection = defineCollection({
-	schema: z.object({
-		title: z.string(),
-		description: z.string(),
-		publishedTime: z.string(),
-		modifiedTime: z.string(),
-		price: z.number(),
-		currency: z.string(),
-		image: z.string(),
-		route: z.string(),
-		pdfUrl: z.string().optional()
+  schema: ({ image }) => z.object({
+    title: z.string(),
+    description: z.string(),
+    publishedTime: z.string(),
+    modifiedTime: z.string(),
+    price: z.number(),
+    currency: z.string(),
+    cardImage: image(),
+    route: z.string(),
+    pdfUrl: z.string(),
   }),
 });
+
 export const collections = {
   'services': servicesCollection,
-  'packages' : packagesCollection,
-  
+  'packages': packagesCollection,
 };

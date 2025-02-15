@@ -1,10 +1,12 @@
 ---
+import { Image } from 'astro:assets';
+
 interface Props {
   packageData: {
     data: {
       title: string;
       description?: string;
-      image: string;
+      cardImage: ImageMetadata;
       price: number;
     };
     slug: string;
@@ -12,13 +14,13 @@ interface Props {
 }
 
 const { packageData } = Astro.props;
-const { title, description, image, price } = packageData.data;
+const { title, description, cardImage, price } = packageData.data;
 ---
 
 <div class="relative border border-gray-200 rounded-lg overflow-hidden shadow-md transition-transform duration-300 hover:-translate-y-1 bg-white">
   <!-- Image Section -->
-  <img
-    src={image}
+  <Image
+    src={cardImage}
     alt={title}
     class="w-full h-48 object-cover rounded-t-lg"
   />

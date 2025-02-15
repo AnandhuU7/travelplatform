@@ -26,10 +26,10 @@ const structuredData = {
     position: index + 1,
     url: `${Astro.url.origin}/packages/${pkg.slug}`,
     name: pkg.data.title,
-    image: pkg.data.image,
+    image: pkg.data.cardImage.src,
     offers: {
       "@type": "Offer",
-      priceCurrency: "AED",
+      priceCurrency: pkg.data.currency,
       price: pkg.data.price,
       availability: "https://schema.org/InStock",
     },
@@ -43,42 +43,41 @@ const structuredData = {
   structuredData={structuredData}
 >
   
+<div
+  class="relative h-[35vh] sm:h-[45vh] md:h-[60vh] bg-gradient-to-r from-blue-900 via-purple-900 to-blue-900 overflow-hidden"
+>
   <div
-    class="relative h-[35vh] sm:h-[45vh] md:h-[60vh] bg-gradient-to-r from-blue-900 via-purple-900 to-blue-900 overflow-hidden"
+    class="absolute inset-0 transform-gpu"
+    style="transform: translateY(var(--scrollY))"
   >
     <div
-      class="absolute inset-0 transform-gpu"
-      style="transform: translateY(var(--scrollY))"
+      class="absolute inset-0 bg-gradient-to-b from-transparent to-black/70"
     >
-      <div
-        class="absolute inset-0 bg-gradient-to-b from-transparent to-black/70"
-      >
-      </div>
-      <img
-        src={banner.src}
-        alt="Packages Hero"
-        class="w-full h-[60vh] sm:h-[50vh] md:h-[60vh] object-cover brightness-50"
-      />
     </div>
-    <div class="relative h-full flex items-center justify-center">
-      <div class="text-center space-y-6 px-4 sm:px-6 lg:px-8">
-        <h1
-          class="text-3xl sm:text-5xl md:text-7xl font-black text-white tracking-tight animate-fade-in"
+    <img
+      src={banner.src}
+      alt="Packages Hero"
+      class="w-full h-[35vh] sm:h-[45vh] md:h-[60vh] object-cover opacity-40 scale-110"
+    />
+  </div>
+  <div class="relative h-full flex items-center justify-center">
+    <div class="text-center space-y-6 px-4 sm:px-6 lg:px-8">
+      <h1
+        class="text-3xl sm:text-5xl md:text-7xl font-black text-white tracking-tight animate-fade-in"
+      >
+        Our <span
+          class="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-purple-400"
+          >Packages</span
         >
-          Our <span
-            class="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-purple-400"
-            >Packages</span
-          >
-        </h1>
-        <p
-          class="text-lg sm:text-xl md:text-2xl text-gray-200 max-w-3xl mx-auto animate-fade-in-up"
-        >
-        Explore a wide range of travel packages designed for your perfect trip.
-        </p>
-      </div>
+      </h1>
+      <p
+        class="text-lg sm:text-xl md:text-2xl text-gray-200 max-w-3xl mx-auto animate-fade-in-up"
+      >
+      Explore a wide range of travel packages designed for your perfect trip.
+      </p>
     </div>
   </div>
-
+</div>
   <!-- Packages Grid -->
   <div class="bg-gray-100 py-24">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">

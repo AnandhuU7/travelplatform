@@ -18,19 +18,47 @@ const { Content } = await packageData.render();
 
 const structuredData = {
   "@context": "https://schema.org",
-  "@type": "Product",
+  "@type": "Package",
   name: packageData.data.title,
   description: packageData.data.description,
+  image: packageData.data.cardImage.src,
+  pdfUrl: packageData.data.pdfUrl,
   offers: {
     "@type": "Offer",
     price: packageData.data.price,
     priceCurrency: packageData.data.currency,
+    availability: "https://schema.org/InStock",
+  },
+  service: {
+    "@type": "Service",
+    serviceType: "B2B Booking Solutions",
+    provider: {
+      "@type": "Organization",
+      name: "Travel Platform UAE",
+      url: "https://www.travelplatformuae.com",
+      logo: "https://www.travelplatformuae.com/src/assets/logo.png",
+      contactPoint: {
+        "@type": "ContactPoint",
+        telephone: "+971 52 2345 572",
+        contactType: "Customer Service",
+        areaServed: "AE",
+        availableLanguage: "English",
+      },
+      address: {
+        "@type": "PostalAddress",
+        streetAddress: "Al Muhaisnah 2,Dubai",
+        addressLocality: "Dubai",
+        addressCountry: "UAE",
+      },
+    },
+    description:
+      "Comprehensive booking solutions tailored for travel agencies and corporate entities. Streamline your operations with our advanced platform.",
   },
 };
+
 ---
 
 <Layout title={packageData.data.title} description={packageData.data.description} structuredData={structuredData}>
-
   <div class="relative h-[35vh] sm:h-[45vh] md:h-[60vh] bg-gradient-to-r from-blue-900 via-purple-900 to-blue-900 overflow-hidden">
     <div class="absolute inset-0 transform-gpu" style="transform: translateY(var(--scrollY))">
       <div class="absolute inset-0 bg-gradient-to-b from-transparent to-black/70"></div>
@@ -40,10 +68,10 @@ const structuredData = {
         alt="Pacakages Hero"
       />
     </div>
-    <div class="relative h-full flex items-center justify-center">
-      <div class="text-center space-y-6 px-4 sm:px-6 lg:px-8">
+    <div class="relative h-full flex items-center justify-center pt-10 sm:pt-16">
+      <div class="text-center space-y-4 sm:space-y-6 px-4 sm:px-6 lg:px-8">
         <h1
-          class="text-3xl sm:text-5xl md:text-7xl font-black text-white tracking-tight animate-fade-in"
+          class="text-2xl sm:text-3xl md:text-5xl lg:text-6xl font-black text-white tracking-tight animate-fade-in"
         >
           Transform Your <span
             class="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-purple-400"
@@ -51,30 +79,28 @@ const structuredData = {
           >
         </h1>
         <p
-          class="text-lg sm:text-xl md:text-2xl text-gray-200 max-w-3xl mx-auto animate-fade-in-up"
+          class="text-base sm:text-lg md:text-2xl text-gray-200 max-w-3xl mx-auto animate-fade-in-up"
         >
           {packageData.data.description}
         </p>
       </div>
+    </div>    
     </div>
-  </div>
+
   <div class="mx-auto w-full max-w-7xl p-0 lg:px-6 lg:py-12 sm:py-16">
     <div class="bg-white rounded-xl shadow-lg p-6 sm:p-8 flex flex-col sm:flex-row items-center gap-6">
-      <!-- Content on top for mobile, left for desktop -->
       <div class="flex-1 order-2 sm:order-1">
         <h2 class="text-3xl font-bold text-yellow-600">{packageData.data.title}</h2>
-        <!-- Image below heading for mobile, left for desktop -->
         <div class="sm:hidden mt-4">
-          <img src={packageData.data.image} alt={packageData.data.title} class="w-full h-auto object-cover rounded-xl" />
+          <img src={packageData.data.cardImage.src} alt={packageData.data.title} class="w-full h-auto object-cover rounded-xl" />
         </div>
         <p class="mt-4 text-gray-600">{packageData.data.description}</p>
         <ul class="mt-4 space-y-2 text-gray-700">
-          <li class="flex items-center gap-2"><span class="text-green-500">&#10004;</span> Real-time Availability</li>
-          <li class="flex items-center gap-2"><span class="text-green-500">&#10004;</span> Competitive Pricing</li>
+          <li class="flex items-center gap-2"><span class="text-green-500">&#10004;</span> Hassle-Free Booking</li>
+          <li class="flex items-center gap-2"><span class="text-green-500">&#10004;</span> Best Price Guarantee</li>
           <li class="flex items-center gap-2"><span class="text-green-500">&#10004;</span> Instant Confirmations</li>
-          <li class="flex items-center gap-2"><span class="text-green-500">&#10004;</span> 24/7 Support</li>
+          <li class="flex items-center gap-2"><span class="text-green-500">&#10004;</span> Trusted by Thousands</li>
         </ul>
-        <!-- Buttons below content for mobile -->
         <div class="mt-6 flex flex-col sm:flex-row gap-4">
           <a
             href="https://b2b.travelplatformonline.com/"
@@ -84,6 +110,8 @@ const structuredData = {
           </a>
           <a
             href={packageData.data.pdfUrl}
+            target="_blank"
+  rel="noopener noreferrer"
             class="rounded-md bg-blue-600 px-8 py-3 text-base font-semibold text-white shadow-sm hover:bg-blue-500 transform transition-all duration-200 hover:-translate-y-1 hover:shadow-lg active:translate-y-0"
             download
           >
@@ -91,9 +119,8 @@ const structuredData = {
           </a>
         </div>
       </div>
-      <!-- Image on the right for desktop, hidden for mobile -->
       <div class="flex-1 order-1 sm:order-2 hidden sm:block">
-        <img src={packageData.data.image} alt={packageData.data.title} class="w-full h-auto object-cover rounded-xl" />
+        <img src={packageData.data.cardImage.src} alt={packageData.data.title} class="w-full h-auto object-cover rounded-xl" />
       </div>
     </div>
   </div>
