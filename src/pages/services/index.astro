@@ -67,13 +67,6 @@ const breadcrumbSchema = {
   description={description}
   structuredData={[structuredData, breadcrumbSchema]}
 >
-  <!-- JSON-LD Scripts -->
-  <script type="application/ld+json">
-    {JSON.stringify(structuredData)}
-  </script>
-  <script type="application/ld+json">
-    {JSON.stringify(breadcrumbSchema)}
-  </script>
 
   <!-- Hero Section -->
   <div class="relative h-[35vh] sm:h-[45vh] md:h-[60vh] bg-gradient-to-r from-blue-900 via-purple-900 to-blue-900 overflow-hidden">
