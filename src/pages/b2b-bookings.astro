@@ -1,8 +1,47 @@
 ---
 import Layout from '../layouts/Layout.astro';
-const title: string= "Travel Platform - B2B Bookings";
+
+// SEO Title and Description
+const title: string = "B2B Travel Bookings | Streamline Your Business Travel Needs";
+const description: string = "Simplify your business travel bookings with Travel Platform's B2B solutions. Enjoy seamless reservations, exclusive deals, and dedicated support for corporate travelers.";
+
+// Structured Data for SEO
+const structuredData = {
+  "@context": "https://schema.org",
+  "@type": "WebPage",
+  "name": title,
+  "description": description,
+  "url": `${Astro.url}`,
+  "about": "B2B Travel Bookings",
+  "keywords": ["B2B travel", "business travel", "corporate travel", "travel solutions"],
+  "provider": {
+    "@type": "Organization",
+    "name": "Travel Platform",
+    "url": `${Astro.url.origin}/`,
+    "contactPoint": [
+      {
+        "@type": "ContactPoint",
+        "telephone": "+971 52 2345 572",
+        "email": "info@travelplatformuae.com",
+        "contactType": "customer service",
+        "areaServed": "AE",
+        "availableLanguage": ["English", "Arabic"]
+      }
+    ]
+  }
+};
 ---
 
-<Layout title={title}>
+<Layout title={title} description={description}>
+  <!-- JSON-LD Script -->
+  <script type="application/ld+json">
+    {JSON.stringify(structuredData)}
+  </script>
+
+  <!-- Main Content -->
   <h1 class="text-3xl font-bold underline text-red-700">B2B Bookings</h1>
+  <p class="mt-4 text-lg text-gray-700">
+    Simplify your business travel bookings with Travel Platform's B2B solutions. 
+    Enjoy seamless reservations, exclusive deals, and dedicated support for corporate travelers.
+  </p>
 </Layout>

@@ -1,22 +1,45 @@
 ---
 import Layout from "../layouts/Layout.astro";
-const title: string= "Travel Platform -  Contact Us";
-const description:string ="djdxkgjdklgjdfl"
-import banner from "/src/assets/about/about1.png"
-const structuredData = 
-{
+const title: string = "Contact Us | Travel Platform UAE - Get in Touch for Travel Inquiries & Support";
+const description: string = "Reach out to Travel Platform UAE for all your travel inquiries, assistance, and support. Contact us via email, phone, or visit our office in Dubai. We’re here to help you plan your next adventure!";
+import banner from "/src/assets/about/about1.png";
+import Breadcrumb from "../components/Breadcrumb.astro";
+
+const structuredData = {
   "@context": "https://schema.org",
   "@type": "Organization",
   "name": "Travel Platform",
-  "description": {description},
-  "url": Astro.url
-}
+  "description": description,
+  "url": Astro.url,
+};
+
+const breadcrumbSchema = {
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "name": "Home",
+      "item": `${Astro.url.origin}/`,
+    },
+    {
+      "@type": "ListItem",
+      "position": 2,
+      "name": "Contact Us",
+      "item": `${Astro.url.origin}/contact`,
+    },
+  ],
+};
 ---
-
-
-
-<Layout title={title} description={description} structuredData ={structuredData} >
-  <!-- Hero Section -->
+<Layout title={title} description={description} structuredData={[structuredData, breadcrumbSchema]} >
+  <!-- JSON-LD Scripts -->
+  <script type="application/ld+json">
+    {JSON.stringify(structuredData)}
+  </script>
+  <script type="application/ld+json">
+    {JSON.stringify(breadcrumbSchema)}
+  </script>
   <div
     class="relative h-[35vh] sm:h-[45vh] md:h-[60vh] bg-gradient-to-r from-blue-900 via-purple-900 to-blue-900 overflow-hidden"
   >
@@ -52,9 +75,9 @@ const structuredData =
       </div>
     </div>
   </div>
-
+  <Breadcrumb itemListElement={breadcrumbSchema.itemListElement} />
   <!-- Contact Info Section -->
-  <div class="py-16 px-4 sm:px-6 lg:px-8">
+  <div class="py-5 px-4 sm:px-6 lg:px-8">
     <div class="max-w-7xl mx-auto">
       <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
         <!-- Contact Info -->

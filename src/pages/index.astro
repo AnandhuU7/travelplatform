@@ -4,27 +4,36 @@ import Header from '../components/Header.astro';
 import Layout from '../layouts/Layout.astro';
 import Services from '../components/Services.astro';
 import OurPackages from '../components/OurPackages.astro';
-import TravellerReview from '../components/TravellerReview.astro';
 import OurPartner from '../components/OurPartner.astro';
 import JoinUs from '../components/JoinUs.astro';
-const title: string = "Travel Platform - Online Travel Agency";
-const description:string ="djdxkgjdklgjdfl"
-const structuredData = 
-{
+import Testimonial from '../pages/testimonial/index.astro';
+// Fetch testimonial content dynamically from the page
+import { getCollection } from 'astro:content';
+const testimonials = await getCollection('testimonials');
+const testimonialData = testimonials.map((testimonial) => testimonial.data);
+
+const title: string = "Travel Platform | Your Gateway to Unforgettable Travel Experiences";
+const description: string = "Explore the world with Travel Platform, your trusted online travel agency. Discover curated travel packages, seamless flight and hotel bookings, and unique destinations tailored to your preferences. Start your journey today!";
+const structuredData = {
   "@context": "https://schema.org",
   "@type": "Organization",
   "name": "Travel Platform",
-  "description": {description},
+  "description": description,
   "url": Astro.url
-}
+};
 ---
 
-<Layout title={title}, description={description} structuredData ={structuredData},>
+<Layout title={title} description={description} structuredData={structuredData}>
+  <!-- JSON-LD Script -->
+  <script type="application/ld+json">
+    {JSON.stringify(structuredData)}
+  </script>
+
   <Carousel />
   <Header />
   <Services />
   <OurPackages />
-  <TravellerReview />
+  <Testimonial testimonialData={testimonialData} />
   <OurPartner />
   <JoinUs />
 </Layout>

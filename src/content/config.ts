@@ -32,7 +32,34 @@ const packagesCollection = defineCollection({
   }),
 });
 
+const testimonialsCollection = defineCollection({
+  schema: ({ image }) => z.object({
+    title: z.string(),
+    description: z.string(),
+    location: z.string(),
+    name: z.string(),
+    designation: z.string(),
+    review: z.string(),
+    image: image(),
+  }),
+});
+
+const newsCollection = defineCollection({
+  schema: ({ image }) =>
+    z.object({
+      title: z.string(),
+      date: z.string(),
+      category: z.string(),
+      excerpt: z.string(),
+      author: z.string(),
+      readTime: z.string(),
+      image: image(),
+    }),
+});
+
 export const collections = {
   'services': servicesCollection,
   'packages': packagesCollection,
+  'testimonials': testimonialsCollection,
+  'news': newsCollection,
 };

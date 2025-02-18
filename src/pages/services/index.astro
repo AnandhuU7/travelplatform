@@ -4,12 +4,16 @@ import JoinUs from '../../components/JoinUs.astro';
 import { getCollection } from "astro:content";
 import type { CollectionEntry } from "astro:content";
 import Service from '../../components/Service.astro';
-const title: string= "Travel Platform - Services";
-import { Image } from 'astro:assets';
 import image1 from '/src/assets/about/about1.png';
+import Breadcrumb from '../../components/Breadcrumb.astro';
+
+const title: string = "Our Travel Services | Your Trusted Travel Partner";
+const description: string = "Discover our wide range of travel services designed to make your journey seamless and unforgettable. From flight bookings to custom itineraries, we’ve got you covered.";
+
 interface Props {
-	serviceEntry: CollectionEntry<"services">;
+  serviceEntry: CollectionEntry<"services">;
 }
+
 const serviceData: CollectionEntry<"services">[] = (
   await getCollection("services")
 ).sort(
@@ -17,71 +21,85 @@ const serviceData: CollectionEntry<"services">[] = (
     a.data.id.valueOf() - b.data.id.valueOf(),
 );
 
-const structuredData =
-  {
+const structuredData = {
   "@context": "https://schema.org",
   "@type": "ItemList",
   "name": title,
-  "description": "We offer a wide range of services to meet your travel needs.",
+  "description": description,
   "url": `${Astro.url.origin}/services`,
-  "numberOfItems": 10,
-  "itemListElement": serviceData.map((p) => {
-    return {
-      "@type": "ListItem",
-      "position": p.data.id,
-      "url":  `${Astro.url.origin}/services/${p.filePath} `,
-      "name": p.data.title,
-      "image": "name",
-      "offers": {
-        "@type": "Offer",
-        "priceCurrency": "AE",
-        "availability": "https://schema.org/InStock"
-      }
+  "numberOfItems": serviceData.length,
+  "itemListElement": serviceData.map((p) => ({
+    "@type": "ListItem",
+    "position": p.data.id,
+    "url": `${Astro.url.origin}/services/${p.slug}`,
+    "name": p.data.title,
+    "image": p.data.cardImage && p.data.cardImage.src ? p.data.cardImage.src : "default-image-url",
+    "offers": {
+      "@type": "Offer",
+      "priceCurrency": "AE",
+      "availability": "https://schema.org/InStock"
     }
-  })
-}
+  }))
+};
+
+const breadcrumbSchema = {
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "name": "Home",
+      "item": `${Astro.url.origin}/`
+    },
+    {
+      "@type": "ListItem",
+      "position": 2,
+      "name": "Services",
+      "item": `${Astro.url.origin}/services`
+    }
+  ]
+};
 ---
 
-<Layout title={title}  description="" structuredData={structuredData}>
-  
-    <div
-  class="relative h-[35vh] sm:h-[45vh] md:h-[60vh] bg-gradient-to-r from-blue-900 via-purple-900 to-blue-900 overflow-hidden"
+<Layout
+  title={title}
+  description={description}
+  structuredData={[structuredData, breadcrumbSchema]}
 >
-  <div
-    class="absolute inset-0 transform-gpu"
-    style="transform: translateY(var(--scrollY))"
-  >
-    <div
-      class="absolute inset-0 bg-gradient-to-b from-transparent to-black/70"
-    >
+  <!-- JSON-LD Scripts -->
+  <script type="application/ld+json">
+    {JSON.stringify(structuredData)}
+  </script>
+  <script type="application/ld+json">
+    {JSON.stringify(breadcrumbSchema)}
+  </script>
+
+  <!-- Hero Section -->
+  <div class="relative h-[35vh] sm:h-[45vh] md:h-[60vh] bg-gradient-to-r from-blue-900 via-purple-900 to-blue-900 overflow-hidden">
+    <div class="absolute inset-0 transform-gpu" style="transform: translateY(var(--scrollY))">
+      <div class="absolute inset-0 bg-gradient-to-b from-transparent to-black/70"></div>
+      <img class="w-full h-full object-cover opacity-40 scale-110" src={image1.src} alt="Services Hero" />
     </div>
-    <img
-      class="w-full h-full object-cover opacity-40 scale-110"
-      src={image1.src}
-      alt="Services Hero"
-    />
-  </div>
-  <div class="relative h-full flex items-center justify-center">
-    <div class="text-center space-y-6 px-4 sm:px-6 lg:px-8">
-      <h1
-        class="text-3xl sm:text-5xl md:text-7xl font-black text-white tracking-tight animate-fade-in"
-      >
-      Our <span
-          class="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-purple-400"
-          >Services</span
-        >
-      </h1>
-      <p
-        class="text-lg sm:text-xl md:text-2xl text-gray-200 max-w-3xl mx-auto animate-fade-in-up"
-      >
-      We offer a wide range of services to meet your travel needs
-      </p>
+    <div class="relative h-full flex items-center justify-center">
+      <div class="text-center space-y-6 px-4 sm:px-6 lg:px-8">
+        <h1 class="text-3xl sm:text-5xl md:text-7xl font-black text-white tracking-tight animate-fade-in">
+          Our <span class="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-purple-400">Services</span>
+        </h1>
+        <p class="text-lg sm:text-xl md:text-2xl text-gray-200 max-w-3xl mx-auto animate-fade-in-up">
+          We offer a wide range of services to meet your travel needs
+        </p>
+      </div>
     </div>
   </div>
-</div>
+
+  <Breadcrumb 
+    itemListElement={breadcrumbSchema.itemListElement} 
+    backgroundColor="#f3f4f6" 
+  />
 
   <!-- Services Grid -->
-  <div class="bg-gray-100 py-24">
+  <div class="bg-gray-100 py-7">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       <div class="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-4">
         {serviceData.map((serviceEntry) => <Service serviceEntry={serviceEntry} />)}
@@ -107,4 +125,5 @@ const structuredData =
       <JoinUs />
     </div>
   </div>
+
 </Layout>
