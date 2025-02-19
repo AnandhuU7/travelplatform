@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://travel.digiimpact.in/sitemap-index.xml

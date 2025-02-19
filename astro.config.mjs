@@ -1,10 +1,13 @@
 import { defineConfig } from "astro/config";
 import tailwind from '@astrojs/tailwind';
 import mdx from '@astrojs/mdx';
+import robotsTxt from 'astro-robots-txt';
 
 export default defineConfig({
   site: 'https://travel.digiimpact.in',
+
   integrations: [
+    robotsTxt(),
     tailwind({
       applyBaseStyles: false,
     }),
