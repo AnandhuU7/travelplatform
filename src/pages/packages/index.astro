@@ -4,12 +4,7 @@ import Layout from "../../layouts/Layout.astro";
 import JoinUs from "../../components/JoinUs.astro";
 import PackageCard from "../../components/PackageCard.astro";
 import banner from "/src/assets/about/about1.png";
-import Breadcrumb from '../../components/Breadcrumb.astro';
-
-// SEO Title and Description
-const title = "Our Travel Packages | Your Trusted Travel Partner";
-const description = "Explore our curated travel packages designed to make your journey unforgettable. From budget-friendly trips to luxury getaways, we have something for everyone.";
-
+import logo from "/src/assets/logo.png";
 // Fetch and sort package data
 const packageData = (await getCollection("packages")).sort((a, b) => {
   return (
@@ -18,54 +13,92 @@ const packageData = (await getCollection("packages")).sort((a, b) => {
   );
 });
 
-// Structured Data for SEO
+
+const pageTitle: string = `Our Travel Packages | Your Trusted Travel Partner`;
+const description: string = "Explore our curated travel packages designed to make your journey unforgettable. From budget-friendly trips to luxury getaways, we have something for everyone.";
 const structuredData = {
   "@context": "https://schema.org",
-  "@type": "ItemList",
-  name: title,
-  description: description,
-  url: `${Astro.url.origin}/packages`,
-  numberOfItems: packageData.length,
-  itemListElement: packageData.map((pkg, index) => ({
-    "@type": "ListItem",
-    position: index + 1,
-    url: `${Astro.url.origin}/packages/${pkg.slug}`,
-    name: pkg.data.title,
-    image: pkg.data.cardImage.src,
-    offers: {
-      "@type": "Offer",
-      priceCurrency: pkg.data.currency,
-      price: pkg.data.price,
-      availability: "https://schema.org/InStock",
-    },
-  })),
-};
-
-// Breadcrumb Schema
-const breadcrumbSchema = {
-  "@context": "https://schema.org",
-  "@type": "BreadcrumbList",
-  "itemListElement": [
+  "@graph": [
     {
-      "@type": "ListItem",
-      position: 1,
-      name: "Home",
-      item: `${Astro.url.origin}/`,
+      "@type": "Organization",
+      "@id": `${Astro.url.origin}/#organization`,
+      name: "Your Trusted Travel Partner",
+      url: Astro.url.origin,
+      logo: logo.src, 
     },
     {
-      "@type": "ListItem",
-      position: 2,
-      name: "Packages",
-      item: `${Astro.url.origin}/packages`,
+      "@type": "WebSite",
+      "@id": `${Astro.url.origin}/#website`,
+      url: Astro.url.origin,
+      name: "Your Trusted Travel Partner",
+      description: description,
+      publisher: { "@id": `${Astro.url.origin}/#organization` },
+      inLanguage: "en-US",
+    },
+    {
+      "@type": "ItemList",
+      "@id": `${Astro.url.origin}/packages/#itemlist`,
+      name: pageTitle,
+      description: description,
+      url: `${Astro.url.origin}/packages`,
+      numberOfItems: packageData.length,
+      itemListElement: packageData.map((pkg, index) => ({
+        "@type": "ListItem",
+        position: index + 1,
+        url: `${Astro.url.origin}/packages/${pkg.slug}`,
+        name: pkg.data.title,
+        image: pkg.data.cardImage.src,
+        offers: {
+          "@type": "Offer",
+          priceCurrency: pkg.data.currency,
+          price: pkg.data.price,
+          availability: "https://schema.org/InStock",
+        },
+      })),
+    },
+    {
+      "@type": "BreadcrumbList",
+      "@id": `${Astro.url.origin}/packages/#breadcrumb`,
+      itemListElement: [
+        {
+          "@type": "ListItem",
+          position: 1,
+          item: {
+            "@id": `${Astro.url.origin}/`,
+            name: "Home",
+          },
+        },
+        {
+          "@type": "ListItem",
+          position: 2,
+          item: {
+            "@id": `${Astro.url.origin}/packages`,
+            name: "Packages",
+          },
+        },
+      ],
+    },
+    {
+      "@type": "WebPage",
+      "@id": `${Astro.url.origin}/packages/#webpage`,
+      url: `${Astro.url.origin}/packages`,
+      name: pageTitle,
+      datePublished: "2024-02-05T11:26:39+00:00",
+      dateModified: "2025-01-26T19:17:19+00:00",
+      about: { "@id": `${Astro.url.origin}/#organization` },
+      isPartOf: { "@id": `${Astro.url.origin}/#website` },
+      primaryImageOfPage: {
+        "@id": `${Astro.url.origin}${logo.src}`,
+      },
+      inLanguage: "en-US",
     },
   ],
 };
 ---
-
 <Layout
-  title={title}
+  title={pageTitle}
   description={description}
-  structuredData={[structuredData, breadcrumbSchema]}
+  structuredData={structuredData}
 >
   <!-- Hero Section -->
   <div class="relative h-[35vh] sm:h-[45vh] md:h-[60vh] bg-gradient-to-r from-blue-900 via-purple-900 to-blue-900 overflow-hidden">
@@ -84,13 +117,6 @@ const breadcrumbSchema = {
       </div>
     </div>
   </div>
-
-  <!-- Breadcrumb -->
-  <Breadcrumb 
-    itemListElement={breadcrumbSchema.itemListElement} 
-    backgroundColor="#f3f4f6" 
-  />
-
   <!-- Packages Grid -->
   <div class="bg-gray-100 py-5">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -99,7 +125,6 @@ const breadcrumbSchema = {
       </div>
     </div>
   </div>
-
   <!-- CTA Section -->
   <div class="bg-yellow-500">
     <div class="max-w-7xl mx-auto py-12 px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row items-center justify-between">
@@ -115,7 +140,7 @@ const breadcrumbSchema = {
           </svg>
         </a>
       </div>
-<JoinUs />
+      <JoinUs />
     </div>
   </div>
 </Layout>
