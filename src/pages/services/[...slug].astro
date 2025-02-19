@@ -3,6 +3,7 @@ import JoinUs from "../../components/JoinUs.astro";
 import { getCollection, type CollectionEntry } from "astro:content";
 import Layout from "../../layouts/Layout.astro";
 import banner from "/src/assets/about/about1.png";
+import logo from "/src/assets/logo.png"; // Import the logo dynamically
 
 export async function getStaticPaths() {
   const services = await getCollection("services");
@@ -25,36 +26,114 @@ if (!serviceData) {
 
 const structuredData = {
   "@context": "https://schema.org",
-  "@type": "Service",
-  name: serviceData.data.title,
-  description: serviceData.data.description,
-  image: serviceData.data.cardImage.src,
-  offers: {
-    "@type": "Offer",
-    priceCurrency: "USD",
-    availability: "https://schema.org/InStock",
-  },
-  provider: {
-    "@type": "Organization",
-    name: "Travel Platform UAE",
-    url: "https://www.travelplatformuae.com",
-    logo: "https://www.travelplatformuae.com/src/assets/logo.png",
-    contactPoint: {
-      "@type": "ContactPoint",
-      telephone: "+971 52 2345 572",
-      contactType: "Customer Service",
-      areaServed: "AE",
-      availableLanguage: "English",
+  "@graph": [
+    {
+      "@type": "Organization",
+      "@id": `${Astro.url.origin}/#organization`,
+      name: "Travel Platform UAE",
+      url: Astro.url.origin,
+      logo: logo.src,
+      contactPoint: {
+        "@type": "ContactPoint",
+        telephone: "+971 52 2345 572",
+        contactType: "Customer Service",
+        areaServed: "AE",
+        availableLanguage: "English",
+      },
+      address: {
+        "@type": "PostalAddress",
+        streetAddress: "Al Muhaisnah 2, Dubai",
+        addressLocality: "Dubai",
+        addressCountry: "UAE",
+      },
     },
-    address: {
-      "@type": "PostalAddress",
-      streetAddress: "Al Muhaisnah 2, Dubai",
-      addressLocality: "Dubai",
-      addressCountry: "UAE",
+    {
+      "@type": "WebSite",
+      "@id": `${Astro.url.origin}/#website`,
+      url: Astro.url.origin,
+      name: "Travel Platform UAE",
+      description: serviceData.data.description,
+      publisher: { "@id": `${Astro.url.origin}/#organization` },
+      inLanguage: "en-US",
     },
-  },
+    {
+      "@type": "BreadcrumbList",
+      "@id": `${Astro.url.origin}/services/${serviceData.slug}#breadcrumb`,
+      itemListElement: [
+        {
+          "@type": "ListItem",
+          position: 1,
+          item: {
+            "@id": `${Astro.url.origin}/`,
+            name: "Home",
+          },
+        },
+        {
+          "@type": "ListItem",
+          position: 2,
+          item: {
+            "@id": `${Astro.url.origin}/services`,
+            name: "Services",
+          },
+        },
+        {
+          "@type": "ListItem",
+          position: 3,
+          item: {
+            "@id": `${Astro.url.origin}/services/${serviceData.slug}`,
+            name: serviceData.data.title,
+          },
+        },
+      ],
+    },
+    {
+      "@type": "Service",
+      name: serviceData.data.title,
+      description: serviceData.data.description,
+      image: serviceData.data.cardImage.src, 
+      offers: {
+        "@type": "Offer",
+        priceCurrency: "USD",
+        availability: "https://schema.org/InStock",
+      },
+      provider: {
+        "@type": "Organization",
+        name: "Travel Platform UAE",
+        url: Astro.url.origin,
+        logo: logo.src, 
+        contactPoint: {
+          "@type": "ContactPoint",
+          telephone: "+971 52 2345 572",
+          contactType: "Customer Service",
+          areaServed: "AE",
+          availableLanguage: "English",
+        },
+        address: {
+          "@type": "PostalAddress",
+          streetAddress: "Al Muhaisnah 2, Dubai",
+          addressLocality: "Dubai",
+          addressCountry: "UAE",
+        },
+      },
+    },
+    {
+      "@type": "WebPage",
+      "@id": `${Astro.url.origin}/services/${serviceData.slug}#webpage`,
+      url: `${Astro.url.origin}/services/${serviceData.slug}`,
+      name: serviceData.data.title,
+      datePublished: serviceData.data.publishedTime || "2024-02-05T11:26:39+00:00",
+      dateModified: serviceData.data.modifiedTime || "2025-01-26T19:17:19+00:00",
+      about: { "@id": `${Astro.url.origin}/#organization` },
+      isPartOf: { "@id": `${Astro.url.origin}/#website` },
+      primaryImageOfPage: {
+        "@id": serviceData.data.cardImage.src,
+      },
+      inLanguage: "en-US",
+    },
+  ],
 };
 ---
+
 
 <Layout title={serviceData.data.title} description={serviceData.data.description} structuredData={structuredData}>
   <!-- Hero Section -->

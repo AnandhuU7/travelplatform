@@ -19,18 +19,31 @@ const description: string = "Explore our curated travel packages designed to mak
 const structuredData = {
   "@context": "https://schema.org",
   "@graph": [
-    {
+   {
       "@type": "Organization",
       "@id": `${Astro.url.origin}/#organization`,
-      name: "Your Trusted Travel Partner",
+      name: "Travel Platform UAE",
       url: Astro.url.origin,
-      logo: logo.src, 
+      logo: logo.src,
+      contactPoint: {
+        "@type": "ContactPoint",
+        telephone: "+971 52 2345 572",
+        contactType: "Customer Service",
+        areaServed: "AE",
+        availableLanguage: "English",
+      },
+      address: {
+        "@type": "PostalAddress",
+        streetAddress: "Al Muhaisnah 2,Dubai",
+        addressLocality: "Dubai",
+        addressCountry: "UAE",
+      },
     },
     {
       "@type": "WebSite",
       "@id": `${Astro.url.origin}/#website`,
       url: Astro.url.origin,
-      name: "Your Trusted Travel Partner",
+      name: "Travel Platform UAE",
       description: description,
       publisher: { "@id": `${Astro.url.origin}/#organization` },
       inLanguage: "en-US",

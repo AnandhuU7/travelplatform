@@ -1,43 +1,100 @@
 ---
 import Layout from "../../layouts/Layout.astro";
 import JoinUs from "../../components/JoinUs.astro";
-import { getCollection } from 'astro:content';
-import Breadcrumb from '../../components/Breadcrumb.astro';
-import image2 from '/src/assets/testi/testi1.png';
+import { getCollection } from "astro:content";
+import image2 from "/src/assets/testi/testi1.png";
+import logo from "/src/assets/logo.png";
 
 const title = "Travel Platform - Our News";
 const description = "Stay updated with the latest travel news and updates.";
 const newsArticles = await getCollection("news");
 
+// Structured Data
 const structuredData = {
   "@context": "https://schema.org",
-  "@type": "WebPage",
-  "name": title,
-  "description": description,
-  "url": Astro.url,
-};
-
-const breadcrumbSchema = {
-  "@context": "https://schema.org",
-  "@type": "BreadcrumbList",
-  "itemListElement": [
+  "@graph": [
+    // Organization Schema
     {
-      "@type": "ListItem",
-      "position": 1,
-      "name": "Home",
-      "item": `${Astro.url.origin}/`,
+      "@type": "Organization",
+      "@id": `${Astro.url.origin}/#organization`,
+      name: "Travel Platform UAE",
+      url: Astro.url.origin,
+      logo: logo.src,
+      contactPoint: {
+        "@type": "ContactPoint",
+        telephone: "+971 52 2345 572",
+        contactType: "Customer Service",
+        areaServed: "AE",
+        availableLanguage: "English",
+      },
+      address: {
+        "@type": "PostalAddress",
+        streetAddress: "Al Muhaisnah 2, Dubai",
+        addressLocality: "Dubai",
+        addressCountry: "UAE",
+      },
     },
     {
-      "@type": "ListItem",
-      "position": 2,
-      "name": "News",
-      "item": `${Astro.url.origin}/news`,
+      "@type": "WebPage",
+      "@id": `${Astro.url.origin}/news/#webpage`,
+      url: `${Astro.url.origin}/news`,
+      name: title,
+      description: description,
+      datePublished: "2024-02-05T11:26:39+00:00",
+      dateModified: "2024-02-05T11:26:39+00:00",
+      about: { "@id": `${Astro.url.origin}/#organization` },
+      isPartOf: { "@id": `${Astro.url.origin}/#website` },
+      primaryImageOfPage: {
+        "@id": logo.src,
+      },
+      inLanguage: "en-US",
+    },
+    {
+      "@type": "BreadcrumbList",
+      "@id": `${Astro.url.origin}/news/#breadcrumb`,
+      itemListElement: [
+        {
+          "@type": "ListItem",
+          position: 1,
+          item: {
+            "@id": `${Astro.url.origin}/`,
+            name: "Home",
+          },
+        },
+        {
+          "@type": "ListItem",
+          position: 2,
+          item: {
+            "@id": `${Astro.url.origin}/news`,
+            name: "News",
+          },
+        },
+      ],
+    },
+    {
+      "@type": "ItemList",
+      "@id": `${Astro.url.origin}/news/#itemlist`,
+      name: title,
+      description: description,
+      url: `${Astro.url.origin}/news`,
+      numberOfItems: newsArticles.length,
+      itemListElement: newsArticles.map((article, index) => ({
+        "@type": "ListItem",
+        position: index + 1,
+        url: `${Astro.url.origin}/news/${article.slug}`,
+        name: article.data.title,
+        image: article.data.image.src,
+        datePublished: new Date(article.data.date).toISOString(),
+        author: {
+          "@type": "Person",
+          name: article.data.author,
+        },
+      })),
     },
   ],
 };
 ---
-
-<Layout title={title} description={description}>
+<Layout title={title} description={description} structuredData={structuredData}>
   <div class="relative h-[40vh] sm:h-[50vh] md:h-[65vh] bg-gradient-to-r from-blue-900 via-purple-900 to-blue-900 overflow-hidden">
     <div class="absolute inset-0 transform-gpu">
       <div class="absolute inset-0 bg-gradient-to-b from-transparent via-black/40 to-black/80"></div>
@@ -58,11 +115,6 @@ const breadcrumbSchema = {
       </div>
     </div>
   </div>
-  
-  <Breadcrumb 
-    itemListElement={breadcrumbSchema.itemListElement}  
-  />
-
   <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-5">
     <div class="grid grid-cols-1 gap-10">
       {
@@ -116,10 +168,8 @@ const breadcrumbSchema = {
       }
     </div>
   </div>
-
   <JoinUs />
 </Layout>
-
 <style>
   @keyframes fadeIn {
     from {
@@ -131,7 +181,6 @@ const breadcrumbSchema = {
       transform: translateY(0);
     }
   }
-
   @keyframes gradientFlow {
     0% {
       background-position: 0% 50%;
@@ -143,27 +192,22 @@ const breadcrumbSchema = {
       background-position: 0% 50%;
     }
   }
-
   .animate-gradient-x {
     background-size: 200% 200%;
     animation: gradientFlow 8s ease infinite;
   }
-
   .animate-title {
     animation: fadeIn 0.8s ease-out forwards;
   }
-
   .animate-fade-in-up {
     opacity: 0;
     animation: fadeIn 0.8s ease-out forwards;
     animation-delay: 0.2s;
   }
-
   .article-card {
     opacity: 0;
     animation: fadeIn 0.5s ease-out forwards;
   }
-
   @media (max-width: 640px) {
     .article-card {
       flex-direction: column;

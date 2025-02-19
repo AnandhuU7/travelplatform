@@ -6,6 +6,8 @@ const servicesCollection = defineCollection({
   schema: ({ image }) => z.object ({
   id: z.number(),
   title: z.string(),
+  publishedTime: z.string(),
+  modifiedTime: z.string(),
   subtitle: z.string()
 , description: z.string(),
   link: z.string(),
@@ -27,6 +29,7 @@ const packagesCollection = defineCollection({
     price: z.number(),
     currency: z.string(),
     cardImage: image(),
+    cardImageAlt: z.string(),
     route: z.string(),
     pdfUrl: z.string(),
   }),
