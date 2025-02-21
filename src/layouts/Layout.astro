@@ -4,20 +4,21 @@ import Footer from "../components/Footer.astro";
 import { SEO } from "astro-seo";
 import WhatsAppButton from "../components/WhatsAppButton.astro";
 import '../styles/base.css';
+import logo from "/src/assets/logo.png";
 
 export interface Props {
   title: string;
   description: string;
-  structuredData?: object; // Optional structured data prop
+  structuredData?: object; 
 }
 
 const { title, description, structuredData } = Astro.props;
 
 // Default values for SEO
-const defaultTitle = "Travel Platform";
+const defaultTitle = "Travel Platform UAE";
 const defaultDescription = "At Travel Platform, we believe that travel should be an enriching and hassle-free adventure.";
-const siteUrl =Astro.url.origin;
-const ogImageUrl = `${Astro.url}/og-image.jpg`;
+const siteUrl = Astro.url.origin;
+const ogImageUrl = logo.src;
 ---
 <html lang="en">
   <head>
@@ -26,8 +27,8 @@ const ogImageUrl = `${Astro.url}/og-image.jpg`;
     <meta name="robots" content="noindex">
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="description" content={description ?? defaultDescription} />
-    <meta name="keywords" content="travel, platform, adventure, tours, holidays" />
-    <meta name="author" content="Your Name or Company Name" />
+    <meta name="keywords" content="travel, platform, adventure, tours, holidays, vacation, trip, travel packages, tourism, sightseeing, luxury travel, budget travel, travel deals, international tours, domestic travel, flights, hotels, travel guides, best destinations, holiday packages, travel bookings" />
+    <meta name="author" content="Travel Platform UAE" />
 
     <!-- Open Graph Meta Tags -->
     <meta property="og:title" content={title ?? defaultTitle} />
@@ -88,6 +89,6 @@ const ogImageUrl = `${Astro.url}/og-image.jpg`;
     <main>
       <slot />
     </main>
-    <Footer />
   </body>
+  <Footer />
 </html>
