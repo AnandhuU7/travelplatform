@@ -4,7 +4,7 @@ import mdx from '@astrojs/mdx';
 import robotsTxt from 'astro-robots-txt';
 
 export default defineConfig({
-  site: 'https://travel.digiimpact.in',
+  site: 'https://travelplatformuae.com',
 
   integrations: [
     robotsTxt(),
