@@ -9,8 +9,6 @@ import JoinUs from '../components/JoinUs.astro';
 import Testimonial from '../pages/testimonial/index.astro';
 import { getCollection } from 'astro:content';
 import logo from "/src/assets/logo.png";
-import Footer from '@component/Footer.astro';
-
 const testimonials = await getCollection('testimonials');
 const testimonialData = testimonials.map((testimonial) => testimonial.data);
 

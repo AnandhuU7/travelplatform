@@ -8,34 +8,104 @@ interface Props {
       description?: string;
       cardImage: ImageMetadata;
       price: number;
+      rating?: number;
+      reviewCount?: number;
+      location?: string;
     };
     slug: string;
   };
 }
 
 const { packageData } = Astro.props;
-const { title, description, cardImage, price } = packageData.data;
+const { title, description, cardImage, price, rating, reviewCount, location } = packageData.data;
+
+// Generate structured data for each package card
+const structuredData = {
+  "@context": "https://schema.org",
+  "@type": "TouristAttraction",
+  "name": packageData.data.title,
+  "description": packageData.data.description, 
+  "image": {
+    "@type": "ImageObject",
+    "contentUrl": "https://travelplatformuae.com" + packageData.data.cardImage.src,
+    "creditText": `Travel Platform UAE - ${packageData.data.title}`,
+    "creator": {
+      "@type": "Organization",
+      "name": "Travel Platform UAE"
+    },
+    "width": 800,
+    "height": 600
+  },
+  "location": location ? {
+    "@type": "Place",
+    "name": location 
+  } : undefined,
+  "offers": {
+    "@type": "Offer",
+    "priceCurrency": "USD",
+    "price": price,
+    "priceValidUntil": new Date(new Date().setFullYear(new Date().getFullYear() + 1)).toISOString().split('T')[0],
+    "availability": "https://schema.org/InStock",
+    "seller": {
+      "@type": "Organization",
+      "name": "Travel Platform UAE",
+      "url": "https://travelplatformuae.com"
+    }
+  },
+ "aggregateRating": packageData.data.rating && packageData.data.reviewCount ? {
+    "@type": "AggregateRating",
+    "ratingValue": packageData.data.rating.toFixed(1),
+    "reviewCount": packageData.data.reviewCount,
+    "bestRating": 5,
+    "worstRating": 1
+  } : undefined,
+  "breadcrumb": {
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      {
+        "@type": "ListItem",
+        "position": 1,
+        "name": "Home",
+        "item": "https://travelplatformuae.com" 
+      },
+      {
+        "@type": "ListItem",
+        "position": 2,
+        "name": "Packages",
+        "item": "https://travelplatformuae.com/packages"
+      },
+    ]
+  }
+
+};
 ---
 
-<div class="relative border border-gray-200 rounded-lg overflow-hidden shadow-md transition-transform duration-300 hover:-translate-y-1 bg-white">
+<script type="application/ld+json" set:html={JSON.stringify(structuredData)} />
+
+<div class="relative border border-gray-200 rounded-lg overflow-hidden shadow-md transition-all duration-300 hover:-translate-y-1 hover:shadow-lg bg-white">
   <!-- Image Section -->
   <Image
     src={cardImage}
-    alt={title}
+    alt={`Image of ${title}`}
+    width={800}
+    height={600}
     class="w-full h-48 object-cover rounded-t-lg"
+    loading="lazy"
+    fetchpriority="low"
   />
 
   <!-- Card Content -->
   <div class="p-4 text-center">
     <h3 class="text-lg font-bold text-gray-900">{title}</h3>
-    {description && <p class="text-sm text-gray-600 mt-1">{description}</p>}
+    {description && <p class="text-sm text-gray-600 mt-1 line-clamp-2">{description}</p>}
   </div>
 
-  <!-- View Details (Always Visible) -->
+  <!-- View Details -->
   <div class="p-4 text-center border-t border-gray-200">
     <a
       href={`/packages/${packageData.slug}`}
-      class="text-yellow-500 font-semibold flex items-center justify-center gap-1"
+      class="text-yellow-500 font-semibold flex items-center justify-center gap-1 hover:text-yellow-600 transition-colors"
+      aria-label={`View details for ${title}`}
     >
       View Details
     </a>

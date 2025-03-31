@@ -6,22 +6,23 @@ const servicesCollection = defineCollection({
   schema: ({ image }) => z.object ({
   id: z.number(),
   title: z.string(),
-  publishedTime: z.string(),
-  modifiedTime: z.string(),
-  subtitle: z.string()
-, description: z.string(),
-  link: z.string(),
-  pubDate: z.date(),
+  subtitle: z.string(), 
+  description: z.string(), 
+  link: z.string().optional(),
   cardImage: image(),
   cardImageAlt: z.string(),
-  stars: z.number(),
+  rating: z.number().min(0).max(5).optional(),
+  reviewCount: z.number().min(0).optional(),
+  publishedTime: z.string(),
+  modifiedTime: z.string(),
   tags: z.array(z.string()).optional(),
-  details: z.array(z.string().optional()),
+  details: z.array(z.string()).optional(),
   }),
 });
 
 const packagesCollection = defineCollection({
   schema: ({ image }) => z.object({
+    id: z.number(),
     title: z.string(),
     description: z.string(),
     publishedTime: z.string(),
@@ -30,8 +31,11 @@ const packagesCollection = defineCollection({
     currency: z.string(),
     cardImage: image(),
     cardImageAlt: z.string(),
+    rating: z.number().min(0).max(5).optional(),
+    reviewCount: z.number().min(0).optional(),
     route: z.string(),
     pdfUrl: z.string(),
+    location: z.string(),
   }),
 });
 
@@ -60,9 +64,30 @@ const newsCollection = defineCollection({
     }),
 });
 
+const eventsCollection = defineCollection({
+  schema: ({ image }) => z.object({
+    id: z.number(),
+    title: z.string(),
+    startdate: z.string(),
+    enddate: z.string(),
+    time: z.string(),
+    location: z.string(),
+    imageCard: image(),
+    imageAlt: z.string(),
+    description: z.string(),
+    price: z.number(),
+    category: z.string(),
+    featured: z.boolean(),
+    rating: z.number().min(0).max(5).optional(),
+    reviews: z.number().min(0).optional(),
+    postalCode: z.string(),
+  }),
+});
+
 export const collections = {
   'services': servicesCollection,
   'packages': packagesCollection,
   'testimonials': testimonialsCollection,
   'news': newsCollection,
+  'events': eventsCollection,
 };

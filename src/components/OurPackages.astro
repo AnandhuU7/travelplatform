@@ -30,55 +30,61 @@ const packagesData = [
 ];
 ---
 
-<div class="text-center p-0 md:p-8">
-  <h2 class="text-3xl md:text-4xl font-bold mb-4 text-center mt-8 md:mt-0">Our Packages</h2>
+<div class="text-center p-0 md:p-4">
+  <h2 class="text-3xl md:text-4xl font-bold mb-4 text-center mt-12 md:mt-0 bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent p-2">Our Packages</h2>
   <p class="mb-8 text-[#666666] px-4 md:px-0 text-sm md:text-base leading-relaxed">
-    Our expert guides will unveil hidden gems, guiding you through iconic landmarks and off-the-beaten-path gems,<br class="hidden md:block">ensuring you capture the essence of this remarkable place.
+    As one of the leading travel companies in Dubai, we offer exclusive packages with top tour operators, helping you explore hidden gems,<br class="hidden md:block"> iconic landmarks, and thrilling adventures for truly unforgettable experiences.
   </p>
   <div class="grid grid-cols-1 md:grid-cols-3 gap-0 md:gap-8 px-0 md:px-8">
     {packagesData.map((pkg, index) => (
-      <div class="relative border-b md:border border-gray-300 md:rounded-lg p-4 pb-8 md:pb-4 text-center flex flex-col justify-between">
-        <div class="absolute -top-4 left-2 md:-left-4">
-          <div class="bg-yellow-500 w-32 h-6 transform -skew-x-12 flex items-center justify-center">
-            <span class="text-white text-xs">Limited Time Offer!</span>
+      <Fragment key={index}>
+        <div class="relative border border-gray-200 rounded-lg overflow-hidden shadow-md transition-transform duration-300 hover:-translate-y-1 bg-white p-4 text-center flex flex-col justify-between w-full">
+          <div class="absolute top-0 left-0">
+            <div class="bg-gradient-to-r from-yellow-400 to-yellow-600 text-white text-xs font-bold px-3 py-1 rounded-br-lg">
+              Limited Time Offer!
+            </div>
+          </div>
+          <img
+            src={pkg.image.src}
+            alt={`Package ${index + 1}`}
+            class="w-full h-48 object-cover rounded-lg mb-4"
+          />
+          <div class="flex flex-col flex-grow">
+            <h3 class="mb-4 font-bold text-gray-600">{pkg.title}</h3>
+            <p class="mb-4 text-gray-600">{pkg.description}</p>
+          </div>
+          <div class="mt-auto">
+            <a
+              href={pkg.route}
+              class="bg-white text-yellow-500 py-2.5 px-2 text-sm rounded-full hover:bg-yellow-400 border-2 border-yellow-500 hover:text-white flex items-center justify-center w-32 mx-auto"
+            >
+              Book Now
+              <svg
+                class="ml-2 w-4 h-4"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M9 5l7 7-7 7"
+                />
+              </svg>
+            </a>
+          </div>
+          <div class="absolute bottom-0 right-0">
+            <div class="bg-blue-600 text-white text-xs px-3 py-1 rounded-tl-lg">
+              {pkg.price}
+            </div>
           </div>
         </div>
-        <img
-          src={pkg.image.src}
-          alt={`Package ${index + 1}`}
-          class="w-full h-40 object-cover rounded-lg mb-4"
-        />
-        <h3 class="text-xl font-bold mb-2">{pkg.title}</h3>
-        <p class="mb-4">{pkg.description}</p>
-        <a
-          href={pkg.route}
-          class="bg-white text-yellow-500 py-1 px-2 text-sm rounded-full hover:bg-yellow-400 border-2 border-yellow-500 hover:text-white flex items-center justify-center w-32"
-        >
-          Book Now
-          <svg
-            class="ml-2 w-4 h-4"
-            fill="none"
-            stroke="currentColor"
-            viewBox="0 0 24 24"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <path
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              stroke-width="2"
-              d="M9 5l7 7-7 7"
-            />
-          </svg>
-        </a>
-        <div class="absolute bottom-2 right-2">
-          <div class="bg-blue-500 w-40 h-6 transform -skew-x-12 flex items-center justify-center">
-            <span class="text-white text-xs">{pkg.price}</span>
-          </div>
-        </div>
-      </div>
+      </Fragment>
     ))}
   </div>
-  <div class="mt-20 mb-6">
+  <div class="mt-10 mb-6 md:mb-2">
     <a
       href="/packages"
       class="bg-blue-500 text-white py-4 px-8 rounded-full hover:bg-blue-700"
