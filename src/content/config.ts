@@ -17,6 +17,8 @@ const servicesCollection = defineCollection({
   modifiedTime: z.string(),
   tags: z.array(z.string()).optional(),
   details: z.array(z.string()).optional(),
+  price: z.number(),
+  category: z.string(),
   }),
 });
 
@@ -36,6 +38,9 @@ const packagesCollection = defineCollection({
     route: z.string(),
     pdfUrl: z.string(),
     location: z.string(),
+    itinerary: z.array(z.string()).optional(),
+    duration: z.string().optional(),
+    inclusions: z.array(z.string()).optional(),
   }),
 });
 
@@ -47,7 +52,9 @@ const testimonialsCollection = defineCollection({
     name: z.string(),
     designation: z.string(),
     review: z.string(),
-    image: image(),
+    image: image(), 
+    rating: z.number().min(0).max(5).optional(),
+    datePublished: z.string(),
   }),
 });
 

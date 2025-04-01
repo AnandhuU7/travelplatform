@@ -1,7 +1,7 @@
 ---
 import { Image } from 'astro:assets';
 import image1 from '/src/assets/about/about.png';
-// filepath: /C:/Users/Adeeb/OneDrive - K L University/Desktop/astrotravel/travel/src/components/visionmission.astro
+
 const visionSections = [
   {
     title: "Extreme Customer Care",
@@ -24,108 +24,132 @@ const visionSections = [
     icon: "M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"
   }
 ];
+const stars = [0, 1, 2, 3, 4];
 ---
 
-<div class="bg-gradient-to-b from-white to-white  px-4 sm:px-6 lg:px-8 mt-5 relative z-0">
-  <div class="max-w-7xl mx-auto">
-    <div class="text-center mb-16">
-      <h2 class="text-4xl font-bold text-gray-900 mb-4">
-        <span class="text-yellow-500">Our</span> <br> Mission & Vision
-      </h2>
-      <p class="text-lg text-yellow-500 font-semibold">
-        As travel platform believes in promoting cost effective products, we work towards:
-      </p>
+<div class="bg-gradient-to-b from-white to-blue-50 py-16 px-4 sm:px-6 lg:px-8">
+  <!-- Vision & Mission Header -->
+  <div class="max-w-7xl mx-auto text-center">
+    <div class="inline-block mb-4">
+      <h2 class="text-sm font-semibold tracking-wide uppercase bg-blue-600 text-white px-6 py-1.5 rounded-full shadow-md transform hover:scale-105 transition-transform duration-300">Discover</h2>
     </div>
-
-    <div class=" grid grid-cols-1 md:grid-cols-2 gap-8">
-      <!-- First Row: Two Cards -->
-      <div class="relative bg-white p-6 rounded-lg shadow-lg hover:shadow-xl transition-shadow duration-300 ">
-        <div class="absolute top-2 right-2 flex space-x-2">
-          <div class="w-3 h-3 bg-red-500 rounded-full"></div>
-          <div class="w-3 h-3 bg-blue-500 rounded-full"></div>
-          <div class="w-3 h-3 bg-green-500 rounded-full"></div>
-          <div class="w-3 h-3 bg-yellow-500 rounded-full"></div>
-        </div>
-        <div class="flex items-center mb-4">
-          <svg class="w-8 h-8 text-blue-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d={visionSections[0].icon} />
-          </svg>
-          <h3 class="text-xl font-semibold ml-4 text-gray-900">{visionSections[0].title}</h3>
-        </div>
-        <p class="text-gray-600 leading-relaxed">{visionSections[0].description}</p>
-      </div>
-
-      <div class="relative bg-white p-6 rounded-lg shadow-lg hover:shadow-xl transition-shadow duration-300">
-        <div class="absolute top-2 right-2 flex space-x-2">
-          <div class="w-3 h-3 bg-red-500 rounded-full"></div>
-          <div class="w-3 h-3 bg-blue-500 rounded-full"></div>
-          <div class="w-3 h-3 bg-green-500 rounded-full"></div>
-          <div class="w-3 h-3 bg-yellow-500 rounded-full"></div>
-        </div>
-        <div class="flex items-center mb-4">
-          <svg class="w-8 h-8 text-blue-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d={visionSections[1].icon} />
-          </svg>
-          <h3 class="text-xl font-semibold ml-4 text-gray-900">{visionSections[1].title}</h3>
-        </div>
-        <p class="text-gray-600 leading-relaxed">{visionSections[1].description}</p>
-      </div>
-
-        <!-- Middle Row: Centered Image -->
-        <div class="md:col-span-2 flex justify-center my-8">
-          <div class="group relative overflow-hidden rounded-lg shadow-lg w-96 h-96">
-            <img src={image1.src} alt="Vision" class="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-300" />
-            <div class="absolute inset-0 bg-black bg-opacity-40 group-hover:bg-opacity-50 transition-opacity duration-300"></div>
-            
-            <!-- Added Star Rating -->
-            <div class="absolute top-4 left-4 flex space-x-1">
-              {Array(5).fill('').map(() => (
-                <svg class="w-4 h-4 text-yellow-400" fill="currentColor" viewBox="0 0 20 20">
-                  <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
-                </svg>
-              ))}
-            </div>
-  
-            <div class="absolute bottom-0 left-0 bg-gradient-to-t from-black to-transparent p-4">
-              <h3 class="text-white text-lg font-semibold">Our Vision</h3>
-              <p class="text-white text-sm">We aim to provide the best travel experiences with a focus on customer satisfaction and innovation.</p>
-            </div>
-          </div>
-        </div>
-  
-
-      <!-- Last Row: Two Cards -->
-      <div class="relative bg-white p-6 rounded-lg shadow-lg hover:shadow-xl transition-shadow duration-300">
-        <div class="absolute top-2 right-2 flex space-x-2">
-          <div class="w-3 h-3 bg-red-500 rounded-full"></div>
-          <div class="w-3 h-3 bg-blue-500 rounded-full"></div>
-          <div class="w-3 h-3 bg-green-500 rounded-full"></div>
-          <div class="w-3 h-3 bg-yellow-500 rounded-full"></div>
-        </div>
-        <div class="flex items-center mb-4">
-          <svg class="w-8 h-8 text-blue-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d={visionSections[2].icon} />
-          </svg>
-          <h3 class="text-xl font-semibold ml-4 text-gray-900">{visionSections[2].title}</h3>
-        </div>
-        <p class="text-gray-600 leading-relaxed">{visionSections[2].description}</p>
-      </div>
-
-      <div class="relative bg-white p-6 rounded-lg shadow-lg hover:shadow-xl transition-shadow duration-300">
-        <div class="absolute top-2 right-2 flex space-x-2">
-          <div class="w-3 h-3 bg-red-500 rounded-full"></div>
-          <div class="w-3 h-3 bg-blue-500 rounded-full"></div>
-          <div class="w-3 h-3 bg-green-500 rounded-full"></div>
-          <div class="w-3 h-3 bg-yellow-500 rounded-full"></div>
-        </div>
-        <div class="flex items-center mb-4">
-          <svg class="w-8 h-8 text-blue-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d={visionSections[3].icon} />
-          </svg>
-          <h3 class="text-xl font-semibold ml-4 text-gray-900">{visionSections[3].title}</h3>
-        </div>
-        <p class="text-gray-600 leading-relaxed">{visionSections[3].description}</p>
+    <h1 class="mt-1 text-3xl font-extrabold text-gray-900 sm:text-4xl sm:tracking-tight lg:text-5xl bg-clip-text text-transparent bg-gradient-to-r from-blue-800 to-indigo-900">
+      Our Vision & Mission
+    </h1>
+    <div class="max-w-xl mt-5 mx-auto">
+      <p class="text-lg text-gray-600 leading-relaxed">
+        Creating extraordinary travel experiences through innovation, excellence, and personalized service.
+      </p>
+      <div class="flex justify-center mt-4 space-x-2">
+        <span class="w-8 h-1 bg-blue-600 rounded"></span>
+        <span class="w-3 h-1 bg-blue-300 rounded"></span>
+        <span class="w-3 h-1 bg-blue-300 rounded"></span>
       </div>
     </div>
   </div>
+
+  <!-- Vision Section -->
+  <div class="mt-10 max-w-7xl mx-auto">
+    <div class="lg:grid lg:grid-cols-12 lg:gap-12 items-center">
+      <div class="lg:col-span-5">
+        <div class="bg-gradient-to-br from-blue-700 to-indigo-700 rounded-3xl shadow-2xl overflow-hidden transform transition-all duration-300 hover:scale-105">
+          <div class="p-8 sm:p-10 relative">
+            <div class="absolute top-0 right-0 -mt-8 -mr-8 w-32 h-32 bg-blue-300 opacity-20 rounded-full blur-xl"></div>
+            <div class="absolute bottom-0 left-0 -mb-10 -ml-10 w-40 h-40 bg-indigo-300 opacity-20 rounded-full blur-xl"></div>
+            <div class="flex items-center relative z-10">
+              <div class="flex-shrink-0 bg-white bg-opacity-20 p-3 rounded-2xl">
+                <svg class="h-10 w-10 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z" />
+                </svg>
+              </div>
+              <h3 class="ml-4 text-2xl font-bold text-white">Our Vision</h3>
+            </div>
+            <div class="mt-8 space-y-4 relative z-10">
+              <div class="flex items-center">
+                <div class="flex space-x-1">
+                  {stars.map((index) => (
+                    <svg data-key={index} class="h-5 w-5 text-yellow-400 drop-shadow-md" fill="currentColor" viewBox="0 0 20 20">
+                      <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+                    </svg>
+                  ))}
+                </div>
+              </div>
+              <p class="text-lg text-white leading-relaxed font-light">
+                We aim to redefine travel by combining cutting-edge technology with exceptional customer service, 
+                creating unforgettable journeys that inspire and connect people around the world.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="mt-16 relative lg:mt-0 lg:col-span-7 pl-4">
+        <div class="relative lg:pl-12">
+          <div class="aspect-w-16 aspect-h-9 overflow-hidden rounded-2xl shadow-2xl">
+            <img 
+              src={image1.src} 
+              alt="Travel experience" 
+              class="object-cover h-full w-full"
+            />
+          </div>
+          <div class="absolute -bottom-8 -left-8 bg-gradient-to-br from-yellow-400 to-yellow-500 rounded-2xl shadow-xl p-6 w-72 transform transition-all duration-300 hover:scale-105 hover:shadow-2xl">
+            <h3 class="text-gray-900 font-bold text-lg">Trusted by Travelers</h3>
+            <p class="text-gray-800 mt-2 font-medium text-sm">Creating memories since 2010 with over 10,000 satisfied customers</p>
+            <div class="absolute top-0 right-0 -mt-2 -mr-2 bg-white rounded-full p-1 shadow-md">
+              <svg class="h-6 w-6 text-yellow-500" fill="currentColor" viewBox="0 0 20 20">
+                <path fill-rule="evenodd" d="M6.267 3.455a3.066 3.066 0 001.745-.723 3.066 3.066 0 013.976 0 3.066 3.066 0 001.745.723 3.066 3.066 0 012.812 2.812c.051.643.304 1.254.723 1.745a3.066 3.066 0 010 3.976 3.066 3.066 0 00-.723 1.745 3.066 3.066 0 01-2.812 2.812 3.066 3.066 0 00-1.745.723 3.066 3.066 0 01-3.976 0 3.066 3.066 0 00-1.745-.723 3.066 3.066 0 01-2.812-2.812 3.066 3.066 0 00-.723-1.745 3.066 3.066 0 010-3.976 3.066 3.066 0 00.723-1.745 3.066 3.066 0 012.812-2.812zm7.44 5.252a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path>
+              </svg>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Mission Section -->
+  <div class="mt-20 max-w-7xl mx-auto">
+    <div class="text-center mb-16">
+      <h2 class="text-2xl font-bold text-gray-900 inline-block relative">
+        Our Core Values
+        <span class="absolute -bottom-3 left-1/2 transform -translate-x-1/2 w-24 h-1 bg-blue-600 rounded-full"></span>
+      </h2>
+      <p class="mt-6 max-w-2xl mx-auto text-lg text-gray-600 leading-relaxed">
+        As a travel platform that believes in promoting cost-effective products, we work towards:
+      </p>
+    </div>
+
+    <div class="mt-12 grid grid-cols-1 gap-10 sm:grid-cols-2 lg:grid-cols-4">
+      {visionSections.map((section, index) => (
+        <div class="bg-white overflow-hidden shadow-xl rounded-xl hover:shadow-2xl transition-all duration-300 hover:-translate-y-2 group">
+          <div class="h-2 bg-gradient-to-r from-blue-400 to-indigo-600 group-hover:h-3 transition-all duration-300"></div>
+          <div class="px-6 py-8">
+            <div class="flex items-center mb-6">
+              <div class="flex-shrink-0 h-14 w-14 flex items-center justify-center rounded-xl bg-gradient-to-br from-blue-500 to-indigo-600 text-white shadow-lg group-hover:scale-110 transition-transform duration-300">
+                <svg class="h-7 w-7" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d={section.icon}></path>
+                </svg>
+              </div>
+              <h3 class="ml-4 text-lg font-bold text-gray-900 group-hover:text-blue-600 transition-colors duration-300">{section.title}</h3>
+            </div>
+            <p class="text-sm text-gray-600 leading-relaxed">{section.description}</p>
+          </div>
+          <div class="px-6 py-4 bg-gray-50 flex justify-between items-center">
+            <div class="flex space-x-1.5">
+              <div class="w-2.5 h-2.5 bg-red-500 rounded-full"></div>
+              <div class="w-2.5 h-2.5 bg-yellow-500 rounded-full"></div>
+              <div class="w-2.5 h-2.5 bg-green-500 rounded-full"></div>
+            </div>
+            <a href="#" class="text-xs font-medium text-blue-600 hover:text-blue-800 group-hover:font-semibold transition-all duration-300 flex items-center">
+              Learn more
+              <svg class="ml-1.5 w-4 h-4 group-hover:ml-2.5 transition-all duration-300" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path>
+              </svg>
+            </a>
+          </div>
+        </div>
+      ))}
+    </div>
+  </div>
+
+  <!-- CTA Section -->
+  
 </div>

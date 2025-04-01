@@ -1,0 +1,215 @@
+---
+const subTitle: string = "Ask us anything about our travel services and get factual responses.";
+const makeId = (base: any, index: any) => `${base}${index + 1}`;
+const faqs = [
+  {
+    heading: "What services does Travel Platform UAE offer?",
+    content:
+      "Travel Platform UAE provides a variety of services, including B2B booking solutions for travel agencies and corporate entities, visa change services (by bus or flight), global air ticketing, and bus/flight availability updates. They also offer holiday packages and customized itineraries for travelers.",
+  },
+  {
+    heading: "How can I change my visa through Travel Platform?",
+    content:
+      "Travel Platform offers visa change services by bus or flight, catering to travelers looking for seamless visa updates. You can contact them directly to learn more about the available options and book your visa change service.",
+  },
+  {
+    heading: "Does Travel Platform UAE offer holiday packages?",
+    content:
+      "Yes, Travel Platform offers a range of holiday packages that include guided tours to iconic landmarks and hidden gems. These packages are designed to offer a memorable travel experience with personalized itineraries.",
+  },
+  {
+    heading: "Can I book flights and buses through Travel Platform?",
+    content:
+      "Absolutely! Travel Platform provides updated availability for both flights and bus services, ensuring you have access to the best travel options for your journey.",
+  },
+  {
+    heading: "How can I get in touch with Travel Platform UAE?",
+    content:
+      "You can contact Travel Platform UAE via phone at +971 52 2345 572 or by email at info@travelplatformuae.com. Additionally, their office is located near Al Khail Gate, Al Qouz, Dubai, UAE.",
+  },
+];
+
+const structuredData = {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": faqs.map(faq => ({
+      "@type": "Question",
+      "name": faq.heading,
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": faq.content
+      }
+    }))
+}
+---  <!-- Schema.org structured data -->
+  <script type="application/ld+json" set:html={JSON.stringify(structuredData)} />
+
+<section class="pb-8 pt-4 bg-gradient-to-b from-white-50 to-white">
+  <div class="container mx-auto max-w-6xl px-4">
+    <div class="text-center mb-12">
+      <div class="inline-block p-2 px-4 bg-blue-50 rounded-full text-blue-700 font-medium text-sm mb-4">
+        Travel Support
+      </div>
+      <h2 class="text-4xl md:text-5xl font-bold mb-6 bg-gradient-to-r from-blue-700 to-amber-500 bg-clip-text text-transparent" style="line-height:1.2;">
+        Frequently Asked Questions
+      </h2>
+      <p class="text-lg text-gray-600 max-w-2xl mx-auto">
+        {subTitle}
+      </p>
+      <div class="w-24 h-1 bg-gradient-to-r from-blue-700 to-amber-500 mx-auto mt-6 rounded-full"></div>
+    </div>
+    
+    <div class="grid grid-cols-1 gap-6 max-w-4xl mx-auto">
+      <!-- FAQ Section -->
+      <div>
+        <div class="bg-white rounded-2xl shadow-xl overflow-hidden border border-gray-100">
+          {
+            faqs.map((question, i) => {
+              let id = makeId("faq-item-", i);
+              
+              return (
+                <div class={`faq-item ${i > 0 ? 'border-t border-gray-100' : ''}`} id={id}>
+                  <button
+                    class="faq-toggle w-full flex items-center justify-between p-6 group transition-all duration-300 hover:bg-blue-50 focus:outline-none"
+                  >
+                    <div class="flex items-center">
+                      <div class="w-10 h-10 rounded-full flex items-center justify-center bg-blue-50 text-blue-700 mr-4 group-hover:bg-blue-700 group-hover:text-white transition-colors duration-300">
+                        <span class="font-semibold">{i + 1}</span>
+                      </div>
+                      <span class="font-medium text-lg text-left text-gray-800 group-hover:text-blue-700">
+                        {question.heading}
+                      </span>
+                    </div>
+                    <span class="faq-icon ml-4 flex-shrink-0 w-8 h-8 flex items-center justify-center rounded-full bg-amber-100 text-amber-600 transition-all duration-300 group-hover:bg-amber-500 group-hover:text-white">
+                      <!-- Down arrow (default) -->
+                      <svg class="down-icon w-5 h-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <polyline points="6 9 12 15 18 9"></polyline>
+                      </svg>
+                      <svg class="up-icon w-5 h-5 hidden" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <polyline points="18 15 12 9 6 15"></polyline>
+                      </svg>
+                    </span>
+                  </button>
+                  <div class="faq-content hidden px-6 pb-6 pt-2 text-gray-600 bg-white">
+                    <div class="p-5 bg-blue-50 rounded-lg border-l-4 border-blue-700">
+                      <p class="leading-relaxed">{question.content}</p>
+                      <div class="mt-4 pt-4 border-t border-blue-100 flex items-center text-amber-600">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                        </svg>
+                        <span class="text-sm font-medium">Need more details? Contact us directly</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              );
+            })
+          }
+        </div>
+      </div>
+      
+      <div class="mt-8 text-center">
+        <p class="text-gray-500 mb-4">Still have questions?</p>
+        <a href="#contact" class="inline-flex items-center px-6 py-3 rounded-full bg-gradient-to-r from-blue-700 to-amber-500 text-white font-medium hover:shadow-lg transition-all duration-300">
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" viewBox="0 0 20 20" fill="currentColor">
+            <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-8-3a1 1 0 00-.867.5 1 1 0 11-1.731-1A3 3 0 0113 8a3.001 3.001 0 01-2 2.83V11a1 1 0 11-2 0v-1a1 1 0 011-1 1 1 0 100-2zm0 8a1 1 0 100-2 1 1 0 000 2z" clip-rule="evenodd" />
+          </svg>
+          Contact Our Support Team
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .faq-toggle:focus {
+    outline: none;
+  }
+  
+  .faq-item {
+    transition: all 0.3s ease;
+  }
+  
+  .faq-item.active {
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  }
+  
+  .faq-content {
+    transition: all 0.3s ease;
+  }
+  
+  @keyframes pulse {
+    0%, 100% {
+      opacity: 1;
+    }
+    50% {
+      opacity: 0.7;
+    }
+  }
+  
+  .bg-gradient-to-r {
+    background-size: 200% 200%;
+    animation: gradient 15s ease infinite;
+  }
+  
+  @keyframes gradient {
+    0% {
+      background-position: 0% 50%;
+    }
+    50% {
+      background-position: 100% 50%;
+    }
+    100% {
+      background-position: 0% 50%;
+    }
+  }
+</style>
+
+<script is:inline>
+  document.addEventListener('DOMContentLoaded', function() {
+    // FAQ accordion functionality for answers
+    const faqItems = document.querySelectorAll('.faq-item');
+    faqItems.forEach(function(item) {
+      const toggle = item.querySelector('.faq-toggle');
+      const content = item.querySelector('.faq-content');
+      const downIcon = toggle.querySelector('.down-icon');
+      const upIcon = toggle.querySelector('.up-icon');
+      
+      toggle.addEventListener('click', function() {
+        const isOpen = item.classList.contains('active');
+        
+        // Close all other FAQ items (only on desktop)
+        if (window.innerWidth >= 1024) {
+          faqItems.forEach(function(faqItem) {
+            if (faqItem !== item) {
+              faqItem.classList.remove('active');
+              const faqContent = faqItem.querySelector('.faq-content');
+              if (faqContent) {
+                faqContent.style.display = 'none';
+              }
+              
+              const itemDownIcon = faqItem.querySelector('.down-icon');
+              const itemUpIcon = faqItem.querySelector('.up-icon');
+              if (itemDownIcon && itemUpIcon) {
+                itemDownIcon.classList.remove('hidden');
+                itemUpIcon.classList.add('hidden');
+              }
+            }
+          });
+        }
+        
+        // Toggle the clicked FAQ item
+        item.classList.toggle('active');
+        if (content) {
+          content.style.display = item.classList.contains('active') ? 'block' : 'none';
+        }
+        
+        // Toggle icons
+        if (downIcon && upIcon) {
+          downIcon.classList.toggle('hidden', item.classList.contains('active'));
+          upIcon.classList.toggle('hidden', !item.classList.contains('active'));
+        }
+      });
+    });
+  });
+</script>

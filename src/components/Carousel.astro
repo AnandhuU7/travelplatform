@@ -43,24 +43,24 @@ import bannerPlane from '/src/assets/home_slider/bannerplane.svg';
     width: 100%;
     overflow: hidden;
   }
-
+  
   .carousel {
     display: flex;
     transition: transform 0.5s ease-in-out;
     height: 100%;
   }
-
+  
   .carousel-slide {
     min-width: 100%;
     height: 100%;
   }
-
+  
   .carousel-image {
     width: 100%;
     height: 100%;
     object-fit: contain;
   }
-
+  
   .navigation-dots {
     position: absolute;
     bottom: 20px;
@@ -69,7 +69,7 @@ import bannerPlane from '/src/assets/home_slider/bannerplane.svg';
     display: flex;
     gap: 10px;
   }
-
+  
   .nav-dot {
     width: 12px;
     height: 12px;
@@ -79,12 +79,12 @@ import bannerPlane from '/src/assets/home_slider/bannerplane.svg';
     cursor: pointer;
     transition: background-color 0.3s ease;
   }
-
+  
   .nav-dot:hover,
   .nav-dot.active {
     background-color: white;
   }
-
+  
   .airplane {
     position: absolute;
     top: 30%;
@@ -96,7 +96,7 @@ import bannerPlane from '/src/assets/home_slider/bannerplane.svg';
     width: 450px;
     height: 450px;
   }
-
+  
   @keyframes flyAcross {
     0% {
       left: -40px;
@@ -105,34 +105,35 @@ import bannerPlane from '/src/assets/home_slider/bannerplane.svg';
       left: calc(100% + 40px);
     }
   }
-
+  
   /* Media query for mobile view */
-  @media (max-width: 768px) {
+  /* Media query for mobile view */
+@media (max-width: 768px) {
+  .carousel-container {
+    height: 450px; /* Increased from 400px */
+    margin-bottom: 0;
+  }
+  
+  .carousel-image {
+    object-fit: contain;
+  }
+  
+  .airplane {
+    display: none;
+  }
+  
+  .nav-dot {
+    width: 10px;
+    height: 10px;
+  }
+  
+  /* Additional styles for very small screens */
+  @media (max-width: 480px) {
     .carousel-container {
-      height: 300px; /* Added fixed height for tablets */
-      margin-bottom: 0;
-    }
-
-    .carousel-image {
-      object-fit: contain;
-    }
-
-    .airplane {
-      display: none;
-    }
-
-    .nav-dot {
-      width: 10px;
-      height: 10px;
-    }
-
-    /* Additional styles for very small screens */
-    @media (max-width: 480px) {
-      .carousel-container {
-        height: 250px; /* Added fixed height for mobile phones */
-      }
+      height: 250px; /* Increased from 250px */
     }
   }
+}
 </style>
 
 <script>

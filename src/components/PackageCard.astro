@@ -19,7 +19,7 @@ interface Props {
 const { packageData } = Astro.props;
 const { title, description, cardImage, price, rating, reviewCount, location } = packageData.data;
 
-// Generate structured data for each package card
+
 const structuredData = {
   "@context": "https://schema.org",
   "@type": "TouristAttraction",
@@ -43,7 +43,7 @@ const structuredData = {
   "offers": {
     "@type": "Offer",
     "priceCurrency": "USD",
-    "price": price,
+    "price": packageData.data.price,
     "priceValidUntil": new Date(new Date().setFullYear(new Date().getFullYear() + 1)).toISOString().split('T')[0],
     "availability": "https://schema.org/InStock",
     "seller": {

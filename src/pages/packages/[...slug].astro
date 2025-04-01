@@ -17,7 +17,100 @@ type Props = CollectionEntry<"packages">;
 const packageData = Astro.props;
 const { Content } = await packageData.render();
 
-const structuredData = {}
+const structuredData = {
+  "@context": "https://schema.org",
+  "@type": "Tour",
+  "name": packageData.data.title,
+  "description": packageData.data.description,
+  "url": `https://travelplatformuae.com/packages/${packageData.slug}`,
+  "image": "https://travelplatformuae.com" + packageData.data.cardImage.src,
+  "offers": {
+    "@type": "Offer",
+    "priceCurrency": packageData.data.currency || "USD",
+    "price": packageData.data.price,
+    "priceValidUntil": new Date(new Date().setFullYear(new Date().getFullYear() + 1)).toISOString().split('T')[0],
+    "validFrom": packageData.data.publishedTime || new Date().toISOString().split('T')[0],
+    "availability": "https://schema.org/InStock",
+    "category": "TourPackage",
+    "seller": {
+      "@type": "Organization",
+      "name": "Travel Platform UAE",
+      "url": "https://travelplatformuae.com"
+    }
+  },
+  "itinerary": {
+    "@type": "ItemList",
+    "numberOfItems": packageData.data.itinerary?.length || 0,
+    "itemListElement": (packageData.data.itinerary || []).map((item, index) => ({
+      "@type": "ListItem",
+      "position": index + 1,
+      "item": {
+        "@type": "Place",
+        "name": item.split(":")[1]?.trim() || item,
+        "description": item
+      }
+    }))
+  },
+  "location": {
+    "@type": "Place",
+    "name": packageData.data.location,
+    "address": {
+      "@type": "PostalAddress",
+      "addressCountry": packageData.data.location === "Azerbaijan" ? "AZ" : 
+                       packageData.data.location === "UAE" ? "AE" : 
+                       packageData.data.location === "Uzbekistan" ? "UZ" : 
+                       packageData.data.location === "Kazakhstan" ? "KZ" : 
+                       packageData.data.location === "Turkey" ? "TR" : 
+                       "AE"
+    }
+  },
+  "duration": packageData.data.duration ? 
+    `P${packageData.data.duration.replace(/(\d+) Days? (\d+) Nights?/, "$1DT$2H")}` : 
+    "P5D4N",
+  "includes": packageData.data.inclusions,
+  "provider": {
+    "@type": "TravelAgency",
+    "name": "Travel Platform UAE",
+    "url": "https://travelplatformuae.com"
+  },
+  "aggregateRating": packageData.data.rating ? {
+    "@type": "AggregateRating",
+    "ratingValue": packageData.data.rating,
+    "reviewCount": packageData.data.reviewCount || 1,
+    "bestRating": 5,
+    "worstRating": 1
+  } : undefined,
+  "touristType": "International tourists",
+  "breadcrumb": {
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      {
+        "@type": "ListItem",
+        "position": 1,
+        "item": {
+          "@id": "https://travelplatformuae.com",
+          "name": "Home"
+        }
+      },
+      {
+        "@type": "ListItem",
+        "position": 2,
+        "item": {
+          "@id": "https://travelplatformuae.com/packages",
+          "name": "Packages"
+        }
+      },
+      {
+        "@type": "ListItem",
+        "position": 3,
+        "item": {
+          "@id": `https://travelplatformuae.com/packages/${packageData.slug}`,
+          "name": packageData.data.title
+        }
+      }
+    ]
+  }
+};
 ---
 
 <Layout title={packageData.data.title} description={packageData.data.description} structuredData={structuredData}>

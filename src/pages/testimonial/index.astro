@@ -1,10 +1,12 @@
 ---
-import { getCollection } from 'astro:content';
+import { getCollection } from "astro:content";
 import logo from "/src/assets/logo.png";
 import Layout from "../../layouts/Layout.astro";
 
-const title: string = "Traveler Stories | Travel Platform UAE - Real Experiences from Our Travelers";
-const description: string = "Read real testimonials from our happy travelers. Discover their experiences, stories, and feedback about their journeys with Travel Platform UAE.";
+const title: string =
+  "Traveler Stories | Travel Platform UAE - Real Experiences from Our Travelers";
+const description: string =
+  "Read real testimonials from our happy travelers. Discover their experiences, stories, and feedback about their journeys with Travel Platform UAE.";
 
 interface TestimonialData {
   title: string;
@@ -14,15 +16,77 @@ interface TestimonialData {
   designation: string;
   review: string;
   image: { src: string };
+  rating: number;
 }
 
-const testimonials = (await getCollection('testimonials')).map((t) => t.data as TestimonialData);
----
+const testimonials = (await getCollection("testimonials")).map(
+  (t) => t.data as TestimonialData,
+);
 
+
+const averageRating = testimonials.reduce((acc, t) => acc + t.rating, 0) / testimonials.length;
+
+const structuredData = {
+  "@context": "https://schema.org",
+  "@type": ["WebPage", "CollectionPage"],
+  "mainEntity": {
+    "@type": "ItemList",
+    "numberOfItems": testimonials.length,
+    "itemListElement": testimonials.map((testimonial, index) => ({
+      "@type": "ListItem",
+      "position": index + 1,
+      "item": {
+        "@type": "Review",
+        "itemReviewed": {
+          "@type": "TravelAgency",
+          "name": "Travel Platform UAE",
+          "url": "https://www.travelplatformuae.com",
+          "image": "https://www.travelplatformuae.com/logo.png"
+        },
+        "author": {
+          "@type": "Person",
+          "name": testimonial.name,
+          "image": testimonial.image.src
+        },
+        "reviewBody": testimonial.review,
+        "reviewRating": {
+          "@type": "Rating",
+          "ratingValue": testimonial.rating.toString(),
+          "bestRating": "5"
+        },
+        "datePublished": new Date().toISOString().split('T')[0],
+        "locationCreated": {
+          "@type": "Place",
+          "name": testimonial.location
+        }
+      }
+    }))
+  },
+  "aggregateRating": {
+    "@type": "AggregateRating",
+    "ratingValue": averageRating.toFixed(1),
+    "reviewCount": testimonials.length,
+    "bestRating": "5"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "Travel Platform UAE",
+    "logo": {
+      "@type": "ImageObject",
+      "url": logo.src,
+      "width": "300",
+      "height": "60"
+    }
+  }
+};
+---
+<script type="application/ld+json" set:html={JSON.stringify(structuredData)} />
 <section class="py-5 bg-gradient-to-b from-gray-50 to-white">
   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
     <div class="text-center mb-16">
-      <h2 class="text-4xl md:text-5xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
+      <h2
+        class="text-4xl md:text-5xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent"
+      >
         Traveler Stories
       </h2>
       <p class="mt-4 text-xl text-gray-600">Memories that last a lifetime</p>
@@ -30,54 +94,125 @@ const testimonials = (await getCollection('testimonials')).map((t) => t.data as 
     <div class="mt-12 relative">
       <div class="testimonial-slider overflow-hidden relative">
         <!-- Navigation Arrows - Only visible on mobile -->
-        <button class="nav-arrow prev-arrow md:hidden absolute left-2 top-1/2 -translate-y-1/2 z-10 bg-white/90 hover:bg-white rounded-full p-2 shadow-lg border border-gray-100">
-          <svg class="w-6 h-6 text-gray-800" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
+        <button
+          class="nav-arrow prev-arrow md:hidden absolute left-2 top-1/2 -translate-y-1/2 z-10 bg-white/90 hover:bg-white rounded-full p-2 shadow-lg border border-gray-100"
+        >
+          <svg
+            class="w-6 h-6 text-gray-800"
+            fill="none"
+            stroke="currentColor"
+            viewBox="0 0 24 24"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M15 19l-7-7 7-7"></path>
           </svg>
         </button>
-        <button class="nav-arrow next-arrow md:hidden absolute right-2 top-1/2 -translate-y-1/2 z-10 bg-white/90 hover:bg-white rounded-full p-2 shadow-lg border border-gray-100">
-          <svg class="w-6 h-6 text-gray-800" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+        <button
+          class="nav-arrow next-arrow md:hidden absolute right-2 top-1/2 -translate-y-1/2 z-10 bg-white/90 hover:bg-white rounded-full p-2 shadow-lg border border-gray-100"
+        >
+          <svg
+            class="w-6 h-6 text-gray-800"
+            fill="none"
+            stroke="currentColor"
+            viewBox="0 0 24 24"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M9 5l7 7-7 7"></path>
           </svg>
         </button>
         <div class="flex transition-transform duration-700 ease-out">
-          {[...Array(10)].reduce((acc) => acc.concat(testimonials), []).map((testimonial: TestimonialData) => (
-            <div class="min-w-full p-4 transform transition-all duration-300 hover:scale-105 md:min-w-[50%] lg:min-w-[33.333%]">
-              <div class="bg-white rounded-2xl shadow-xl p-8 h-full relative border border-gray-100 hover:border-blue-200">
-                <div class="absolute -top-4 right-8 bg-blue-600 text-white px-4 py-1 rounded-full text-sm">
-                  {testimonial.location}
-                </div>
-                <div class="flex items-center mb-6">
-                  <div class="relative">
-                    <img src={testimonial.image.src} alt={testimonial.name} class="w-16 h-16 rounded-full object-cover border-4 border-white shadow-lg" />
-                    <div class="absolute -bottom-2 -right-2 bg-green-500 rounded-full p-1.5 border-2 border-white">
-                      <svg class="w-3 h-3 text-white" fill="currentColor" viewBox="0 0 20 20">
-                        <path d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"/>
+          {
+            [...Array(10)]
+              .reduce((acc) => acc.concat(testimonials), [])
+              .map((testimonial: TestimonialData) => (
+                <div class="min-w-full p-4 transform transition-all duration-300 hover:scale-105 md:min-w-[50%] lg:min-w-[33.333%]">
+                  <div class="bg-white rounded-2xl shadow-xl p-8 h-full relative border border-gray-100 hover:border-blue-200">
+                    <div class="absolute -top-4 right-8 bg-blue-600 text-white px-4 py-1 rounded-full text-sm">
+                      {testimonial.location}
+                    </div>
+                    <div class="flex items-center mb-6">
+                      <div class="relative">
+                        <img
+                          src={testimonial.image.src}
+                          alt={testimonial.name}
+                          class="w-16 h-16 rounded-full object-cover border-4 border-white shadow-lg"
+                        />
+                        <div class="absolute -bottom-2 -right-2 bg-green-500 rounded-full p-1.5 border-2 border-white">
+                          <svg
+                            class="w-3 h-3 text-white"
+                            fill="currentColor"
+                            viewBox="0 0 20 20"
+                          >
+                            <path d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" />
+                          </svg>
+                        </div>
+                      </div>
+                      <div class="ml-4">
+                        <h3 class="font-bold text-gray-900">
+                          {testimonial.name}
+                        </h3>
+                        <p class="text-sm text-blue-600 font-medium">
+                          {testimonial.designation}
+                        </p>
+                      </div>
+                    </div>
+                    <p class="text-gray-700 leading-relaxed font-medium">
+                      {testimonial.review}
+                    </p>
+                    <div class="mt-6 flex items-center text-gray-500 text-sm">
+                      <svg
+                        class="w-4 h-4 mr-2"
+                        fill="currentColor"
+                        viewBox="0 0 20 20"
+                      >
+                        <path d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-12a1 1 0 10-2 0v4a1 1 0 00.293.707l2.828 2.829a1 1 0 101.415-1.415L11 9.586V6z" />
                       </svg>
+                      Verified Trip
+                    </div>
+                    <div class="mt-4 flex items-center">
+                      <div class="flex space-x-1">
+                        {[...Array(5)].map((_, i) => {
+                          const starValue = i + 1;
+                          const isFullStar = testimonial.rating >= starValue;
+                          const isHalfStar =
+                            testimonial.rating >= starValue - 0.5 &&
+                            testimonial.rating < starValue;
+
+                          return (
+                            <span
+                              class={`text-2xl ${isFullStar ? "text-yellow-500" : isHalfStar ? "text-gray-300 relative" : "text-gray-300"}`}
+                            >
+                              {isHalfStar ? (
+                                <span class="relative">
+                                  ★
+                                  <span
+                                    class="absolute top-0 left-0 overflow-hidden text-yellow-500"
+                                    style="width: 50%;"
+                                  >
+                                    ★
+                                  </span>
+                                </span>
+                              ) : (
+                                "★"
+                              )}
+                            </span>
+                          );
+                        })}
+                      </div>
+                      <span class="ml-2 text-gray-600">
+                        ({testimonial.rating}/5)
+                      </span>
                     </div>
                   </div>
-                  <div class="ml-4">
-                    <h3 class="font-bold text-gray-900">{testimonial.name}</h3>
-                    <p class="text-sm text-blue-600 font-medium">{testimonial.designation}</p>
-                  </div>
                 </div>
-                <p class="text-gray-700 leading-relaxed font-medium">{testimonial.review}</p>
-                <div class="mt-6 flex items-center text-gray-500 text-sm">
-                  <svg class="w-4 h-4 mr-2" fill="currentColor" viewBox="0 0 20 20">
-                    <path d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-12a1 1 0 10-2 0v4a1 1 0 00.293.707l2.828 2.829a1 1 0 101.415-1.415L11 9.586V6z"/>
-                  </svg>
-                  Verified Trip
-                </div>
-                <div class="mt-4 flex space-x-1">
-                  {[...Array(5)].map((_, index) => (
-                    <svg class={`w-5 h-5 ${['text-red-500', 'text-blue-500', 'text-green-500', 'text-yellow-500', 'text-violet-500'][index]}`} fill="currentColor" viewBox="0 0 20 20">
-                      <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
-                    </svg>
-                  ))}
-                </div>
-              </div>
-            </div>
-          ))}
+              ))
+          }
         </div>
       </div>
     </div>
@@ -85,24 +220,32 @@ const testimonials = (await getCollection('testimonials')).map((t) => t.data as 
 </section>
 
 <script>
-  document.addEventListener('DOMContentLoaded', () => {
-    const slider = document.querySelector('.testimonial-slider .flex') as HTMLElement;
-    const slides = document.querySelectorAll('.testimonial-slider .flex > div') as NodeListOf<HTMLElement>;
-    const prevButton = document.querySelector('.prev-arrow') as HTMLElement;
-    const nextButton = document.querySelector('.next-arrow') as HTMLElement;
+  document.addEventListener("DOMContentLoaded", () => {
+    const slider = document.querySelector(
+      ".testimonial-slider .flex",
+    ) as HTMLElement;
+    const slides = document.querySelectorAll(
+      ".testimonial-slider .flex > div",
+    ) as NodeListOf<HTMLElement>;
+    const prevButton = document.querySelector(".prev-arrow") as HTMLElement;
+    const nextButton = document.querySelector(".next-arrow") as HTMLElement;
 
     const getSlideWidth = () => {
       if (slider) {
         const parent = slider.parentElement;
         if (parent) {
           const containerWidth = parent.offsetWidth;
-          return window.innerWidth < 768 ? containerWidth : window.innerWidth < 1024 ? containerWidth / 2 : containerWidth / 3;
+          return window.innerWidth < 768
+            ? containerWidth
+            : window.innerWidth < 1024
+              ? containerWidth / 2
+              : containerWidth / 3;
         } else {
-          console.error('Slider parent is null');
+          console.error("Slider parent is null");
           return 0;
         }
       } else {
-        console.error('Slider is null');
+        console.error("Slider is null");
         return 0;
       }
     };
@@ -112,55 +255,58 @@ const testimonials = (await getCollection('testimonials')).map((t) => t.data as 
     let autoSlideInterval: NodeJS.Timeout;
 
     const moveToSlide = (index: number) => {
-  currentPosition = -index * slideWidth;
-  
-  // When reaching the end (last clone), smoothly transition to the first real slide
-  if (currentPosition <= -(slides.length * slideWidth) / 2) {
-    setTimeout(() => {
-      currentPosition = 0;
-      slider.style.transition = 'none';
+      currentPosition = -index * slideWidth;
+
+      // When reaching the end (last clone), smoothly transition to the first real slide
+      if (currentPosition <= -(slides.length * slideWidth) / 2) {
+        setTimeout(() => {
+          currentPosition = 0;
+          slider.style.transition = "none";
+          slider.style.transform = `translateX(${currentPosition}px)`;
+          // Force reflow
+          void slider.offsetWidth;
+          slider.style.transition = "transform 0.5s ease-in-out";
+        }, 500); // Wait for the current transition to complete
+        return;
+      }
+
+      // When going before the first slide, jump to the middle
+      if (currentPosition > 0) {
+        currentPosition = -(slides.length * slideWidth) / 2 + slideWidth;
+      }
+
       slider.style.transform = `translateX(${currentPosition}px)`;
-      // Force reflow
-      void slider.offsetWidth;
-      slider.style.transition = 'transform 0.5s ease-in-out';
-    }, 500); // Wait for the current transition to complete
-    return;
-  }
-  
-  // When going before the first slide, jump to the middle
-  if (currentPosition > 0) {
-    currentPosition = -(slides.length * slideWidth) / 2 + slideWidth;
-  }
-  
-  slider.style.transform = `translateX(${currentPosition}px)`;
-};
+    };
 
     const startAutoSlide = () => {
       stopAutoSlide();
-      autoSlideInterval = setInterval(() => moveToSlide(Math.floor(currentPosition / -slideWidth) + 1), 7000);
+      autoSlideInterval = setInterval(
+        () => moveToSlide(Math.floor(currentPosition / -slideWidth) + 1),
+        7000,
+      );
     };
 
     const stopAutoSlide = () => clearInterval(autoSlideInterval);
 
-    window.addEventListener('resize', () => {
+    window.addEventListener("resize", () => {
       slideWidth = getSlideWidth();
       moveToSlide(Math.floor(currentPosition / slideWidth));
     });
 
-    prevButton?.addEventListener('click', () => {
+    prevButton?.addEventListener("click", () => {
       moveToSlide(Math.floor(currentPosition / -slideWidth) - 1);
       stopAutoSlide();
       startAutoSlide();
     });
 
-    nextButton?.addEventListener('click', () => {
+    nextButton?.addEventListener("click", () => {
       moveToSlide(Math.floor(currentPosition / -slideWidth) + 1);
       stopAutoSlide();
       startAutoSlide();
     });
 
-    slider.addEventListener('mouseenter', stopAutoSlide);
-    slider.addEventListener('mouseleave', startAutoSlide);
+    slider.addEventListener("mouseenter", stopAutoSlide);
+    slider.addEventListener("mouseleave", startAutoSlide);
 
     startAutoSlide();
   });
@@ -185,8 +331,13 @@ const testimonials = (await getCollection('testimonials')).map((t) => t.data as 
     transform: translateY(-50%) scale(0.95);
   }
   @keyframes float {
-    0%, 100% { transform: translateY(0); }
-    50% { transform: translateY(-5px); }
+    0%,
+    100% {
+      transform: translateY(0);
+    }
+    50% {
+      transform: translateY(-5px);
+    }
   }
   .testimonial-slider div > div:hover {
     animation: float 3s ease-in-out infinite;

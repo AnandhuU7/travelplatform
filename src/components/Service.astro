@@ -27,7 +27,7 @@ const structuredData = {
   "offers": {
     "@type": "Offer",
     "priceCurrency": "USD",
-    "price": 100,
+    "price": serviceEntry.data.price,
     "priceValidUntil": new Date(new Date().setFullYear(new Date().getFullYear() + 1)).toISOString().split('T')[0],
     "availability": "https://schema.org/InStock",
     "seller": {
@@ -63,7 +63,7 @@ const structuredData = {
 
 };
 ---
-
+<script type="application/ld+json" set:html={JSON.stringify(structuredData)} />
 <div class="relative border border-gray-200 rounded-lg overflow-hidden shadow-md transition-transform duration-300 hover:-translate-y-1 bg-white">
   <!-- Image Section -->
   <Image
