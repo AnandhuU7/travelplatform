@@ -1,17 +1,41 @@
 ---
 import { Image } from 'astro:assets';
 
-import slide2 from '/src/assets/home_slider/slider-1.png';
-import slide3 from '/src/assets/home_slider/slider-3.jpeg';
-import slide4 from '/src/assets/home_slider/slider-1.png';
+import slide1 from '/src/assets/home_slider/slider-1.png';
+import slide2 from '/src/assets/home_slider/slider-3.jpeg';
+import slide3 from '/src/assets/home_slider/slider-1.png';
 import bannerPlane from '/src/assets/home_slider/bannerplane.svg';
+
+const structuredData = {
+  "@context": "https://schema.org",
+  "@type": "ItemList",
+  "itemListElement": [slide1, slide2, slide3].map((slide, index) => ({
+    "@type": "ListItem",
+    "position": index + 1,
+    "item": {
+      "@type": "ImageObject",
+      "contentUrl": "https://travelplatformuae.com" + slide.src,
+      "creditText": `Travel Platform UAE - Slide ${index + 1}`,
+      "creator": {
+        "@type": "Organization",
+        "name": "TravelPlatform UAE"
+      }
+    }
+  })),
+  "publisher": {
+    "@type": "Organization",
+    "name": "TravelPlatform UAE",
+    "url": "https://travelplatformuae.com"
+  },
+}
 ---
 
+<script type="application/ld+json" set:html={JSON.stringify(structuredData)} />
 <div class="carousel-container">
   <img src={bannerPlane.src} class="airplane" alt="Flying airplane" width="450" height="450" />
 
   <div class="carousel">
-    {[slide2,slide3,slide4].map((slide, index) => (
+    {[slide1,slide2,slide3].map((slide, index) => (
       <div class="carousel-slide" id={`slide${index}`}>
         <Image 
           src={slide} 

@@ -3,7 +3,7 @@ import { Image } from 'astro:assets';
 import image1 from '/src/assets/testi/testi-aero.svg';
 ---
 
-<div class="text-center mt-10 p-8 bg-[#F0F6FF] rounded-lg shadow-lg ">
+<div class="box1 text-center mt-10 p-8 bg-[#F0F6FF] rounded-lg shadow-lg ">
     <div class="relative ml-auto mb-12 ">
       <img src={image1.src} class="w-30 h-30 absolute -top-6 right-1/2 transform translate-x-1/2 animate-bounce" alt="Aeroplane" />
     </div>
@@ -11,18 +11,30 @@ import image1 from '/src/assets/testi/testi-aero.svg';
     <p class="mb-8 text-lg text-gray-700">
       Stay Informed, Stay Connected: Subscribe to Our Newsletter!
     </p>
-    <form class="flex justify-center items-center space-x-4">
+    <form class="flex justify-center items-center space-x-4" action="https://api.web3forms.com/submit" method="POST" id="form" data-astro-reload novalidate>
+      <!-- Add your Web3Forms Access Key -->
+      <input type="hidden" name="access_key" value="d2d93126-8d49-4288-ab18-0b9e0df49db9" />
+      <input type="checkbox" class="hidden" style="display:none" name="botcheck" />
+      
       <input 
         type="email" 
         placeholder="Enter your email" 
+        name="email"
+        required
         class="p-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
       />
+      <div class="empty-feedback invalid-feedback text-red-400 text-sm mt-1">
+        Please provide a valid email address.
+      </div>
+      
       <button 
         type="submit" 
         class="p-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition duration-300"
       >
-        <a href="/subscribe" class="text-white">Join Us</a>
+        Join Us
       </button>
+      
+      <div id="result" class="mt-3 text-center"></div>
     </form>
   </div>
   
@@ -39,4 +51,81 @@ import image1 from '/src/assets/testi/testi-aero.svg';
   .animate-bounce {
     animation: bounce 2s infinite;
   }
+
+  .invalid-feedback,
+  .empty-feedback {
+    display: none;
+  }
+
+  .was-validated :placeholder-shown:invalid ~ .empty-feedback {
+    display: block;
+  }
+
+  .was-validated :not(:placeholder-shown):invalid ~ .invalid-feedback {
+    display: block;
+  }
+
+  .is-invalid,
+  .was-validated :invalid {
+    border-color: #dc3545;
+  }
+
+  @media only screen and (min-width: 768px) and (max-width: 1024px),
+         only screen and (min-width: 834px) and (max-width: 1194px) {
+    .box1 {
+      margin-left: 1rem;
+    }
+  }
   </style>
+
+<script is:inline>
+  document.addEventListener("DOMContentLoaded", () => {
+    const form = document.getElementById("form");
+    const result = document.getElementById("result");
+
+    form.addEventListener("submit", function (e) {
+      e.preventDefault();
+      form.classList.add("was-validated");
+      if (!form.checkValidity()) {
+        form.querySelectorAll(":invalid")[0].focus();
+        return;
+      }
+      const formData = new FormData(form);
+      const object = Object.fromEntries(formData);
+      const json = JSON.stringify(object);
+
+      result.innerHTML = "Sending...";
+
+      fetch("https://api.web3forms.com/submit", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json",
+        },
+        body: json,
+      })
+        .then(async (response) => {
+          let json = await response.json();
+          if (response.status == 200) {
+            result.classList.add("text-green-500");
+            result.innerHTML = json.message;
+          } else {
+            console.log(response);
+            result.classList.add("text-red-500");
+            result.innerHTML = json.message;
+          }
+        })
+        .catch((error) => {
+          console.log(error);
+          result.innerHTML = "Something went wrong!";
+        })
+        .then(function () {
+          form.reset();
+          form.classList.remove("was-validated");
+          setTimeout(() => {
+            result.style.display = "none";
+          }, 5000);
+        });
+    });
+  }, { once: true });
+</script>

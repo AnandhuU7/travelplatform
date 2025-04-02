@@ -11,81 +11,84 @@ const servicesData = [
   {
     image: image1,
     text: "B2B Booking Solutions for Travel Agencies and Corporate Entities",
-    route: "#",
+    route: "/services/post-11",
   },
   {
     image: image2,
     text: "Global Visa Platform",
-    route: "/services/post-1/",
+    route: "/services/post-1",
   },
   {
     image: image3,
     text: "Umrah Assistance: 10 days Package By Road",
-    route: "/services/post-5/",
+    route: "/services/post-5",
   },
   {
     image: image4,
     text: "Visa Change by Flight",
-    route: "/services/post-2/",
+    route: "/services/post-2",
   },
   {
     image: image5,
     text: "Family Visa",
-    route: "/services/post-12/",
+    route: "/services/post-12",
   },
   {
     image: image6,
     text: "Golden Visa Assistance",
-    route: "/services/post-8/",
+    route: "/services/post-8",
   }
 ];
 ---
 
-<div class="text-center p-0 md:p-8">
-  <h2 class="text-4xl font-bold mb-4 mt-10 md:mt-0 text-center bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">Our Services</h2>
-  <p class="mb-8 text-[#666666] px-4 md:px-0 text-sm md:text-base leading-relaxed">
-    As one of the top travel agencies in Dubai, we specialize in luxury travel experiences, visa assistance, hotel bookings,<br class="hidden md:block">and exciting adventure tours with local tour operators. Our goal is to make sure your journey is smooth and truly unforgettable.
+<div class="text-center p-0 md:p-8">   
+  <h2 class="text-4xl font-bold mb-4 mt-10 md:mt-0 text-center bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">Our Services</h2>   
+  <p class="mb-8 text-[#666666] px-4 md:px-0 text-sm md:text-base leading-relaxed" style="font-family: 'Poppins', sans-serif;">     
+    As one of the top travel agencies in Dubai, we specialize in luxury travel experiences, visa assistance, hotel bookings,<br class="hidden md:block">and exciting adventure tours with local tour operators. Our goal is to make sure your journey is smooth and truly unforgettable.   
   </p>  
-  <div class="grid grid-cols-1 md:grid-cols-3 gap-0 md:gap-8 px-0 md:px-8">
-    {servicesData.map((service, index) => (
-      <Fragment key={index}>
-        <div class="relative border border-gray-200 rounded-lg overflow-hidden shadow-md transition-transform duration-300 hover:-translate-y-1 bg-white p-4 text-center flex flex-col justify-between w-full">
-          <img
-            src={service.image.src}
-            alt={`Service ${index + 1}`}
-            class="w-full h-48 object-cover rounded-lg mb-4"
-          />
-          <p class="mb-4 font-bold text-gray-600">{service.text}</p>
-          <a
-            href={service.route}
-            class="bg-white text-yellow-500 py-2.5 px-2 text-sm rounded-full hover:bg-yellow-400 border-2 border-yellow-500 hover:text-white flex items-center justify-center w-32 mx-auto"
-          >
-            View Details
-            <svg
-              class="ml-2 w-4 h-4"
-              fill="none"
-              stroke="currentColor"
-              viewBox="0 0 24 24"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                stroke-width="2"
-                d="M9 5l7 7-7 7"
-              />
-            </svg>
-          </a>
-        </div>
-      </Fragment>
-    ))}
-  </div>
-  <div class="mt-10 mb-6 md:mb-2">
-    <a
-      href="/services"
-      class="bg-blue-500 text-white py-4 px-8 rounded-full hover:bg-blue-700"
-    >
-      View More
-    </a>
-  </div>
+   
+  <!-- Changed gap-0 to gap-6 for mobile view, added px-4 for better spacing -->
+  <div class="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8 px-4 md:px-8">     
+    {servicesData.map((service, index) => (       
+      <Fragment key={index}>         
+        <div class="relative border border-gray-200 rounded-lg overflow-hidden shadow-md transition-transform duration-300 hover:-translate-y-1 bg-white p-4 text-center flex flex-col justify-between w-full mb-2 md:mb-0">           
+          <img             
+            src={service.image.src}             
+            alt={`Service ${index + 1}`}             
+            class="w-full h-48 object-cover rounded-lg mb-4"           
+          />           
+          <p class="mb-4 font-bold text-gray-600">{service.text}</p>           
+          <a             
+            href={service.route}             
+            class="bg-white text-yellow-500 py-2.5 px-2 text-sm rounded-full hover:bg-yellow-400 border-2 border-yellow-500 hover:text-white flex items-center justify-center w-32 mx-auto"           
+          >             
+            View Details             
+            <svg               
+              class="ml-2 w-4 h-4"               
+              fill="none"               
+              stroke="currentColor"               
+              viewBox="0 0 24 24"               
+              xmlns="http://www.w3.org/2000/svg"             
+            >               
+              <path                 
+                stroke-linecap="round"                 
+                stroke-linejoin="round"                 
+                stroke-width="2"                 
+                d="M9 5l7 7-7 7"               
+              />             
+            </svg>           
+          </a>         
+        </div>       
+      </Fragment>     
+    ))}   
+  </div>   
+  
+  <div class="mt-10 mb-6 md:mb-2">     
+    <a       
+      href="/services"       
+      class="bg-blue-500 text-white py-4 px-8 rounded-full hover:bg-blue-700"     
+    >       
+      View More     
+    </a>   
+  </div> 
 </div>

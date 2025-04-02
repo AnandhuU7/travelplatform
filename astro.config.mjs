@@ -3,6 +3,7 @@ import tailwind from '@astrojs/tailwind';
 import mdx from '@astrojs/mdx';
 import robotsTxt from 'astro-robots-txt';
 import sitemap from "@astrojs/sitemap";
+import react from '@astrojs/react';
 
 export default defineConfig({
   site: 'https://travelplatformuae.com',
@@ -19,5 +20,6 @@ export default defineConfig({
       remarkRehype: { footnoteLabel: 'Footnotes' },
       gfm: false,
     }),
+    react(),
   ],
 });

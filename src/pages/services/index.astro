@@ -61,7 +61,7 @@ const structuredData = {
     "name": "Travel Platform UAE",
     "logo": {
       "@type": "ImageObject",
-      "url": "https://travelplatformuae.com/logo.svg",
+      "url": "https://travelplatformuae.com/logo.png",
       "width": "300",
       "height": "60"
     }
@@ -92,17 +92,17 @@ const structuredData = {
 
 <Layout title={title} description={description} structuredData={structuredData}>
   <!-- Hero Section -->
-  <div class="relative h-[45vh] sm:h-[45vh] md:h-[60vh] bg-gradient-to-r from-blue-900 via-purple-900 to-blue-900 overflow-hidden">
+  <div class="relative h-[35vh] sm:h-[45vh] md:h-[60vh] lg:h-[60vh] bg-gradient-to-r from-blue-900 via-purple-900 to-blue-900 overflow-hidden hero-banner">
     <div class="absolute inset-0 transform-gpu" style="transform: translateY(var(--scrollY))">
       <div class="absolute inset-0 bg-gradient-to-b from-transparent to-black/70"></div>
-      <img class="w-full h-full object-cover opacity-40 scale-110" src={banner.src} alt="Services Hero" />
+      <img class="w-full h-full object-cover opacity-40 scale-110" src={banner.src} alt="Packages" />
     </div>
-    <div class="relative h-full flex items-center justify-center">
-      <div class="text-center space-y-6 px-4 sm:px-6 lg:px-8">
-        <h1 class="text-3xl sm:text-5xl md:text-7xl font-black text-white tracking-tight animate-fade-in">
+    <div class="relative h-full flex items-center justify-center py-12">
+      <div class="text-center space-y-4 px-4 sm:px-6 lg:px-8">
+        <h1 class="text-4xl sm:text-5xl md:text-7xl font-black text-white tracking-tight animate-fade-in pt-8 sm:pt-0">
           Our <span class="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-purple-400">Services</span>
         </h1>
-        <p class="text-lg sm:text-xl md:text-2xl text-gray-200 max-w-3xl mx-auto animate-fade-in-up">
+        <p class="text-xl sm:text-xl md:text-2xl text-gray-200 max-w-3xl mx-auto animate-fade-in-up">
           Explore a wide range of travel services designed for your perfect trip.
         </p>
       </div>
@@ -136,3 +136,11 @@ const structuredData = {
     </div>
   </div>
 </Layout>
+<style>
+  @media only screen and (min-width: 768px) and (max-width: 1024px),
+         only screen and (min-width: 834px) and (max-width: 1194px) {
+    .hero-banner {
+      height: 35vh !important;
+    }
+  }
+</style>

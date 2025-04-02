@@ -1,12 +1,49 @@
 ---
 import { Image } from 'astro:assets';
 import image1 from '/src/assets/serviceimg/service30.jpg';
-import '@fontsource/poppins/300.css';
-import '@fontsource/poppins/400.css';
-import '@fontsource/poppins/600.css';
-import '@fontsource/poppins/700.css';
+
+const structuredData = {
+  "@context": "https://schema.org",
+  "@type": "WebPage",
+  "name": "Travel Platform UAE",
+  "description": "Nestled in the lively city of Dubai, Travel Platform stands out as one of the premier travel and tourism companies in the area, dedicated to crafting seamless and exceptional travel experiences that cater to our clients' unique needs.",
+  "image": {
+    "@type": "ImageObject",
+    "url": "https://travelplatformuae.com/src/assets/serviceimg/service30.jpg",
+    "width": "800",
+    "height": "500",
+    "caption": "Travel Platform Showcase"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "Travel Platform",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://travelplatformuae.com/logo.png",
+      "width": "200",
+      "height": "60"
+    },
+   "sameAs": [ 
+      "https://www.facebook.com/travellplatformuae",
+      "https://www.instagram.com/travelplatformuae/"
+    ]
+  },
+  "breadcrumb": {
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      {
+        "@type": "ListItem",
+        "position": 1,
+        "name": "Home",
+        "item": "https://travelplatformuae.com" 
+      }
+    ]
+  }
+}
+
 ---
 
+<script type="application/ld+json" set:html={JSON.stringify(structuredData)} />
 <header class="relative overflow-hidden bg-gradient-to-b from-white to-gray-50">
   <div class="container mx-auto px-4 py-4 lg:py-10 sm:px-6 lg:px-8">
     <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center">
@@ -51,10 +88,16 @@ import '@fontsource/poppins/700.css';
 
         <!-- Description -->
         <div class="bg-white/80 backdrop-blur-sm rounded-2xl p-2 shadow-sm">
-          <p class="text-justify text-gray-700 leading-relaxed text-sm sm:text-base" style="font-family: 'Poppins', sans-serif;">
+          <!-- Visible only on larger desktops -->
+          <p class="hidden xl:block text-justify text-gray-700 leading-relaxed text-sm sm:text-base" style="font-family: 'Poppins', sans-serif;">
             Nestled in the lively city of Dubai, Travel Platform stands out as one of the premier travel and tourism companies in the area, dedicated to crafting seamless and exceptional travel experiences that cater to our clients' unique needs. Our reputation as a reliable name in Dubai's tourism scene is built on our unwavering customer support and the passion of our dedicated team, making us a top choice for both vacationers and business travelers. Proudly ranked among the top 10 travel agencies in Dubai, we focus on delivering personalized services, from exciting excursions with local tour operators to luxurious, curated experiences that ensure every journey is truly unforgettable. With a host of accolades and a steadfast commitment to excellence, Travel Platform remains the leading tour company in Dubai, continually raising the bar for travel services and customer satisfaction.
-          </p>          
-        </div>
+          </p>
+          
+          <!-- Visible on medium screens, tablets, and iPad Pro -->
+          <p class="block xl:hidden text-justify text-gray-700 leading-relaxed text-sm sm:text-base" style="font-family: 'Poppins', sans-serif;">
+            Nestled in the lively city of Dubai, Travel Platform is a premier travel and tourism company dedicated to crafting seamless and exceptional experiences tailored to our clients' unique needs. Ranked among the top 10 travel agencies in Dubai, we offer personalized services, from exciting excursions with local tour operators to luxurious, curated experiences. Our strong reputation is built on unwavering customer support and the passion of our dedicated team, making us a top choice for vacationers and business travelers. With numerous accolades and a steadfast commitment to excellence, Travel Platform continues to raise the bar for travel services and customer satisfaction.
+          </p>
+        </div>       
       </div>
     </div>
   </div>

@@ -1,95 +1,127 @@
+--- 
+import { Image } from 'astro:assets'; 
+import image1 from '/src/assets/packageimg/packages1.jpg'; 
+import image2 from '/src/assets/packageimg/Umrah.jpeg'; 
+import image3 from '/src/assets/packageimg/Dubai.jpeg';   
+
+const packagesData = [   
+  {     
+    image: image1,     
+    title: "Holiday's packages in Azerbaijan with your loved ones",     
+    description: "Valentine Special combos for Couples.",     
+    price: "Starting from per person",     
+    route: "/packages/package-11"    
+  },   
+  {     
+    image: image2,     
+    title: "Umrah packages",     
+    description: "Umrah 2025: Everything You Need to Know",     
+    price: "Starting from per person",     
+    route: "/packages/package-12"    
+  },   
+  {     
+    image: image3,     
+    title: "Holiday's packages in dubai",     
+    description: "Explore the hidden gems of the city.",     
+    price: "Starting from per person",     
+    route: "/packages/package-13"   
+  } 
+]; 
+
+const structuredData = {
+  "@context": "https://schema.org",
+  "@type": "ItemList",
+  "itemListElement": packagesData.map((pkg, index) => ({
+    "@type": "ListItem",
+    "position": index + 1,
+    "item": {
+      "@type": "TouristTrip",
+      "name": pkg.title,
+      "description": pkg.description,
+      "offers": {
+        "@type": "Offer",
+        "priceSpecification": {
+          "@type": "UnitPriceSpecification",
+          "price": pkg.price
+        }
+      },
+      "image": {
+        "@type": "ImageObject",
+        "url": pkg.image.src,
+        "width": "800",
+        "height": "600",
+        "caption": pkg.title
+      },
+      "url": pkg.route
+    }
+  }))
+};
 ---
-import { Image } from 'astro:assets';
-import image1 from '/src/assets/ourpackage/packages1.jpg';
-import image2 from '/src/assets/serviceimgnew/Umrah.jpeg';
-import image3 from '/src/assets/serviceimgnew/Dubai.jpeg';
 
-
-const packagesData = [
-  {
-    image: image1,
-    title: "Holiday's packages in Azerbaijan with your loved ones",
-    description: "Valentine Special combos for Couples.",
-    price: "Starting from per person",
-    route: "/packages/package-11" 
-  },
-  {
-    image: image2,
-    title: "Umrah packages",
-    description: "Umrah 2025: Everything You Need to Know",
-    price: "Starting from per person",
-    route: "#" 
-  },
-  {
-    image: image3,
-    title: "Holiday's packages in dubai",
-    description: "Explore the hidden gems of the city.",
-    price: "Starting from per person",
-    route: "#"
-  }
-];
----
-
-<div class="text-center p-0 md:p-4">
-  <h2 class="text-3xl md:text-4xl font-bold mb-4 text-center mt-12 md:mt-0 bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent p-2">Our Packages</h2>
-  <p class="mb-8 text-[#666666] px-4 md:px-0 text-sm md:text-base leading-relaxed">
-    As one of the leading travel companies in Dubai, we offer exclusive packages with top tour operators, helping you explore hidden gems,<br class="hidden md:block"> iconic landmarks, and thrilling adventures for truly unforgettable experiences.
-  </p>
-  <div class="grid grid-cols-1 md:grid-cols-3 gap-0 md:gap-8 px-0 md:px-8">
-    {packagesData.map((pkg, index) => (
-      <Fragment key={index}>
-        <div class="relative border border-gray-200 rounded-lg overflow-hidden shadow-md transition-transform duration-300 hover:-translate-y-1 bg-white p-4 text-center flex flex-col justify-between w-full">
-          <div class="absolute top-0 left-0">
-            <div class="bg-gradient-to-r from-yellow-400 to-yellow-600 text-white text-xs font-bold px-3 py-1 rounded-br-lg">
-              Limited Time Offer!
-            </div>
-          </div>
-          <img
-            src={pkg.image.src}
-            alt={`Package ${index + 1}`}
-            class="w-full h-48 object-cover rounded-lg mb-4"
-          />
-          <div class="flex flex-col flex-grow">
-            <h3 class="mb-4 font-bold text-gray-600">{pkg.title}</h3>
-            <p class="mb-4 text-gray-600">{pkg.description}</p>
-          </div>
-          <div class="mt-auto">
-            <a
-              href={pkg.route}
-              class="bg-white text-yellow-500 py-2.5 px-2 text-sm rounded-full hover:bg-yellow-400 border-2 border-yellow-500 hover:text-white flex items-center justify-center w-32 mx-auto"
-            >
-              Book Now
-              <svg
-                class="ml-2 w-4 h-4"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  stroke-width="2"
-                  d="M9 5l7 7-7 7"
-                />
-              </svg>
-            </a>
-          </div>
-          <div class="absolute bottom-0 right-0">
-            <div class="bg-blue-600 text-white text-xs px-3 py-1 rounded-tl-lg">
-              {pkg.price}
-            </div>
-          </div>
-        </div>
-      </Fragment>
-    ))}
-  </div>
-  <div class="mt-10 mb-6 md:mb-2">
-    <a
-      href="/packages"
-      class="bg-blue-500 text-white py-4 px-8 rounded-full hover:bg-blue-700"
-    >
-      View More
-    </a>
-  </div>
+<script type="application/ld+json" set:html={JSON.stringify(structuredData)} />
+<div class="text-center p-0 md:p-4">   
+  <h2 class="text-3xl md:text-4xl font-bold mb-4 text-center mt-12 md:mt-0 bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent p-2">Our Packages</h2>   
+  <p class="mb-8 text-[#666666] px-4 md:px-0 text-sm md:text-base leading-relaxed" style="font-family: 'Poppins', sans-serif;">     
+    As one of the leading travel companies in Dubai, we offer exclusive packages with top tour operators, helping you explore hidden gems,<br class="hidden md:block"> iconic landmarks, and thrilling adventures for truly unforgettable experiences.   
+  </p>   
+  
+  <!-- Changed gap-0 to gap-6 for mobile view -->
+  <div class="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8 px-4 md:px-8">     
+    {packagesData.map((pkg, index) => (       
+      <Fragment key={index}>         
+        <div class="relative border border-gray-200 rounded-lg overflow-hidden shadow-md transition-transform duration-300 hover:-translate-y-1 bg-white p-4 text-center flex flex-col justify-between w-full mb-2 md:mb-0">           
+          <div class="absolute top-0 left-0">             
+            <div class="bg-gradient-to-r from-yellow-400 to-yellow-600 text-white text-xs font-bold px-3 py-1 rounded-br-lg">               
+              Limited Time Offer!             
+            </div>           
+          </div>           
+          <img             
+            src={pkg.image.src}             
+            alt={`Package ${index + 1}`}             
+            class="w-full h-48 object-cover rounded-lg mb-4"           
+          />           
+          <div class="flex flex-col flex-grow">             
+            <h3 class="mb-4 font-bold text-gray-600">{pkg.title}</h3>             
+            <p class="mb-4 text-gray-600">{pkg.description}</p>           
+          </div>           
+          <div class="mt-auto">             
+            <a               
+              href={pkg.route}               
+              class="bg-white text-yellow-500 py-2.5 px-2 text-sm rounded-full hover:bg-yellow-400 border-2 border-yellow-500 hover:text-white flex items-center justify-center w-32 mx-auto"             
+            >               
+              Book Now               
+              <svg                 
+                class="ml-2 w-4 h-4"                 
+                fill="none"                 
+                stroke="currentColor"                 
+                viewBox="0 0 24 24"                 
+                xmlns="http://www.w3.org/2000/svg"               
+              >                 
+                <path                   
+                  stroke-linecap="round"                   
+                  stroke-linejoin="round"                   
+                  stroke-width="2"                   
+                  d="M9 5l7 7-7 7"                 
+                />               
+              </svg>             
+            </a>           
+          </div>           
+          <div class="absolute bottom-0 right-0">             
+            <div class="bg-blue-600 text-white text-xs px-3 py-1 rounded-tl-lg">               
+              {pkg.price}             
+            </div>           
+          </div>         
+        </div>       
+      </Fragment>     
+    ))}   
+  </div>   
+  
+  <div class="mt-10 mb-6 md:mb-2">     
+    <a       
+      href="/packages"       
+      class="bg-blue-500 text-white py-4 px-8 rounded-full hover:bg-blue-700"     
+    >       
+      View More     
+    </a>   
+  </div> 
 </div>
