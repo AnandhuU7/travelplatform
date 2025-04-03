@@ -39,8 +39,46 @@ const servicesData = [
     route: "/services/post-8",
   }
 ];
----
+const structuredData = {
+  "@context": "https://schema.org",
+  "@type": "ItemList",
+  "itemListElement": servicesData.map((service, index) => ({
+    "@type": "ListItem",
+    "position": index + 1,
+    "item": {
+      "@type": "Service",
+      "name": service.text,
+      "description": `Professional ${service.text} services by Travel Platform UAE`,
+      "url": `https://travelplatformuae.com${service.route}`,
+      "image": {
+        "@type": "ImageObject",
+        "url": `https://travelplatformuae.com${service.image.src}`,
+        "width": 800,
+        "height": 600,
+        "caption": service.text
+      },
+      "serviceType": service.text.includes("Visa") ? "Global Visa Platform" : 
+                    service.text.includes("Family") ? "Family Visa" :
+                    service.text.includes("Golden") ? "Golden Visa Assistance" :
+                    service.text.includes("Umrah") ? "Umrah Assistance: 10 days Package By Road" : 
+                    service.text.includes("B2B") ? "B2B Booking Solutions for Travel Agencies and Corporate Entities" :
+                    service.text.includes("Flight") ? "Visa Change by Flight" :
+                    "Travel Services"
+    }
+  })),
+  "provider": {
+        "@type": "Organization",
+        "name": "Travel Platform UAE",
+        "url": "https://travelplatformuae.com"
+      }
+};
 
+
+
+
+
+---
+<script type="application/ld+json" set:html={JSON.stringify(structuredData)} />
 <div class="text-center p-0 md:p-8">   
   <h2 class="text-4xl font-bold mb-4 mt-10 md:mt-0 text-center bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">Our Services</h2>   
   <p class="mb-8 text-[#666666] px-4 md:px-0 text-sm md:text-base leading-relaxed" style="font-family: 'Poppins', sans-serif;">     

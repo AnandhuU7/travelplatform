@@ -2,108 +2,136 @@
 import Layout from "../layouts/Layout.astro";
 import logo from "/src/assets/logo.png";
 import banner from "/src/assets/about/about1.png";
-const title: string = "Contact Us | Travel Platform UAE - Get in Touch for Travel Inquiries & Support";
-const description: string = "Reach out to Travel Platform UAE for all your travel inquiries, assistance, and support. Contact us via email, phone, or visit our office in Dubai. We’re here to help you plan your next adventure!";
+const title: string =
+  "Contact Us | Travel Platform UAE - Get in Touch for Travel Inquiries & Support";
+const description: string =
+  "Reach out to Travel Platform UAE for all your travel inquiries, assistance, and support. Contact us via email, phone, or visit our office in Dubai. We're here to help you plan your next adventure!";
 
-// Structured Data for Contact Us Page
 const structuredData = {
   "@context": "https://schema.org",
   "@type": "ContactPage",
-  "headline": "Contact Us | Travel Platform UAE - Get in Touch for Travel Inquiries & Support",
-  "description": "Reach out to Travel Platform UAE for all your travel inquiries, assistance, and support. Contact us via email, phone, or visit our office in Dubai.",
-  "url": "https://www.travelplatformuae.com/contact-us",
-  "mainEntity": {
+  headline:
+    "Contact Us | Travel Platform UAE - Get in Touch for Travel Inquiries & Support",
+  description:
+    "Reach out to Travel Platform UAE for all your travel inquiries, assistance, and support. Contact us via email, phone, or visit our office in Dubai.",
+  url: "https://www.travelplatformuae.com/contact-us",
+  mainEntity: {
     "@type": "Organization",
     "@id": "https://www.travelplatformuae.com/#organization",
-    "name": "Travel Platform UAE",
-    "url": "https://www.travelplatformuae.com",
-    "logo": {
+    name: "Travel Platform UAE",
+    url: "https://www.travelplatformuae.com",
+    logo: {
       "@type": "ImageObject",
-      "url": "https://www.travelplatformuae.com/logo.png",
-      "width": "300",
-      "height": "60"
+      url: "https://www.travelplatformuae.com/logo.png",
+      width: "300",
+      height: "60",
     },
-    "address": {
+    address: {
       "@type": "PostalAddress",
-      "streetAddress": "Al Muhaisnah 2",
-      "addressLocality": "Dubai",
-      "addressRegion": "UAE",
-      "postalCode": "232424",
-      "addressCountry": "UAE"
+      streetAddress: "Al Muhaisnah 2",
+      addressLocality: "Dubai",
+      addressRegion: "UAE",
+      postalCode: "232424",
+      addressCountry: "UAE",
     },
-    "contactPoint": [
+    contactPoint: [
       {
         "@type": "ContactPoint",
-        "telephone": "+971522345572",
-        "contactType": "customer service",
-        "email": "info@travelplatformuae.com",
-        "areaServed": "UAE",
-        "availableLanguage": ["English"],
-        "contactOption": "TollFree"
+        telephone: "+971522345572",
+        contactType: "customer service",
+        email: "info@travelplatformuae.com",
+        areaServed: "UAE",
+        availableLanguage: ["English"],
+        contactOption: "TollFree",
       },
       {
         "@type": "ContactPoint",
-        "telephone": "+971551328009",
-        "contactType": "customer service",
-        "contactOption": "HearingImpairedSupported"
-      }
+        telephone: "+971551328009",
+        contactType: "customer service",
+        contactOption: "HearingImpairedSupported",
+      },
     ],
-    "openingHoursSpecification": {
+    openingHoursSpecification: {
       "@type": "OpeningHoursSpecification",
-      "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"],
-      "opens": "09:00",
-      "closes": "21:00"
+      dayOfWeek: [
+        "Monday",
+        "Tuesday",
+        "Wednesday",
+        "Thursday",
+        "Friday",
+        "Saturday",
+      ],
+      opens: "09:00",
+      closes: "21:00",
     },
-    "sameAs": [ // Add social media links
+    sameAs: [
       "https://www.facebook.com/travellplatformuae",
-      "https://www.instagram.com/travelplatformuae/"
-    ]
+      "https://www.instagram.com/travelplatformuae/",
+    ],
   },
-  "breadcrumb": {
+  breadcrumb: {
     "@type": "BreadcrumbList",
-    "itemListElement": [
+    itemListElement: [
       {
         "@type": "ListItem",
-        "position": 1,
-        "item": {
+        position: 1,
+        item: {
           "@id": "https://www.travelplatformuae.com",
-          "name": "Home"
-        }
+          name: "Home",
+        },
       },
       {
         "@type": "ListItem",
-        "position": 2,
-        "item": {
+        position: 2,
+        item: {
           "@id": "https://www.travelplatformuae.com/contact-us",
-          "name": "Contact Us"
-        }
-      }
-    ]
+          name: "Contact Us",
+        },
+      },
+    ],
   },
-  "potentialAction": { 
-    "@type": "ContactPoint",
-    "url": "https://www.travelplatformuae.com/contact-us",
-    "contactType": "customer support"
-  }
 };
 ---
-<Layout title={title} description={description} structuredData={structuredData} >
-  <div class="relative h-[40vh] sm:h-[45vh] md:h-[60vh] lg:h-[60vh] bg-gradient-to-r from-blue-900 via-purple-900 to-blue-900 overflow-hidden hero-banner">
-    <div class="absolute inset-0 transform-gpu" style="transform: translateY(var(--scrollY))">
-      <div class="absolute inset-0 bg-gradient-to-b from-transparent to-black/70"></div>
-      <img class="w-full h-full object-cover opacity-40 scale-110" src={banner.src} alt="Packages" />
+
+<Layout title={title} description={description} structuredData={structuredData}>
+  <div
+    class="relative h-[40vh] sm:h-[45vh] md:h-[60vh] lg:h-[60vh] bg-gradient-to-r from-blue-900 via-purple-900 to-blue-900 overflow-hidden hero-banner"
+  >
+    <div
+      class="absolute inset-0 transform-gpu"
+      style="transform: translateY(var(--scrollY))"
+    >
+      <div
+        class="absolute inset-0 bg-gradient-to-b from-transparent to-black/70"
+      >
+      </div>
+      <img
+        class="w-full h-full object-cover opacity-40 scale-110"
+        src={banner.src}
+        alt="Packages"
+      />
     </div>
     <div class="relative h-full flex items-center justify-center py-12">
       <div class="text-center space-y-4 px-4 sm:px-6 lg:px-8">
-        <h1 class="text-4xl sm:text-5xl md:text-7xl font-black text-white tracking-tight animate-fade-in pt-8 sm:pt-0">
-          Contact <span class="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-purple-400">Us</span>
+        <h1
+          class="text-4xl sm:text-5xl md:text-7xl font-black text-white tracking-tight animate-fade-in pt-8 sm:pt-0"
+        >
+          Contact <span
+            class="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-purple-400"
+            >Us</span
+          >
         </h1>
-        <p class="text-xl sm:text-xl md:text-2xl text-gray-200 max-w-3xl mx-auto animate-fade-in-up">
-          Reach out to Travel Platform UAE for all your travel inquiries, assistance, and support. Contact us via email, phone, or visit our office in Dubai.
+        <p
+          class="text-xl sm:text-xl md:text-2xl text-gray-200 max-w-3xl mx-auto animate-fade-in-up"
+        >
+          Reach out to Travel Platform UAE for all your travel inquiries,
+          assistance, and support. Contact us via email, phone, or visit our
+          office in Dubai.
         </p>
       </div>
     </div>
   </div>
+
   <!-- Contact Info Section -->
   <div class="py-5 px-4 sm:px-6 lg:px-8">
     <div class="max-w-7xl mx-auto">
@@ -174,7 +202,7 @@ const structuredData = {
                 ></path>
               </svg>
               <span
-                ><a href="info@travelplatformuae.com"
+                ><a href="mailto:info@travelplatformuae.com"
                   >info@travelplatformuae.com</a
                 ></span
               >
@@ -195,7 +223,7 @@ const structuredData = {
               </svg>
               <div class="flex flex-col">
                 <span>+971 52 2345 572</span>
-                <span> 055 132 8009</span>
+                <span>055 132 8009</span>
               </div>
             </li>
           </ul>
@@ -315,96 +343,286 @@ const structuredData = {
         </div>
       </div>
 
-      <!-- Map Section -->
-      <div class="mt-16 bg-white rounded-lg shadow-lg p-4">
-        <iframe
-          src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3609.744782914604!2d55.2417!3d25.2048!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMjXCsDEyJzE3LjMiTiA1NcKwMTQnMzAuMiJF!5e0!3m2!1sen!2sae!4v1640000000000!5m2!1sen!2sae"
-          width="100%"
-          height="450"
-          style="border:0;"
-          allowfullscreen=""
-          loading="lazy"
-          referrerpolicy="no-referrer-when-downgrade"></iframe>
-      </div>
-
-      <!-- Contact Form -->
-      <div class="mt-16 bg-white rounded-lg shadow-lg p-8">
-        <h2 class="text-3xl font-bold text-gray-900 mb-8 text-center">
-          We are ready to help you..
-        </h2>
-        <p class="text-gray-600 mb-8 text-center">
-          Your email address will not be published. Required fields are marked *
-        </p>
-
-        <form class="grid grid-cols-1 md:grid-cols-2 gap-6">
-          <div class="space-y-2">
-            <label class="text-gray-700">Name *</label>
-            <input
-              type="text"
-              placeholder="Your name"
-              required
-              class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-yellow-500 focus:border-transparent"
-            />
+      <!-- Map and Contact Form Section -->
+      <div class="mt-16 grid grid-cols-1 md:grid-cols-2 gap-8">
+        <!-- Map Section -->
+        <div
+          class="bg-white rounded-lg shadow-lg overflow-hidden h-full flex flex-col"
+        >
+          <div
+            class="bg-gradient-to-r from-teal-400 via-blue-400 to-teal-300 p-4 flex justify-center"
+          >
+            <h2 class="text-2xl font-bold text-white mb-0 flex items-center">
+              <svg
+                class="w-6 h-6 mr-2"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"
+                ></path>
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path>
+              </svg>
+              Find Us
+            </h2>
           </div>
-
-          <div class="space-y-2">
-            <label class="text-gray-700">Email *</label>
-            <input
-              type="email"
-              placeholder="Your Email"
-              required
-              class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-yellow-500 focus:border-transparent"
-            />
-          </div>
-
-          <div class="space-y-2">
-            <label class="text-gray-700">Mobile *</label>
-            <input
-              type="tel"
-              placeholder="Mobile Number"
-              required
-              class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-yellow-500 focus:border-transparent"
-            />
-          </div>
-
-          <div class="space-y-2">
-            <label class="text-gray-700">Subject *</label>
-            <input
-              type="text"
-              placeholder="Subject"
-              required
-              class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-yellow-500 focus:border-transparent"
-            />
-          </div>
-
-          <div class="space-y-2 md:col-span-2">
-            <label class="text-gray-700">Message *</label>
-            <textarea
-              placeholder="Your message"
-              rows="6"
-              required
-              class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-yellow-500 focus:border-transparent"
-            ></textarea>
-          </div>
-
-          <div class="md:col-span-2 text-center">
-            <button
-              type="submit"
-              class="bg-yellow-500 text-white px-8 py-3 rounded-full hover:bg-yellow-600 transition-colors duration-300"
+          <div class="flex-grow relative" style="min-height: 450px;">
+            <iframe
+              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3609.744782914604!2d55.2417!3d25.2048!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMjXCsDEyJzE3LjMiTiA1NcKwMTQnMzAuMiJF!5e0!3m2!1sen!2sae!4v1640000000000!5m2!1sen!2sae"
+              width="100%"
+              height="100%"
+              style="border:0; position: absolute; top: 0; left: 0; width: 100%; height: 100%;"
+              allowfullscreen=""
+              loading="lazy"
+              referrerpolicy="no-referrer-when-downgrade"
             >
-              Send Message
-            </button>
+            </iframe>
           </div>
-        </form>
+          <div class="bg-yellow-50 p-4 border-t border-yellow-100 text-center">
+            <div class="flex items-center justify-center text-yellow-700">
+              <svg class="w-5 h-5 mr-2" fill="currentColor" viewBox="0 0 20 20">
+                <path
+                  fill-rule="evenodd"
+                  d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z"
+                  clip-rule="evenodd"></path>
+              </svg>
+              <p class="text-sm font-medium">
+                Visit us at Al Muhaisnah 2, Dubai, UAE
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Enhanced Contact Form with Validation -->
+        <div class="bg-white rounded-lg shadow-lg p-8 h-full">
+          <h2 class="text-2xl font-bold text-yellow-600 mb-6 text-center">
+            Get In Touch
+          </h2>
+          <p class="text-gray-600 mb-6 text-center">
+            Your email address will not be published. Required fields are marked
+            *
+          </p>
+
+          <form
+            id="contact-form"
+            class="grid grid-cols-1 gap-4 needs-validation"
+            action="https://api.web3forms.com/submit"
+            method="POST"
+            data-astro-reload
+            novalidate
+          >
+            <input
+              type="hidden"
+              name="access_key"
+              value="d2d93126-8d49-4288-ab18-0b9e0df49db9"
+            />
+            <input
+              type="checkbox"
+              class="hidden"
+              style="display:none"
+              name="botcheck"
+            />
+
+            <div class="space-y-2">
+              <label class="text-gray-700 font-medium block"
+                >Name <span class="text-yellow-600">*</span></label
+              >
+              <input
+                type="text"
+                name="name"
+                placeholder="Your name"
+                required
+                class="w-full px-4 py-3 border border-gray-200 rounded-lg focus:ring-2 focus:ring-yellow-500 focus:border-transparent transition duration-200 shadow-sm"
+              />
+              <div
+                class="empty-feedback invalid-feedback text-red-400 text-sm mt-1"
+              >
+                Please provide your full name.
+              </div>
+            </div>
+
+            <div class="space-y-2">
+              <label class="text-gray-700 font-medium block"
+                >Email <span class="text-yellow-600">*</span></label
+              >
+              <input
+                type="email"
+                name="email"
+                placeholder="Your Email"
+                required
+                class="w-full px-4 py-3 border border-gray-200 rounded-lg focus:ring-2 focus:ring-yellow-500 focus:border-transparent transition duration-200 shadow-sm"
+              />
+              <div class="empty-feedback text-red-400 text-sm mt-1">
+                Please provide your email address.
+              </div>
+              <div class="invalid-feedback text-red-400 text-sm mt-1">
+                Please provide a valid email address.
+              </div>
+            </div>
+
+            <div class="space-y-2">
+              <label class="text-gray-700 font-medium block"
+                >Mobile <span class="text-yellow-600">*</span></label
+              >
+              <input
+                type="tel"
+                name="phone"
+                placeholder="Mobile Number"
+                required
+                class="w-full px-4 py-3 border border-gray-200 rounded-lg focus:ring-2 focus:ring-yellow-500 focus:border-transparent transition duration-200 shadow-sm"
+              />
+              <div
+                class="empty-feedback invalid-feedback text-red-400 text-sm mt-1"
+              >
+                Please provide your mobile number.
+              </div>
+            </div>
+
+            <div class="space-y-2">
+              <label class="text-gray-700 font-medium block"
+                >Subject <span class="text-yellow-600">*</span></label
+              >
+              <input
+                type="text"
+                name="subject"
+                placeholder="Subject"
+                required
+                class="w-full px-4 py-3 border border-gray-200 rounded-lg focus:ring-2 focus:ring-yellow-500 focus:border-transparent transition duration-200 shadow-sm"
+              />
+              <div
+                class="empty-feedback invalid-feedback text-red-400 text-sm mt-1"
+              >
+                Please provide a subject.
+              </div>
+            </div>
+
+            <div class="space-y-2">
+              <label class="text-gray-700 font-medium block"
+                >Message <span class="text-yellow-600">*</span></label
+              >
+              <textarea
+                name="message"
+                placeholder="Your message"
+                rows="4"
+                required
+                class="w-full px-4 py-3 border border-gray-200 rounded-lg focus:ring-2 focus:ring-yellow-500 focus:border-transparent transition duration-200 shadow-sm resize-none"
+              ></textarea>
+              <div
+                class="empty-feedback invalid-feedback text-red-400 text-sm mt-1"
+              >
+                Please enter your message.
+              </div>
+            </div>
+
+            <div class="text-center pt-4">
+              <button
+                type="submit"
+                class="bg-gradient-to-r from-yellow-500 to-yellow-600 text-white px-10 py-3 rounded-full hover:shadow-lg transition-all duration-300 font-medium transform hover:-translate-y-0.5"
+              >
+                Send Message
+              </button>
+            </div>
+
+            <div id="form-result" class="mt-3 text-center"></div>
+          </form>
+        </div>
       </div>
     </div>
   </div>
 </Layout>
 <style>
   @media only screen and (min-width: 768px) and (max-width: 1024px),
-         only screen and (min-width: 834px) and (max-width: 1194px) {
+    only screen and (min-width: 834px) and (max-width: 1194px) {
     .hero-banner {
       height: 35vh !important;
     }
   }
+  .invalid-feedback,
+  .empty-feedback {
+    display: none;
+  }
+
+  .was-validated :placeholder-shown:invalid ~ .empty-feedback {
+    display: block;
+  }
+
+  .was-validated :not(:placeholder-shown):invalid ~ .invalid-feedback {
+    display: block;
+  }
+
+  .is-invalid,
+  .was-validated :invalid {
+    border-color: #dc3545;
+  }
+
+  input:focus,
+  textarea:focus {
+    border-color: transparent;
+    outline: none;
+    box-shadow: 0 0 0 2px rgba(202, 138, 4, 0.5);
+  }
 </style>
+
+<script is:inline>
+  document.addEventListener("DOMContentLoaded", () => {
+    const form = document.getElementById("contact-form");
+    const result = document.getElementById("form-result");
+
+    form.addEventListener("submit", function (e) {
+      e.preventDefault();
+      form.classList.add("was-validated");
+      if (!form.checkValidity()) {
+        form.querySelectorAll(":invalid")[0].focus();
+        return;
+      }
+
+      const formData = new FormData(form);
+      const object = Object.fromEntries(formData);
+      const json = JSON.stringify(object);
+
+      result.innerHTML = "Sending...";
+      result.style.display = "block";
+
+      fetch("https://api.web3forms.com/submit", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json",
+        },
+        body: json,
+      })
+        .then(async (response) => {
+          let json = await response.json();
+          if (response.status == 200) {
+            result.classList.add("text-green-500");
+            result.innerHTML = json.message;
+          } else {
+            console.log(response);
+            result.classList.add("text-red-500");
+            result.innerHTML = json.message;
+          }
+        })
+        .catch((error) => {
+          console.log(error);
+          result.innerHTML = "Something went wrong!";
+          result.classList.add("text-red-500");
+        })
+        .then(function () {
+          form.reset();
+          form.classList.remove("was-validated");
+          setTimeout(() => {
+            result.style.display = "none";
+          }, 5000);
+        });
+    });
+  });
+</script>

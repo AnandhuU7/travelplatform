@@ -1,15 +1,15 @@
 ---
-import { getCollection, type CollectionEntry } from 'astro:content';
-import Layout from '../../layouts/Layout.astro';
-import JoinUs from '../../components/JoinUs.astro';
+import { getCollection, type CollectionEntry } from "astro:content";
+import Layout from "../../layouts/Layout.astro";
+import JoinUs from "../../components/JoinUs.astro";
 import banner from "/src/assets/about/about1.png";
 import logo from "/src/assets/logo.png";
 
 export async function getStaticPaths() {
-  const packages = await getCollection('packages');
-  return packages.map(pkg => ({
+  const packages = await getCollection("packages");
+  return packages.map((pkg) => ({
     params: { slug: pkg.slug },
-    props: pkg
+    props: pkg,
   }));
 }
 
@@ -20,129 +20,177 @@ const { Content } = await packageData.render();
 const structuredData = {
   "@context": "https://schema.org",
   "@type": "Tour",
-  "name": packageData.data.title,
-  "description": packageData.data.description,
-  "url": `https://travelplatformuae.com/packages/${packageData.slug}`,
-  "image": "https://travelplatformuae.com" + packageData.data.cardImage.src,
-  "offers": {
+  name: packageData.data.title,
+  description: packageData.data.description,
+  url: `https://travelplatformuae.com/packages/${packageData.slug}`,
+  image: "https://travelplatformuae.com" + packageData.data.cardImage.src,
+  offers: {
     "@type": "Offer",
-    "priceCurrency": packageData.data.currency || "USD",
-    "price": packageData.data.price,
-    "priceValidUntil": new Date(new Date().setFullYear(new Date().getFullYear() + 1)).toISOString().split('T')[0],
-    "validFrom": packageData.data.publishedTime || new Date().toISOString().split('T')[0],
-    "availability": "https://schema.org/InStock",
-    "category": "TourPackage",
-    "seller": {
-      "@type": "Organization",
-      "name": "Travel Platform UAE",
-      "url": "https://travelplatformuae.com"
-    }
+    priceCurrency: packageData.data.currency || "USD",
+    price: packageData.data.price,
+    priceValidUntil: new Date(
+      new Date().setFullYear(new Date().getFullYear() + 1),
+    )
+      .toISOString()
+      .split("T")[0],
+    validFrom:
+      packageData.data.publishedTime || new Date().toISOString().split("T")[0],
+    availability: "https://schema.org/InStock",
+    category: "TourPackage",
   },
-  "itinerary": {
+  itinerary: {
     "@type": "ItemList",
-    "numberOfItems": packageData.data.itinerary?.length || 0,
-    "itemListElement": (packageData.data.itinerary || []).map((item, index) => ({
+    numberOfItems: packageData.data.itinerary?.length || 0,
+    itemListElement: (packageData.data.itinerary || []).map((item, index) => ({
       "@type": "ListItem",
-      "position": index + 1,
-      "item": {
+      position: index + 1,
+      item: {
         "@type": "Place",
-        "name": item.split(":")[1]?.trim() || item,
-        "description": item
-      }
-    }))
+        name: item.split(":")[1]?.trim() || item,
+        description: item,
+      },
+    })),
   },
-  "location": {
+  location: {
     "@type": "Place",
-    "name": packageData.data.location,
-    "address": {
+    name: packageData.data.location,
+    address: {
       "@type": "PostalAddress",
-      "addressCountry": packageData.data.location === "Azerbaijan" ? "AZ" : 
-                       packageData.data.location === "UAE" ? "AE" : 
-                       packageData.data.location === "Uzbekistan" ? "UZ" : 
-                       packageData.data.location === "Kazakhstan" ? "KZ" : 
-                       packageData.data.location === "Turkey" ? "TR" : 
-                       "AE"
-    }
+      addressCountry:
+        packageData.data.location === "Azerbaijan"
+          ? "AZ"
+          : packageData.data.location === "UAE"
+            ? "AE"
+            : packageData.data.location === "Uzbekistan"
+              ? "UZ"
+              : packageData.data.location === "Kazakhstan"
+                ? "KZ"
+                : packageData.data.location === "Turkey"
+                  ? "TR"
+                  : "AE",
+    },
   },
-  "duration": packageData.data.duration ? 
-    `P${packageData.data.duration.replace(/(\d+) Days? (\d+) Nights?/, "$1DT$2H")}` : 
-    "P5D4N",
-  "includes": packageData.data.inclusions,
-  "provider": {
+  duration: packageData.data.duration
+    ? `P${packageData.data.duration.replace(/(\d+) Days? (\d+) Nights?/, "$1DT$2H")}`
+    : "P5D4N",
+  includes: packageData.data.inclusions,
+  pdfUrl: "https://travelplatformuae.com" + packageData.data.pdfUrl,
+  provider: {
     "@type": "TravelAgency",
-    "name": "Travel Platform UAE",
-    "url": "https://travelplatformuae.com"
+    name: "Travel Platform UAE",
+    url: "https://travelplatformuae.com",
   },
-  "aggregateRating": packageData.data.rating ? {
-    "@type": "AggregateRating",
-    "ratingValue": packageData.data.rating,
-    "reviewCount": packageData.data.reviewCount || 1,
-    "bestRating": 5,
-    "worstRating": 1
-  } : undefined,
-  "touristType": "International tourists",
-  "breadcrumb": {
-    "@type": "BreadcrumbList",
-    "itemListElement": [
-      {
-        "@type": "ListItem",
-        "position": 1,
-        "item": {
-          "@id": "https://travelplatformuae.com",
-          "name": "Home"
-        }
-      },
-      {
-        "@type": "ListItem",
-        "position": 2,
-        "item": {
-          "@id": "https://travelplatformuae.com/packages",
-          "name": "Packages"
-        }
-      },
-      {
-        "@type": "ListItem",
-        "position": 3,
-        "item": {
-          "@id": `https://travelplatformuae.com/packages/${packageData.slug}`,
-          "name": packageData.data.title
-        }
+  aggregateRating: packageData.data.rating
+    ? {
+        "@type": "AggregateRating",
+        ratingValue: packageData.data.rating,
+        reviewCount: packageData.data.reviewCount || 1,
+        bestRating: 5,
+        worstRating: 1,
       }
-    ]
-  }
+    : undefined,
+  touristType: "International tourists",
+  breadcrumb: {
+    "@type": "BreadcrumbList",
+    itemListElement: [
+      {
+        "@type": "ListItem",
+        position: 1,
+        item: {
+          "@id": "https://travelplatformuae.com",
+          name: "Home",
+        },
+      },
+      {
+        "@type": "ListItem",
+        position: 2,
+        item: {
+          "@id": "https://travelplatformuae.com/packages",
+          name: "Packages",
+        },
+      },
+      {
+        "@type": "ListItem",
+        position: 3,
+        item: {
+          "@id": `https://travelplatformuae.com/packages/${packageData.slug}`,
+          name: packageData.data.title,
+        },
+      },
+    ],
+  },
 };
 ---
 
-<Layout title={packageData.data.title} description={packageData.data.description} structuredData={structuredData}>
-  <div class="relative h-[35vh] sm:h-[45vh] md:h-[60vh] lg:h-[60vh] bg-gradient-to-r from-blue-900 via-purple-900 to-blue-900 overflow-hidden hero-banner">
-    <div class="absolute inset-0 transform-gpu" style="transform: translateY(var(--scrollY))">
-      <div class="absolute inset-0 bg-gradient-to-b from-transparent to-black/70"></div>
-      <img class="w-full h-full object-cover opacity-40 scale-110" src={banner.src} alt="Packages" />
+<Layout
+  title={packageData.data.title}
+  description={packageData.data.description}
+  structuredData={structuredData}
+>
+  <div
+    class="relative h-[35vh] sm:h-[45vh] md:h-[60vh] lg:h-[60vh] bg-gradient-to-r from-blue-900 via-purple-900 to-blue-900 overflow-hidden hero-banner"
+  >
+    <div
+      class="absolute inset-0 transform-gpu"
+      style="transform: translateY(var(--scrollY))"
+    >
+      <div
+        class="absolute inset-0 bg-gradient-to-b from-transparent to-black/70"
+      >
+      </div>
+      <img
+        class="w-full h-full object-cover opacity-40 scale-110"
+        src={banner.src}
+        alt="Packages"
+      />
     </div>
     <div class="relative h-full flex items-center justify-center py-12">
       <div class="text-center space-y-4 px-4 sm:px-6 lg:px-8">
-        <h1 class="text-4xl sm:text-5xl md:text-6xl lg:text-6xl font-black text-white tracking-tight animate-fade-in pt-8 sm:pt-0">
-          Transform Your <span class="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-purple-400">Travel Experience</span>
+        <h1
+          class="text-4xl sm:text-5xl md:text-6xl lg:text-6xl font-black text-white tracking-tight animate-fade-in pt-8 sm:pt-0"
+        >
+          Transform Your <span
+            class="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-purple-400"
+            >Travel Experience</span
+          >
         </h1>
-        <p class="text-xl sm:text-xl md:text-2xl text-gray-200 max-w-3xl mx-auto animate-fade-in-up">
+        <p
+          class="text-xl sm:text-xl md:text-2xl text-gray-200 max-w-3xl mx-auto animate-fade-in-up"
+        >
           Discover Handpicked Travel Packages Tailored for Your Perfect Getaway
         </p>
       </div>
     </div>
   </div>
   <div class="mx-auto w-full max-w-7xl p-0 lg:px-6 lg:py-12 sm:py-16">
-    <div class="bg-white rounded-xl shadow-lg p-6 sm:p-8 flex flex-col sm:flex-row items-center gap-6">
+    <div
+      class="bg-white rounded-xl shadow-lg p-6 sm:p-8 flex flex-col sm:flex-row items-center gap-6"
+    >
       <div class="flex-1 order-2 sm:order-1">
-        <h2 class="text-3xl font-bold text-yellow-600">{packageData.data.title}</h2>
+        <h2 class="text-3xl font-bold text-yellow-600">
+          {packageData.data.title}
+        </h2>
         <div class="sm:hidden mt-4">
-          <img src={packageData.data.cardImage.src} alt={packageData.data.title} class="w-full h-auto object-cover rounded-xl" />
+          <img
+            src={packageData.data.cardImage.src}
+            alt={packageData.data.title}
+            class="w-full h-auto object-cover rounded-xl"
+          />
         </div>
         <p class="mt-4 text-gray-600">{packageData.data.description}</p>
         <ul class="mt-4 space-y-2 text-gray-700">
-          <li class="flex items-center gap-2"><span class="text-green-500">&#10004;</span> Hassle-Free Booking</li>
-          <li class="flex items-center gap-2"><span class="text-green-500">&#10004;</span> Best Price Guarantee</li>
-          <li class="flex items-center gap-2"><span class="text-green-500">&#10004;</span> Instant Confirmations</li>
-          <li class="flex items-center gap-2"><span class="text-green-500">&#10004;</span> Trusted by Thousands</li>
+          <li class="flex items-center gap-2">
+            <span class="text-green-500">&#10004;</span> Hassle-Free Booking
+          </li>
+          <li class="flex items-center gap-2">
+            <span class="text-green-500">&#10004;</span> Best Price Guarantee
+          </li>
+          <li class="flex items-center gap-2">
+            <span class="text-green-500">&#10004;</span> Instant Confirmations
+          </li>
+          <li class="flex items-center gap-2">
+            <span class="text-green-500">&#10004;</span> Trusted by Thousands
+          </li>
         </ul>
         <div class="mt-6 flex flex-col sm:flex-row gap-4">
           <a
@@ -163,7 +211,11 @@ const structuredData = {
         </div>
       </div>
       <div class="flex-1 order-1 sm:order-2 hidden sm:block">
-        <img src={packageData.data.cardImage.src} alt={packageData.data.title} class="w-full h-auto object-cover rounded-xl" />
+        <img
+          src={packageData.data.cardImage.src}
+          alt={packageData.data.title}
+          class="w-full h-auto object-cover rounded-xl"
+        />
       </div>
     </div>
   </div>
@@ -171,7 +223,7 @@ const structuredData = {
 </Layout>
 <style>
   @media only screen and (min-width: 768px) and (max-width: 1024px),
-         only screen and (min-width: 834px) and (max-width: 1194px) {
+    only screen and (min-width: 834px) and (max-width: 1194px) {
     .hero-banner {
       height: 35vh !important;
     }

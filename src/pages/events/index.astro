@@ -9,158 +9,219 @@ const events = await getCollection("events");
 const sortedEvents = events.sort((a, b) => a.data.id - b.data.id);
 
 // Extract unique categories for filtering
-const categories = [...new Set(sortedEvents.map(event => event.data.category))];
+const categories = [
+  ...new Set(sortedEvents.map((event) => event.data.category)),
+];
 
 const structuredData = {
   "@context": "https://schema.org",
   "@type": "ItemList",
-  "headline": "Upcoming Events | Travel Platform UAE",
-  "description": "Explore and book events, cultural activities, and experiences across the UAE with Travel Platform UAE.",
-  "url": "https://travelplatformuae.com/events",
-  "image": events.map(event => ({
+  headline: "Upcoming Events | Travel Platform UAE",
+  description:
+    "Explore and book events, cultural activities, and experiences across the UAE with Travel Platform UAE.",
+  url: "https://travelplatformuae.com/events",
+  image: events.map((event) => ({
     "@type": "ImageObject",
-    "contentUrl": "https://travelplatformuae.com" + event.data.imageCard.src,
-    "creditText": "Travel Platform UAE " + event.data.title,
-    "creator": {
-      "@type": "Organization",
-      "name": "Travel Platform UAE"
-    }
+    contentUrl: "https://travelplatformuae.com" + event.data.imageCard.src,
+    creditText: "Travel Platform UAE " + event.data.title,
   })),
-  "numberOfItems": events.length,
-  "itemListElement": events.map((event, index) => ({
+  numberOfItems: events.length,
+  itemListElement: events.map((event, index) => ({
     "@type": "ListItem",
-    "position": index + 1,
-    "item": {
+    position: index + 1,
+    item: {
       "@type": "Event",
-      "name": event.data.title,
-      "description": event.data.description,
-      "startDate": event.data.startdate || `${event.data.startdate}T19:00+04:00`,
-      "endDate": event.data.enddate || 
-        (event.data.enddate 
+      name: event.data.title,
+      description: event.data.description,
+      startDate: event.data.startdate || `${event.data.startdate}T19:00+04:00`,
+      endDate:
+        event.data.enddate ||
+        (event.data.enddate
           ? `${event.data.enddate}T23:00+04:00`
           : `${event.data.startdate}T23:00+04:00`),
-      "eventAttendanceMode": "https://schema.org/OfflineEventAttendanceMode",
-      "eventStatus": "https://schema.org/EventScheduled",
-      "location": {
+      eventAttendanceMode: "https://schema.org/OfflineEventAttendanceMode",
+      eventStatus: "https://schema.org/EventScheduled",
+      location: {
         "@type": "Place",
-        "name": event.data.location,
-       "address": {
-      "@type": "PostalAddress",
-      "streetAddress": event.data.location, 
-      "addressLocality": "Dubai",
-      "addressRegion": "Dubai",
-      "addressCountry": "UAE",
-      "postalCode": event.data.postalCode
-    }
+        name: event.data.location,
+        address: {
+          "@type": "PostalAddress",
+          streetAddress: event.data.location,
+          addressLocality: "Dubai",
+          addressRegion: "Dubai",
+          addressCountry: "UAE",
+          postalCode: event.data.postalCode,
+        },
       },
-      "offers": {
+      offers: {
         "@type": "Offer",
-        "url": "https://b2b.travelplatformonline.com/",
-        "price": event.data.price,
-        "priceCurrency": "AED",
-        "availability": "https://schema.org/InStock",
-        "validFrom": event.data.startdate,
-        "priceValidUntil": event.data.enddate || event.data.startdate
+        url: "https://b2b.travelplatformonline.com/",
+        price: event.data.price,
+        priceCurrency: "AED",
+        availability: "https://schema.org/InStock",
+        validFrom: event.data.startdate,
+        priceValidUntil: event.data.enddate || event.data.startdate,
       },
-      "organizer": {
-        "@type": "Organization",
-        "name": "Travel Platform UAE",
-        "url": "https://travelplatformuae.com"
-      }
-    }
+    },
   })),
-  "publisher": {
+  organizer: {
     "@type": "Organization",
-    "name": "Travel Platform UAE",
-    "logo": {
-      "@type": "ImageObject",
-      "url": "https://travelplatformuae.com/logo.png",
-      "width": "300",
-      "height": "60"
-    }
+    name: "Travel Platform UAE",
+    url: "https://travelplatformuae.com",
   },
-  "breadcrumb": {
+  breadcrumb: {
     "@type": "BreadcrumbList",
-    "itemListElement": [
+    itemListElement: [
       {
         "@type": "ListItem",
-        "position": 1,
-        "item": {
+        position: 1,
+        item: {
           "@id": "https://travelplatformuae.com",
-          "name": "Home"
-        }
+          name: "Home",
+        },
       },
       {
         "@type": "ListItem",
-        "position": 2,
-        "item": {
+        position: 2,
+        item: {
           "@id": "https://travelplatformuae.com/events",
-          "name": "Events"
-        }
-      }
-    ]
-  }
+          name: "Events",
+        },
+      },
+    ],
+  },
 };
-
 ---
 
 <Layout
   title="Experience UAE | Exclusive Travel Events & Adventures"
-  description="Discover and book exclusive luxury events showcasing the very best of UAE's breathtaking landscapes, culture, and adventures" structuredData={structuredData}
+  description="Discover and book exclusive luxury events showcasing the very best of UAE's breathtaking landscapes, culture, and adventures"
+  structuredData={structuredData}
 >
   <main class="font-sans antialiased">
-    <div class="relative h-[40vh] sm:h-[45vh] md:h-[60vh] lg:h-[60vh] bg-gradient-to-r from-blue-900 via-purple-900 to-blue-900 overflow-hidden hero-banner">
-      <div class="absolute inset-0 transform-gpu" style="transform: translateY(var(--scrollY))">
-        <div class="absolute inset-0 bg-gradient-to-b from-transparent to-black/70"></div>
-        <img class="w-full h-full object-cover opacity-40 scale-110" src={banner.src} alt="Packages" />
+    <div
+      class="relative h-[40vh] sm:h-[45vh] md:h-[60vh] lg:h-[60vh] bg-gradient-to-r from-blue-900 via-purple-900 to-blue-900 overflow-hidden hero-banner"
+    >
+      <div
+        class="absolute inset-0 transform-gpu"
+        style="transform: translateY(var(--scrollY))"
+      >
+        <div
+          class="absolute inset-0 bg-gradient-to-b from-transparent to-black/70"
+        >
+        </div>
+        <img
+          class="w-full h-full object-cover opacity-40 scale-110"
+          src={banner.src}
+          alt="Packages"
+        />
       </div>
       <div class="relative h-full flex items-center justify-center py-12">
         <div class="text-center space-y-4 px-4 sm:px-6 lg:px-8">
-          <h1 class="text-4xl sm:text-5xl md:text-7xl font-black text-white tracking-tight animate-fade-in pt-8 sm:pt-0">
-            Our <span class="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-purple-400">Events</span>
+          <h1
+            class="text-4xl sm:text-5xl md:text-7xl font-black text-white tracking-tight animate-fade-in pt-8 sm:pt-0"
+          >
+            Our <span
+              class="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-purple-400"
+              >Events</span
+            >
           </h1>
-          <p class="text-xl sm:text-xl md:text-2xl text-gray-200 max-w-3xl mx-auto animate-fade-in-up">
-            Discover and book exclusive luxury events showcasing the very best of UAE's breathtaking landscapes, culture, and adventures
+          <p
+            class="text-xl sm:text-xl md:text-2xl text-gray-200 max-w-3xl mx-auto animate-fade-in-up"
+          >
+            Discover and book exclusive luxury events showcasing the very best
+            of UAE's breathtaking landscapes, culture, and adventures
           </p>
         </div>
       </div>
     </div>
 
     <!-- Category Filter with animated sidebar -->
-    <section id="upcoming-events" class="bg-gradient-to-b from-white to-gray-50 py-12 relative overflow-hidden">
-      <div class="absolute -top-40 -right-40 w-80 h-80 bg-blue-100 rounded-full opacity-10"></div>
-      <div class="absolute -bottom-20 -left-20 w-64 h-64 bg-amber-100 rounded-full opacity-10"></div>
+    <section
+      id="upcoming-events"
+      class="bg-gradient-to-b from-white to-gray-50 py-12 relative overflow-hidden"
+    >
+      <div
+        class="absolute -top-40 -right-40 w-80 h-80 bg-blue-100 rounded-full opacity-10"
+      >
+      </div>
+      <div
+        class="absolute -bottom-20 -left-20 w-64 h-64 bg-amber-100 rounded-full opacity-10"
+      >
+      </div>
 
       <div class="container mx-auto px-4 relative">
         <div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
           <div class="lg:col-span-4 xl:col-span-3">
-            <div class="sticky top-8 transition-all duration-300 hover:translate-x-2">
-              <div class="mt-6 bg-white p-6 rounded-xl shadow-lg backdrop-blur-sm bg-white/90">
+            <div
+              class="sticky top-8 transition-all duration-300 hover:translate-x-2"
+            >
+              <div
+                class="mt-6 bg-white p-6 rounded-xl shadow-lg backdrop-blur-sm bg-white/90"
+              >
                 <!-- Mobile dropdown toggle -->
-                <div class="flex items-center justify-between cursor-pointer lg:cursor-default" id="upcoming-dates-toggle">
-                  <h3 class="text-lg font-semibold text-gray-800 flex items-center">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2 text-blue-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+                <div
+                  class="flex items-center justify-between cursor-pointer lg:cursor-default"
+                  id="upcoming-dates-toggle"
+                >
+                  <h3
+                    class="text-lg font-semibold text-gray-800 flex items-center"
+                  >
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      class="h-5 w-5 mr-2 text-blue-600"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      stroke="currentColor"
+                    >
+                      <path
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        stroke-width="2"
+                        d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
                     </svg>
                     Upcoming Dates
                   </h3>
-                  <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-gray-500 transition-transform duration-300 lg:hidden" id="dropdown-arrow" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    class="h-5 w-5 text-gray-500 transition-transform duration-300 lg:hidden"
+                    id="dropdown-arrow"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
+                  >
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2"
+                      d="M19 9l-7 7-7-7"></path>
                   </svg>
                 </div>
-                
+
                 <!-- Dropdown content - hidden by default on mobile -->
-                <div class="space-y-3 mt-4 hidden lg:block" id="upcoming-dates-content">
-                  {[...new Set(sortedEvents.map(e => e.data.startdate))]
-                    .slice(0, 5)
-                    .map((date) => (
-                      <a href="#" class="flex items-center justify-between px-4 py-2.5 bg-gray-50 hover:bg-gray-100 rounded-lg transition-colors duration-200">
-                        <span class="text-gray-700">{date}</span>
-                        <span class="text-xs bg-blue-100 text-blue-700 px-2 py-1 rounded-full">
-                          {sortedEvents.filter(e => e.data.startdate === date).length} events
-                        </span>
-                      </a>
-                    ))
+                <div
+                  class="space-y-3 mt-4 hidden lg:block"
+                  id="upcoming-dates-content"
+                >
+                  {
+                    [...new Set(sortedEvents.map((e) => e.data.startdate))]
+                      .slice(0, 5)
+                      .map((date) => (
+                        <a
+                          href="#"
+                          class="flex items-center justify-between px-4 py-2.5 bg-gray-50 hover:bg-gray-100 rounded-lg transition-colors duration-200"
+                        >
+                          <span class="text-gray-700">{date}</span>
+                          <span class="text-xs bg-blue-100 text-blue-700 px-2 py-1 rounded-full">
+                            {
+                              sortedEvents.filter(
+                                (e) => e.data.startdate === date,
+                              ).length
+                            }{" "}
+                            events
+                          </span>
+                        </a>
+                      ))
                   }
                 </div>
               </div>
@@ -168,7 +229,9 @@ const structuredData = {
           </div>
 
           <div class="lg:col-span-8 xl:col-span-9">
-            <div class="flex flex-col md:flex-row md:items-center md:justify-between mb-8">
+            <div
+              class="flex flex-col md:flex-row md:items-center md:justify-between mb-8"
+            >
               <h2 class="text-3xl font-bold text-gray-800 mb-4 md:mb-0">
                 All Upcoming Events
               </h2>
@@ -182,87 +245,141 @@ const structuredData = {
                       placeholder="Search events..."
                       class="w-full pl-12 pr-4 py-3 bg-white/80 backdrop-blur-sm text-gray-700 border border-blue-200 rounded-full shadow-inner focus:outline-none focus:ring-2 focus:ring-blue-400 focus:border-transparent transition-all duration-300"
                     />
-                    <div class="absolute left-0 top-0 h-full flex items-center pl-4 pointer-events-none">
-                      <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-blue-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                    <div
+                      class="absolute left-0 top-0 h-full flex items-center pl-4 pointer-events-none"
+                    >
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        class="h-5 w-5 text-blue-500"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        stroke="currentColor"
+                      >
+                        <path
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                          stroke-width="2"
+                          d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
+                        ></path>
                       </svg>
                     </div>
                   </div>
                 </div>
               </div>
             </div>
-            
+
             <!-- Events Grid -->
-            <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-8" id="events-container">
-              {sortedEvents.map((event) => (
-                <div class="event-card bg-white rounded-xl shadow-lg overflow-hidden transition-all duration-300 transform hover:-translate-y-2 hover:shadow-xl group relative" data-title={event.data.title.toLowerCase()}>
-                  <div class="relative">
-                    <img
-                      src={event.data.imageCard.src}
-                      alt={event.data.title}
-                      class="w-full h-64 object-cover"
-                      loading="lazy"
-                    />
-                    <div class="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent" />
-                    <div class="absolute bottom-4 left-4 right-4">
-                      <div class="flex flex-wrap gap-2 mb-2">
-                        <span class="bg-white/20 backdrop-blur-sm text-white text-xs px-3 py-1 rounded-full">
-                          {event.data.category}
-                        </span>
-                      </div>
-                      <h3 class="text-xl font-bold text-white">
-                        {event.data.title}
-                      </h3>
-                    </div>
-                  </div>
-                  <div class="p-6">
-                    <div class="flex items-center mb-3">
-                      <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-blue-600 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
-                      </svg>
-                      <span class="text-gray-600">{event.data.startdate}</span>
-                    </div>
-                    <div class="flex items-center mb-4">
-                      <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-blue-600 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
-                      </svg>
-                      <span class="text-gray-600 truncate">
-                        {event.data.location}
-                      </span>
-                    </div>
-                    <p class="text-gray-600 line-clamp-3 mb-6 font-light">
-                      {event.data.description}
-                    </p>
-                    <div class="flex items-center justify-between mb-6">
-                      <div class="flex items-center">
-                        <div class="flex text-amber-400 mr-2">
-                          {[...Array(5)].map((_, i) => (
-                            <svg xmlns="http://www.w3.org/2000/svg" class={`h-4 w-4 ${i < Math.floor(event.data.rating || 0) ? "fill-current" : "stroke-current fill-none"}`} viewBox="0 0 24 24">
-                              <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
-                            </svg>
-                          ))}
+            <div
+              class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-8"
+              id="events-container"
+            >
+              {
+                sortedEvents.map((event) => (
+                  <div
+                    class="event-card bg-white rounded-xl shadow-lg overflow-hidden transition-all duration-300 transform hover:-translate-y-2 hover:shadow-xl group relative"
+                    data-title={event.data.title.toLowerCase()}
+                  >
+                    <div class="relative">
+                      <img
+                        src={event.data.imageCard.src}
+                        alt={event.data.title}
+                        class="w-full h-64 object-cover"
+                        loading="lazy"
+                      />
+                      <div class="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent" />
+                      <div class="absolute bottom-4 left-4 right-4">
+                        <div class="flex flex-wrap gap-2 mb-2">
+                          <span class="bg-white/20 backdrop-blur-sm text-white text-xs px-3 py-1 rounded-full">
+                            {event.data.category}
+                          </span>
                         </div>
-                        <span class="text-xs text-gray-500">
-                          {event.data.rating} ({event.data.reviews || 0})
+                        <h3 class="text-xl font-bold text-white">
+                          {event.data.title}
+                        </h3>
+                      </div>
+                    </div>
+                    <div class="p-6">
+                      <div class="flex items-center mb-3">
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          class="h-5 w-5 text-blue-600 mr-2"
+                          fill="none"
+                          viewBox="0 0 24 24"
+                          stroke="currentColor"
+                        >
+                          <path
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            stroke-width="2"
+                            d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"
+                          />
+                        </svg>
+                        <span class="text-gray-600">
+                          {event.data.startdate}
                         </span>
                       </div>
-                      <span class="text-xs bg-blue-100 text-blue-700 px-2 py-1 rounded-full">
-                        {event.data.time}
-                      </span>
+                      <div class="flex items-center mb-4">
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          class="h-5 w-5 text-blue-600 mr-2"
+                          fill="none"
+                          viewBox="0 0 24 24"
+                          stroke="currentColor"
+                        >
+                          <path
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            stroke-width="2"
+                            d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"
+                          />
+                          <path
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            stroke-width="2"
+                            d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"
+                          />
+                        </svg>
+                        <span class="text-gray-600 truncate">
+                          {event.data.location}
+                        </span>
+                      </div>
+                      <p class="text-gray-600 line-clamp-3 mb-6 font-light">
+                        {event.data.description}
+                      </p>
+                      <div class="flex items-center justify-between mb-6">
+                        <div class="flex items-center">
+                          <div class="flex text-amber-400 mr-2">
+                            {[...Array(5)].map((_, i) => (
+                              <svg
+                                xmlns="http://www.w3.org/2000/svg"
+                                class={`h-4 w-4 ${i < Math.floor(event.data.rating || 0) ? "fill-current" : "stroke-current fill-none"}`}
+                                viewBox="0 0 24 24"
+                              >
+                                <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+                              </svg>
+                            ))}
+                          </div>
+                          <span class="text-xs text-gray-500">
+                            {event.data.rating} ({event.data.reviews || 0})
+                          </span>
+                        </div>
+                        <span class="text-xs bg-blue-100 text-blue-700 px-2 py-1 rounded-full">
+                          {event.data.time}
+                        </span>
+                      </div>
+                      <a
+                        href="https://b2b.travelplatformonline.com/"
+                        class="block w-full text-center group relative overflow-hidden bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white font-medium py-3 px-6 rounded-lg transition-all duration-300"
+                      >
+                        <span class="relative z-10 flex items-center justify-center">
+                          Book Now
+                        </span>
+                        <span class="absolute inset-0 bg-gradient-to-r from-blue-700 to-purple-600 opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-0" />
+                      </a>
                     </div>
-                    <a
-                      href="https://b2b.travelplatformonline.com/"
-                      class="block w-full text-center group relative overflow-hidden bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white font-medium py-3 px-6 rounded-lg transition-all duration-300"
-                    >
-                      <span class="relative z-10 flex items-center justify-center">
-                        Book Now
-                      </span>
-                      <span class="absolute inset-0 bg-gradient-to-r from-blue-700 to-purple-600 opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-0" />
-                    </a>
                   </div>
-                </div>
-              ))}
+                ))
+              }
             </div>
           </div>
         </div>
@@ -281,7 +398,7 @@ const structuredData = {
     }
   }
   @media only screen and (min-width: 768px) and (max-width: 1024px),
-         only screen and (min-width: 834px) and (max-width: 1194px) {
+    only screen and (min-width: 834px) and (max-width: 1194px) {
     .hero-banner {
       height: 35vh !important;
     }
@@ -289,63 +406,66 @@ const structuredData = {
 </style>
 
 <script>
-document.addEventListener('DOMContentLoaded', function() {
-  const toggle = document.getElementById('upcoming-dates-toggle');
-  const content = document.getElementById('upcoming-dates-content');
-  const arrow = document.getElementById('dropdown-arrow');
-  
-  const isMobile = () => window.innerWidth < 1024;
-  
-  const updateVisibility = () => {
-    if (!content) return;
-    content.classList.toggle('hidden', isMobile());
-  };
-  
-  updateVisibility();
-  
-  if (toggle) {
-    toggle.addEventListener('click', function() {
-      if (isMobile() && content && arrow) {
-        content.classList.toggle('hidden');
-        arrow.classList.toggle('rotate-180');
-      }
-    });
-  }
-  
-  window.addEventListener('resize', updateVisibility);
+  document.addEventListener("DOMContentLoaded", function () {
+    const toggle = document.getElementById("upcoming-dates-toggle");
+    const content = document.getElementById("upcoming-dates-content");
+    const arrow = document.getElementById("dropdown-arrow");
 
-  // Search functionality
-  const searchInput = document.getElementById('search-input') as HTMLInputElement;
-  const searchButton = document.getElementById('search-button');
-  const eventCards = document.querySelectorAll('.event-card');
-  const eventsContainer = document.getElementById('events-container');
-  
-  function filterEvents() {
-    if (!searchInput || !eventsContainer) return;
-    const searchTerm = searchInput.value.toLowerCase();
-    let resultsFound = false;
-    
-    eventCards.forEach((card: Element) => {
-      const htmlCard = card as HTMLElement;
-      const title = htmlCard.getAttribute('data-title') || '';
-      if (title.includes(searchTerm)) {
-        htmlCard.style.display = 'block';
-        resultsFound = true;
-      } else {
-        htmlCard.style.display = 'none';
-      }
-    });
-    
-    // Check if no results message already exists
-    let noResultsMessage = document.getElementById('no-results-message');
-    
-    if (!resultsFound && searchTerm.length > 0) {
-      // If no results and no message exists, create one
-      if (!noResultsMessage) {
-        noResultsMessage = document.createElement('div');
-        noResultsMessage.id = 'no-results-message';
-        noResultsMessage.className = 'col-span-full py-16 flex flex-col items-center justify-center';
-        noResultsMessage.innerHTML = `
+    const isMobile = () => window.innerWidth < 1024;
+
+    const updateVisibility = () => {
+      if (!content) return;
+      content.classList.toggle("hidden", isMobile());
+    };
+
+    updateVisibility();
+
+    if (toggle) {
+      toggle.addEventListener("click", function () {
+        if (isMobile() && content && arrow) {
+          content.classList.toggle("hidden");
+          arrow.classList.toggle("rotate-180");
+        }
+      });
+    }
+
+    window.addEventListener("resize", updateVisibility);
+
+    // Search functionality
+    const searchInput = document.getElementById(
+      "search-input",
+    ) as HTMLInputElement;
+    const searchButton = document.getElementById("search-button");
+    const eventCards = document.querySelectorAll(".event-card");
+    const eventsContainer = document.getElementById("events-container");
+
+    function filterEvents() {
+      if (!searchInput || !eventsContainer) return;
+      const searchTerm = searchInput.value.toLowerCase();
+      let resultsFound = false;
+
+      eventCards.forEach((card: Element) => {
+        const htmlCard = card as HTMLElement;
+        const title = htmlCard.getAttribute("data-title") || "";
+        if (title.includes(searchTerm)) {
+          htmlCard.style.display = "block";
+          resultsFound = true;
+        } else {
+          htmlCard.style.display = "none";
+        }
+      });
+
+      // Check if no results message already exists
+      let noResultsMessage = document.getElementById("no-results-message");
+
+      if (!resultsFound && searchTerm.length > 0) {
+        // If no results and no message exists, create one
+        if (!noResultsMessage) {
+          noResultsMessage = document.createElement("div");
+          noResultsMessage.id = "no-results-message";
+          noResultsMessage.className =
+            "col-span-full py-16 flex flex-col items-center justify-center";
+          noResultsMessage.innerHTML = `
           <div class="text-center max-w-md mx-auto px-6">
             <div class="bg-blue-50 p-6 rounded-xl shadow-md mb-6">
               <svg xmlns="http://www.w3.org/2000/svg" class="h-16 w-16 mx-auto text-blue-500 mb-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -362,36 +482,36 @@ document.addEventListener('DOMContentLoaded', function() {
             </div>
           </div>
         `;
-        eventsContainer.appendChild(noResultsMessage);
-        
-        // Add event listener to the clear search button
-        const clearSearchBtn = document.getElementById('clear-search');
-        if (clearSearchBtn && searchInput) {
-          clearSearchBtn.addEventListener('click', function() {
-            searchInput.value = '';
-            filterEvents();
-          });
+          eventsContainer.appendChild(noResultsMessage);
+
+          // Add event listener to the clear search button
+          const clearSearchBtn = document.getElementById("clear-search");
+          if (clearSearchBtn && searchInput) {
+            clearSearchBtn.addEventListener("click", function () {
+              searchInput.value = "";
+              filterEvents();
+            });
+          }
+        } else {
+          // Update the search term in the existing message
+          const messageText = noResultsMessage.querySelector("p");
+          if (messageText) {
+            messageText.textContent = `We couldn't find any events matching "${searchTerm}"`;
+          }
+          // Message exists, make sure it's visible
+          noResultsMessage.style.display = "flex";
         }
-      } else {
-        // Update the search term in the existing message
-        const messageText = noResultsMessage.querySelector('p');
-        if (messageText) {
-          messageText.textContent = `We couldn't find any events matching "${searchTerm}"`;
-        }
-        // Message exists, make sure it's visible
-        noResultsMessage.style.display = 'flex';
+      } else if (noResultsMessage) {
+        // Results found or empty search, hide the message
+        noResultsMessage.style.display = "none";
       }
-    } else if (noResultsMessage) {
-      // Results found or empty search, hide the message
-      noResultsMessage.style.display = 'none';
     }
-  }
-  
-  if (searchInput) {
-    searchInput.addEventListener('input', filterEvents);
-  }
-  if (searchButton) {
-    searchButton.addEventListener('click', filterEvents);
-  }
-});
+
+    if (searchInput) {
+      searchInput.addEventListener("input", filterEvents);
+    }
+    if (searchButton) {
+      searchButton.addEventListener("click", filterEvents);
+    }
+  });
 </script>

@@ -2,13 +2,12 @@
 import Carousel from '../components/Carousel.astro';
 import Header from '../components/Header.astro';
 import Layout from '../layouts/Layout.astro';
-import Services from '../components/Services.astro';
+import Ourservices from '../components/Ourservices.astro';
 import OurPackages from '../components/OurPackages.astro';
 import OurPartner from '../components/OurPartner.astro';
 import JoinUs from '../components/JoinUs.astro';
 import Testimonial from '../pages/testimonial/index.astro';
 import { getCollection } from 'astro:content';
-import logo from "/src/assets/logo.png";
 const testimonials = await getCollection('testimonials');
 const testimonialData = testimonials.map((testimonial) => testimonial.data);
 
@@ -19,7 +18,7 @@ const description: string = "Explore the world with Travel Platform, your truste
 <Layout title={title} description={description}>
   <Carousel />
   <Header />
-  <Services />
+  <Ourservices />
   <OurPackages />
   <Testimonial testimonialData={testimonialData} />
   <OurPartner />

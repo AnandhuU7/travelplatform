@@ -11,6 +11,7 @@ interface Props {
       rating?: number;
       reviewCount?: number;
       location?: string;
+      pdfUrl?: string;
     };
     slug: string;
   };
@@ -29,10 +30,6 @@ const structuredData = {
     "@type": "ImageObject",
     "contentUrl": "https://travelplatformuae.com" + packageData.data.cardImage.src,
     "creditText": `Travel Platform UAE - ${packageData.data.title}`,
-    "creator": {
-      "@type": "Organization",
-      "name": "Travel Platform UAE"
-    },
     "width": 800,
     "height": 600
   },
@@ -46,11 +43,6 @@ const structuredData = {
     "price": packageData.data.price,
     "priceValidUntil": new Date(new Date().setFullYear(new Date().getFullYear() + 1)).toISOString().split('T')[0],
     "availability": "https://schema.org/InStock",
-    "seller": {
-      "@type": "Organization",
-      "name": "Travel Platform UAE",
-      "url": "https://travelplatformuae.com"
-    }
   },
  "aggregateRating": packageData.data.rating && packageData.data.reviewCount ? {
     "@type": "AggregateRating",
@@ -58,6 +50,13 @@ const structuredData = {
     "reviewCount": packageData.data.reviewCount,
     "bestRating": 5,
     "worstRating": 1
+  } : undefined,
+  "hasDigitalDocument": packageData.data.pdfUrl ? {
+    "@type": "DigitalDocument",
+    "name": `${packageData.data.title} Brochure`,
+    "description": "Detailed information about this tourist attraction",
+    "url": packageData.data.pdfUrl,
+    "fileFormat": "application/pdf"
   } : undefined,
   "breadcrumb": {
     "@type": "BreadcrumbList",
@@ -75,13 +74,11 @@ const structuredData = {
         "item": "https://travelplatformuae.com/packages"
       },
     ]
-  }
-
+  },
 };
 ---
 
 <script type="application/ld+json" set:html={JSON.stringify(structuredData)} />
-
 <div class="relative border border-gray-200 rounded-lg overflow-hidden shadow-md transition-all duration-300 hover:-translate-y-1 hover:shadow-lg bg-white">
   <!-- Image Section -->
   <Image

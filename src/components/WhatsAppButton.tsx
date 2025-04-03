@@ -1,5 +1,5 @@
 import { FloatingWhatsApp } from 'react-floating-whatsapp'
-import logo from '../assets/logo.png';   
+import logo from '../assets/wlogo.jpg';   
 
 const Whatsapp = () => {
     const logoUrl = logo.src;
