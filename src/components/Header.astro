@@ -1,6 +1,6 @@
 ---
 import { Image } from 'astro:assets';
-import image1 from '/src/assets/serviceimg/service30.jpg';
+import image1 from '/src/assets/about/header.webp';
 
 const structuredData = {
   "@context": "https://schema.org",
@@ -9,7 +9,7 @@ const structuredData = {
   "description": "Nestled in the lively city of Dubai, Travel Platform stands out as one of the premier travel and tourism companies in the area, dedicated to crafting seamless and exceptional travel experiences that cater to our clients' unique needs.",
   "image": {
     "@type": "ImageObject",
-    "url": "https://travelplatformuae.com/src/assets/serviceimg/service30.jpg",
+    "url": "https://travelplatformuae.com/src/assets/about/header.webp",
     "width": "800",
     "height": "500",
     "caption": "Travel Platform Showcase"
@@ -50,19 +50,20 @@ const structuredData = {
       
       <!-- Image Section - Now shows on all screens -->
       <div class="relative transform transition-all duration-500 hover:scale-[1.02]">
-        <div class="absolute inset-0 bg-gradient-to-r from-yellow-400/20 to-red-500/20 rounded-3xl transform rotate-3"></div>
+        <div class="absolute inset-0 bg-gradient-to-r from-yellow-500/20 to-green-500/20 rounded-3xl transform rotate-3"></div>
         <Image 
           src={image1} 
           alt="Travel Platform Showcase" 
-          class="relative rounded-3xl shadow-2xl w-full h-[300px] lg:h-[500px] object-cover"
+          class="relative rounded-3xl shadow-2xl w-full h-[300px] lg:h-[450px] object-cover border-2 border-gray-300"
         />
+        
       </div>
 
       <!-- Content Section -->
       <div class="space-y-4">
         <div class="text-center lg:text-left">
           <h1 class="text-3xl sm:text-4xl font-bold text-emerald-800" style="font-family: 'Poppins', sans-serif;">
-            Travel Platform
+            Travel Platform 
           </h1>
             <span class="block mt-3 text-xl sm:text-2xl font-medium text-yellow-500">
               Redefining Travel Experiences with Dedication and Excellence!
