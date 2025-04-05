@@ -3,8 +3,8 @@ import { Image } from "astro:assets";
 
 import slide1 from "/src/assets/home_slider/slider-1.png";
 import slide2 from "/src/assets/home_slider/slider-2.webp";
-import slide3 from "/src/assets/home_slider/slider-1.png";
-import slide4 from "/src/assets/home_slider/slider-4.webp";
+// import slide3 from "/src/assets/home_slider/slider-3.jpeg";
+import slide4 from "/src/assets/home_slider/slider-1.png";
 
 
 
@@ -17,7 +17,7 @@ const structuredData = {
     "@type": "Organization",
     name: "Travel Platform UAE",
   },
-  itemListElement: [slide1, slide2, slide3].map((slide, index) => ({
+  itemListElement: [slide1, slide2, slide4].map((slide, index) => ({
     "@type": "ListItem",
     position: index + 1,
     item: {
@@ -41,7 +41,7 @@ const structuredData = {
 
   <div class="carousel">
     {
-      [slide1, slide2, slide3].map((slide, index) => (
+      [slide1, slide2, slide4].map((slide, index) => (
         <div class="carousel-slide" id={`slide${index}`}>
           <Image
             src={slide}
@@ -208,5 +208,5 @@ const structuredData = {
   setInterval(() => {
     currentSlide = (currentSlide + 1) % 3;
     showSlide(currentSlide);
-  }, 4200);
+  }, 4150);
 </script>
