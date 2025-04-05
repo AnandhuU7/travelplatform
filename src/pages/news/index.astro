@@ -20,7 +20,7 @@ const structuredData = {
       "@type": "NewsArticle",
       headline: article.data.title,
       description: article.data.excerpt,
-      datePublished: article.data.date,
+      datePublished: new Date(article.data.date).toISOString(),
       author: {
         "@type": "Person",
         name: article.data.author,

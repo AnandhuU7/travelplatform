@@ -8,53 +8,8 @@ interface Props {
 
 const { serviceEntry } = Astro.props;
 const { title, description, cardImage, } = serviceEntry.data;
-const structuredData = {
-  "@context": "https://schema.org",
-  "@type": "Service",
-  "name": serviceEntry.data.title,
-  "description": serviceEntry.data.description ,
-  "image": {
-    "@type": "ImageObject",
-    "contentUrl": "https://travelplatformuae.com" + serviceEntry.data.cardImage.src,
-    "creditText": `Travel Platform UAE - ${serviceEntry.data.title}`,
-    "width": 800,
-    "height": 600
-  },
-  "offers": {
-    "@type": "Offer",
-    "priceCurrency": "USD",
-    "price": serviceEntry.data.price,
-    "priceValidUntil": new Date(new Date().setFullYear(new Date().getFullYear() + 1)).toISOString().split('T')[0],
-    "availability": "https://schema.org/InStock",
-  },
- "aggregateRating": serviceEntry.data.rating && serviceEntry.data.reviewCount ? {
-    "@type": "AggregateRating",
-    "ratingValue": serviceEntry.data.rating.toFixed(1),
-    "reviewCount": serviceEntry.data.reviewCount,
-    "bestRating": 5,
-    "worstRating": 1
-  } : undefined,
-  "breadcrumb": {
-    "@type": "BreadcrumbList",
-    "itemListElement": [
-      {
-        "@type": "ListItem",
-        "position": 1,
-        "name": "Home",
-        "item": "https://travelplatformuae.com" 
-      },
-      {
-        "@type": "ListItem",
-        "position": 2,
-        "name": "Services",
-        "item": "https://travelplatformuae.com/services"
-      },
-    ]
-  }
-
-};
 ---
-<script type="application/ld+json" set:html={JSON.stringify(structuredData)} />
+
 <div class="relative border border-gray-200 rounded-lg overflow-hidden shadow-md transition-transform duration-300 hover:-translate-y-1 bg-white">
   <Image
     src={cardImage}

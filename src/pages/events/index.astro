@@ -20,11 +20,6 @@ const structuredData = {
   description:
     "Explore and book events, cultural activities, and experiences across the UAE with Travel Platform UAE.",
   url: "https://travelplatformuae.com/events",
-  image: events.map((event) => ({
-    "@type": "ImageObject",
-    contentUrl: "https://travelplatformuae.com" + event.data.imageCard.src,
-    creditText: "Travel Platform UAE " + event.data.title,
-  })),
   numberOfItems: events.length,
   itemListElement: events.map((event, index) => ({
     "@type": "ListItem",
@@ -33,6 +28,13 @@ const structuredData = {
       "@type": "Event",
       name: event.data.title,
       description: event.data.description,
+      image: {
+        "@type": "ImageObject",
+        contentUrl: "https://travelplatformuae.com" + event.data.imageCard.src,
+        creditText: "Travel Platform UAE - " + event.data.title,
+        width: 800,
+        height: 600,
+      },
       startDate: event.data.startdate || `${event.data.startdate}T19:00+04:00`,
       endDate:
         event.data.enddate ||
@@ -62,13 +64,13 @@ const structuredData = {
         validFrom: event.data.startdate,
         priceValidUntil: event.data.enddate || event.data.startdate,
       },
+      organizer: {
+        "@type": "Organization",
+        name: "Travel Platform UAE",
+        url: "https://travelplatformuae.com",
+      },
     },
   })),
-  organizer: {
-    "@type": "Organization",
-    name: "Travel Platform UAE",
-    url: "https://travelplatformuae.com",
-  },
   breadcrumb: {
     "@type": "BreadcrumbList",
     itemListElement: [

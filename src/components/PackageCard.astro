@@ -20,65 +20,9 @@ interface Props {
 const { packageData } = Astro.props;
 const { title, description, cardImage, price, rating, reviewCount, location } = packageData.data;
 
-
-const structuredData = {
-  "@context": "https://schema.org",
-  "@type": "TouristAttraction",
-  "name": packageData.data.title,
-  "description": packageData.data.description, 
-  "image": {
-    "@type": "ImageObject",
-    "contentUrl": "https://travelplatformuae.com" + packageData.data.cardImage.src,
-    "creditText": `Travel Platform UAE - ${packageData.data.title}`,
-    "width": 800,
-    "height": 600
-  },
-  "location": location ? {
-    "@type": "Place",
-    "name": location 
-  } : undefined,
-  "offers": {
-    "@type": "Offer",
-    "priceCurrency": "USD",
-    "price": packageData.data.price,
-    "priceValidUntil": new Date(new Date().setFullYear(new Date().getFullYear() + 1)).toISOString().split('T')[0],
-    "availability": "https://schema.org/InStock",
-  },
- "aggregateRating": packageData.data.rating && packageData.data.reviewCount ? {
-    "@type": "AggregateRating",
-    "ratingValue": packageData.data.rating.toFixed(1),
-    "reviewCount": packageData.data.reviewCount,
-    "bestRating": 5,
-    "worstRating": 1
-  } : undefined,
-  "hasDigitalDocument": packageData.data.pdfUrl ? {
-    "@type": "DigitalDocument",
-    "name": `${packageData.data.title} Brochure`,
-    "description": "Detailed information about this tourist attraction",
-    "url": packageData.data.pdfUrl,
-    "fileFormat": "application/pdf"
-  } : undefined,
-  "breadcrumb": {
-    "@type": "BreadcrumbList",
-    "itemListElement": [
-      {
-        "@type": "ListItem",
-        "position": 1,
-        "name": "Home",
-        "item": "https://travelplatformuae.com" 
-      },
-      {
-        "@type": "ListItem",
-        "position": 2,
-        "name": "Packages",
-        "item": "https://travelplatformuae.com/packages"
-      },
-    ]
-  },
-};
 ---
 
-<script type="application/ld+json" set:html={JSON.stringify(structuredData)} />
+
 <div class="relative border border-gray-200 rounded-lg overflow-hidden shadow-md transition-all duration-300 hover:-translate-y-1 hover:shadow-lg bg-white">
   <!-- Image Section -->
   <Image

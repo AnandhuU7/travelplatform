@@ -29,38 +29,38 @@ const averageRating =
 const structuredData = {
   "@context": "https://schema.org",
   "@type": ["WebPage", "CollectionPage"],
-  itemReviewed: {
-    "@type": "TravelAgency",
-    name: "Travel Platform UAE",
-    url: "https://www.travelplatformuae.com",
-    image: "https://www.travelplatformuae.com/logo.png",
-  },
   mainEntity: {
     "@type": "ItemList",
-    numberOfItems: testimonials.length,
     itemListElement: testimonials.map((testimonial, index) => ({
       "@type": "ListItem",
       position: index + 1,
       item: {
         "@type": "Review",
+        datePublished: new Date().toISOString().split("T")[0],
         author: {
           "@type": "Person",
           name: testimonial.name,
           image: testimonial.image.src,
         },
-        reviewBody: testimonial.review,
         reviewRating: {
           "@type": "Rating",
           ratingValue: testimonial.rating.toString(),
           bestRating: "5",
         },
-        datePublished: new Date().toISOString().split("T")[0],
+        reviewBody: testimonial.review,
         locationCreated: {
           "@type": "Place",
           name: testimonial.location,
         },
+        itemReviewed: {
+          "@type": "TravelAgency",
+          name: "Travel Platform UAE",
+          url: "https://www.travelplatformuae.com",
+          image: "https://www.travelplatformuae.com/logo.png",
+        },
       },
     })),
+    numberOfItems: testimonials.length,
   },
   aggregateRating: {
     "@type": "AggregateRating",

@@ -75,21 +75,35 @@ const ogImageUrl = "https://travelplatformuae.com/logo.png";
       canonical={siteUrl}
       openGraph={{
         basic: {
-          title: title ?? defaultTitle,
+          title: title ?? "Travel Platform UAE",
           type: "website",
-          image: ogImageUrl,
-          url: siteUrl,
+          image: "https://travelplatformuae.com/logo.png",
+          url: "https://travelplatformuae.com",
         },
         optional: {
-          description: description ?? defaultDescription,
+          description: description ?? "At Travel Platform, we believe that travel should be an enriching and hassle-free adventure."
         },
       }}
       twitter={{
-        card: "summary_large_image",
-        site: "@yourtwitterhandle",
-        title: title ?? defaultTitle,
-        description: description ?? defaultDescription,
-        image: ogImageUrl,
+        card: "summary_large_image",    
+        site: "@travelplatformuae",
+        title: title ?? "Travel Platform UAE",
+        description: description ?? "At Travel Platform, we believe that travel should be an enriching and hassle-free adventure.",
+        image: "https://travelplatformuae.com/logo.png",
+        imageAlt: "Travel Platform UAE",
+      }}
+      extend={{
+        meta: [
+          {
+            name: "keywords",
+            content:
+              "Travel Platform UAE, Dubai, UAE, travel, platform, adventure, tours, holidays, vacation, trip, travel packages, tourism, sightseeing, luxury travel, budget travel, travel deals, international tours, domestic travel, flights, hotels, travel guides, best destinations, holiday packages, travel bookings, tourism companies in dubai, best travel agency in dubai, travel and tourism companies in dubai, best tour operators in dubai"
+          },
+          { name: "robots", content: "index, follow" },
+          { name: "language", content: "English" },
+          { name: "Author", content: "Travel Platform UAE" },
+         
+        ],
       }}
     />
   </head>

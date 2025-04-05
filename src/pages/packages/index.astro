@@ -20,11 +20,6 @@ const structuredData = {
   headline: pageTitle,
   description: description,
   url: "https://travelplatformuae.com/packages",
-  image: packageData.map((pkg) => ({
-    "@type": "ImageObject",
-    contentUrl: "https://travelplatformuae.com" + pkg.data.cardImage.src,
-    creditText: "Travel Platform UAE - " + pkg.data.title,
-  })),
   mainEntity: {
     "@type": "ItemList",
     numberOfItems: packageData.length,
@@ -32,37 +27,46 @@ const structuredData = {
       "@type": "ListItem",
       position: index + 1,
       item: {
-        "@type": "TouristAttraction",
+        "@type": ["TouristTrip", "Product"],
         name: pkg.data.title,
         description: pkg.data.description,
+        image: {
+          "@type": "ImageObject",
+          contentUrl: "https://travelplatformuae.com" + pkg.data.cardImage.src,
+          creditText: "Travel Platform UAE - " + pkg.data.title,
+          width: 800,
+          height: 600,
+        },
         offers: {
           "@type": "Offer",
           priceCurrency: "USD",
           price: pkg.data.price,
           validFrom: new Date().toISOString().split("T")[0],
-          priceValidUntil: new Date(
-            new Date().setFullYear(new Date().getFullYear() + 1),
-          )
-            .toISOString()
-            .split("T")[0],
           availability: "https://schema.org/InStock",
+          url: `https://travelplatformuae.com/packages/${pkg.slug}`,
         },
         location: pkg.data.location
           ? {
               "@type": "Place",
               name: pkg.data.location,
+              address: pkg.data.location,
             }
           : undefined,
         aggregateRating:
           pkg.data.rating && pkg.data.reviewCount
             ? {
                 "@type": "AggregateRating",
-                ratingValue: pkg.data.rating.toFixed(1),
-                reviewCount: pkg.data.reviewCount,
+                itemReviewed: {
+                  "@type": "Tour",
+                  name: pkg.data.title,
+                },
+                ratingValue: pkg.data.rating,
+                reviewCount: pkg.data.reviewCount || 1,
                 bestRating: 5,
                 worstRating: 1,
               }
             : undefined,
+        duration: pkg.data.duration,
       },
     })),
   },

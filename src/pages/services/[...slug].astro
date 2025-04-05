@@ -29,11 +29,16 @@ const structuredData = {
   "@type": "Service",
   name: serviceData.data.title,
   description: serviceData.data.description,
-  url: `https://travelplatformuae.com/services/${serviceData.slug}`,
-  image: "https://travelplatformuae.com" + serviceData.data.cardImage.src,
-  category: serviceData.data.category,
+  serviceType: serviceData.data.category || "TravelService",
+  image: {
+    "@type": "ImageObject",
+    url: "https://travelplatformuae.com" + serviceData.data.cardImage.src,
+    width: 800,
+    height: 600,
+  },
   offers: {
     "@type": "Offer",
+    url: `https://travelplatformuae.com/services/${serviceData.slug}`,
     priceCurrency: "AED",
     price: serviceData.data.price,
     priceValidUntil: new Date(
@@ -52,6 +57,7 @@ const structuredData = {
   },
   provider: {
     "@type": "TravelAgency",
+    "@id": "https://travelplatformuae.com/#travelagency",
     name: "Travel Platform UAE",
     url: "https://travelplatformuae.com",
     logo: "https://travelplatformuae.com/logo.png",
@@ -65,14 +71,11 @@ const structuredData = {
       addressCountry: "AE",
     },
   },
-  areaServed: [
-    {
-      "@type": "AdministrativeArea",
-      name: "UAE",
-      description: "Service available across all Emirates",
-    },
-  ],
-  processingTime: "P3D",
+  areaServed: {
+    "@type": "Country",
+    name: "United Arab Emirates",
+    sameAs: "https://en.wikipedia.org/wiki/United_Arab_Emirates",
+  },
   aggregateRating: serviceData.data.rating
     ? {
         "@type": "AggregateRating",

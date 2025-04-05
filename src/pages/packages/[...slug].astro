@@ -26,17 +26,10 @@ const structuredData = {
   image: "https://travelplatformuae.com" + packageData.data.cardImage.src,
   offers: {
     "@type": "Offer",
-    priceCurrency: packageData.data.currency || "USD",
+    priceCurrency: "USD",
     price: packageData.data.price,
-    priceValidUntil: new Date(
-      new Date().setFullYear(new Date().getFullYear() + 1),
-    )
-      .toISOString()
-      .split("T")[0],
-    validFrom:
-      packageData.data.publishedTime || new Date().toISOString().split("T")[0],
+    validFrom: new Date().toISOString().split("T")[0],
     availability: "https://schema.org/InStock",
-    category: "TourPackage",
   },
   itinerary: {
     "@type": "ItemList",
@@ -54,42 +47,52 @@ const structuredData = {
   location: {
     "@type": "Place",
     name: packageData.data.location,
-    address: {
-      "@type": "PostalAddress",
-      addressCountry:
-        packageData.data.location === "Azerbaijan"
-          ? "AZ"
-          : packageData.data.location === "UAE"
-            ? "AE"
-            : packageData.data.location === "Uzbekistan"
-              ? "UZ"
-              : packageData.data.location === "Kazakhstan"
-                ? "KZ"
-                : packageData.data.location === "Turkey"
-                  ? "TR"
-                  : "AE",
-    },
+    address: packageData.data.location,
   },
   duration: packageData.data.duration
-    ? `P${packageData.data.duration.replace(/(\d+) Days? (\d+) Nights?/, "$1DT$2H")}`
-    : "P5D4N",
-  includes: packageData.data.inclusions,
-  pdfUrl: "https://travelplatformuae.com" + packageData.data.pdfUrl,
-  provider: {
-    "@type": "TravelAgency",
-    name: "Travel Platform UAE",
-    url: "https://travelplatformuae.com",
-  },
-  aggregateRating: packageData.data.rating
+    ? `P${packageData.data.duration.replace(/(\d+) Nights? (\d+) Days?/, "$1DT$2H")}`
+    : undefined,
+  includes: packageData.data.inclusions
     ? {
-        "@type": "AggregateRating",
-        ratingValue: packageData.data.rating,
-        reviewCount: packageData.data.reviewCount || 1,
-        bestRating: 5,
-        worstRating: 1,
+        "@type": "ItemList",
+        itemListElement: packageData.data.inclusions.map((item, index) => ({
+          "@type": "ListItem",
+          position: index + 1,
+          name: item,
+        })),
       }
     : undefined,
-  touristType: "International tourists",
+  hasOfferCatalog: packageData.data.pdfUrl
+    ? {
+        "@type": "OfferCatalog",
+        name: `${packageData.data.title} Brochure`,
+        itemListElement: {
+          "@type": "DigitalDocument",
+          name: "Tour Package Details",
+          url: "https://travelplatformuae.com" + packageData.data.pdfUrl,
+          fileFormat: "application/pdf",
+        },
+      }
+    : undefined,
+  aggregateRating:
+    packageData.data.rating && packageData.data.reviewCount
+      ? {
+          "@type": "AggregateRating",
+          itemReviewed: {
+            "@type": "Tour",
+            name: packageData.data.title,
+                },
+          ratingValue: packageData.data.rating,
+          reviewCount: packageData.data.reviewCount || 1,
+          bestRating: 5,
+          worstRating: 1,
+        }
+      : undefined,
+  provider: {
+    "@type": "Organization",
+    name: "Travel Platform UAE",
+    logo: "https://travelplatformuae.com/logo.png",
+  },
   breadcrumb: {
     "@type": "BreadcrumbList",
     itemListElement: [
