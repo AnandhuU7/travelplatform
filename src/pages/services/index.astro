@@ -27,7 +27,7 @@ const structuredData = {
       "@type": "ListItem",
       position: index + 1,
       item: {
-        "@type": "Service",
+        "@type": ["Service", "Product"],
         name: service.data.title,
         description: service.data.description,
         serviceType: service.data.category || "TravelService",
@@ -160,6 +160,7 @@ const structuredData = {
       <div class="mt-8 md:mt-0">
         <a
           href="/contact"
+          aria-label="Contact us to plan your trip"
           class="inline-flex items-center px-6 py-3 border border-transparent text-base font-medium rounded-md text-yellow-600 bg-white hover:bg-yellow-50"
         >
           Contact Us

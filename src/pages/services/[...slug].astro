@@ -26,7 +26,7 @@ if (!serviceData) {
 
 const structuredData = {
   "@context": "https://schema.org",
-  "@type": "Service",
+  "@type": ["Service", "Product"],
   name: serviceData.data.title,
   description: serviceData.data.description,
   serviceType: serviceData.data.category || "TravelService",

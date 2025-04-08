@@ -19,7 +19,7 @@ const { Content } = await packageData.render();
 
 const structuredData = {
   "@context": "https://schema.org",
-  "@type": "Product",
+  "@type": ["Product", "Tour"],
   name: packageData.data.title,
   description: packageData.data.description,
   url: `https://travelplatformuae.com/packages/${packageData.slug}`,
@@ -44,6 +44,15 @@ const structuredData = {
       },
     })),
   },
+  aggregateRating: packageData.data.rating && packageData.data.reviewCount
+    ? {
+        "@type": "AggregateRating",
+        ratingValue: packageData.data.rating,
+        reviewCount: packageData.data.reviewCount,
+        bestRating: 5,
+        worstRating: 1,
+      }
+    : undefined,
   location: {
     "@type": "Place",
     name: packageData.data.location,
@@ -51,16 +60,6 @@ const structuredData = {
   },
   duration: packageData.data.duration
     ? `P${packageData.data.duration.replace(/(\d+) Nights? (\d+) Days?/, "$1DT$2H")}`
-    : undefined,
-  includes: packageData.data.inclusions
-    ? {
-        "@type": "ItemList",
-        itemListElement: packageData.data.inclusions.map((item, index) => ({
-          "@type": "ListItem",
-          position: index + 1,
-          name: item,
-        })),
-      }
     : undefined,
   hasOfferCatalog: packageData.data.pdfUrl
     ? {

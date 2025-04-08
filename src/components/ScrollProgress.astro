@@ -21,6 +21,14 @@
       scrollProgress.style.transform = `scaleX(${progress / 100})`;
     }
   
+    // Initialize progress to 0 on page load
+    window.addEventListener('load', () => {
+      const scrollProgress = document.getElementById('scroll-progress');
+      if (scrollProgress) {
+        scrollProgress.style.transform = 'scaleX(0)';
+      }
+    });
+  
     window.addEventListener('scroll', updateScrollProgress);
   </script>
   
