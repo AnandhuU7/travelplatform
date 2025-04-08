@@ -9,21 +9,24 @@ const packagesData = [
     image: image1,     
     title: "Holiday's packages in Azerbaijan with your loved ones",     
     description: "Valentine Special combos for Couples.",     
-    price: "Starting from per person",     
+    price: "Starting from per person",
+    pr:990, 
     route: "/packages/package-11"    
   },   
   {     
     image: image2,     
     title: "Umrah packages",     
     description: "Umrah 2025: Everything You Need to Know",     
-    price: "Starting from per person",     
+    price: "Starting from per person", 
+    pr:990, 
     route: "/packages/package-12"    
   },   
   {     
     image: image3,     
     title: "Holiday's packages in dubai",     
     description: "Explore the hidden gems of the city.",     
-    price: "Starting from per person",     
+    price: "Starting from per person", 
+    pr:990, 
     route: "/packages/package-13"   
   } 
 ]; 
@@ -35,14 +38,14 @@ const structuredData = {
     "@type": "ListItem",
     "position": index + 1,
     "item": {
-      "@type": ["Product", "Tour"],
+      "@type": ["Tour"],
       "name": pkg.title,
       "description": pkg.description,
       "offers": {
         "@type": "Offer",
         "priceSpecification": {
           "@type": "UnitPriceSpecification",
-          "price": pkg.price
+          "price": pkg.pr
         }
       },
       "image": {
