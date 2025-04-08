@@ -19,7 +19,7 @@ const { Content } = await packageData.render();
 
 const structuredData = {
   "@context": "https://schema.org",
-  "@type": "Tour",
+  "@type": "Product",
   name: packageData.data.title,
   description: packageData.data.description,
   url: `https://travelplatformuae.com/packages/${packageData.slug}`,
@@ -74,20 +74,6 @@ const structuredData = {
         },
       }
     : undefined,
-  aggregateRating:
-    packageData.data.rating && packageData.data.reviewCount
-      ? {
-          "@type": "AggregateRating",
-          itemReviewed: {
-            "@type": "Tour",
-            name: packageData.data.title,
-                },
-          ratingValue: packageData.data.rating,
-          reviewCount: packageData.data.reviewCount || 1,
-          bestRating: 5,
-          worstRating: 1,
-        }
-      : undefined,
   provider: {
     "@type": "Organization",
     name: "Travel Platform UAE",
