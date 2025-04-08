@@ -45,10 +45,16 @@ const structuredData = {
     "@type": "ListItem",
     position: index + 1,
     item: {
-      "@type": ["Service"],
+      "@type": ["Product", "Service"],
       name: service.text,
       description: `Professional ${service.text} services by Travel Platform UAE`,
       url: `https://travelplatformuae.com${service.route}`,
+      offers: {
+        "@type": "Offer",
+        availability: "https://schema.org/InStock",
+        priceCurrency: "AED",
+        category: "Travel Services",
+      },
       image: {
         "@type": "ImageObject",
         url: `https://travelplatformuae.com${service.image.src}`,
@@ -63,18 +69,12 @@ const structuredData = {
           : service.text.includes("Golden")
             ? "Golden Visa Assistance"
             : service.text.includes("Umrah")
-              ? "Umrah Assistance: 10 days Package By Road"
+              ? "Umrah Assistance"
               : service.text.includes("B2B")
                 ? "B2B Booking Solutions for Travel Agencies and Corporate Entities"
                 : service.text.includes("Flight")
                   ? "Visa Change by Flight"
                   : "Travel Services",
-      offers: {
-        "@type": "Offer",
-        availability: "https://schema.org/InStock",
-        priceCurrency: "AED",
-        category: "Travel Services",
-      },
     },
   })),
   provider: {
