@@ -5,6 +5,7 @@ import { SEO } from "astro-seo";
 import Whatsapp from "../components/WhatsAppButton.tsx";
 import '../styles/base.css';
 import ScrollProgress from "../components/ScrollProgress.astro";
+import { GoogleAnalytics } from 'astro-google-analytics';
 
 export interface Props {
   title: string;
@@ -22,6 +23,8 @@ const ogImageUrl = "https://travelplatformuae.com/logo.png";
 ---
 <html lang="en">
   <head>
+
+    
     <!-- Basic Meta Tags -->
     <meta charset="UTF-8" />
     <meta name="robots" content="index">
@@ -56,6 +59,7 @@ const ogImageUrl = "https://travelplatformuae.com/logo.png";
     <meta name="robots" content="index, follow">
     
     <!-- Structured Data (Schema Markup) -->
+    <GoogleAnalytics id="G-RGM99TGREL" />
     {
       structuredData && (
         <script
