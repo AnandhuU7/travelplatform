@@ -1,3 +1,0 @@
-User-agent: *
-Allow: /
-Sitemap: https://travelplatformuae.com/sitemap-index.xml

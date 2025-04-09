@@ -11,31 +11,37 @@ const servicesData = [
     image: image1,
     text: "B2B Booking Solutions for Travel Agencies and Corporate Entities",
     route: "/services/post-11",
+    price: 100,
   },
   {
     image: image2,
     text: "Global Visa Platform",
     route: "/services/post-1",
+    price: 100,
   },
   {
     image: image3,
     text: "Umrah Assistance: 10 days Package By Road",
     route: "/services/post-5",
+    price: 100,
   },
   {
     image: image4,
     text: "Visa Change by Flight",
     route: "/services/post-2",
+    price: 100,
   },
   {
     image: image5,
     text: "Family Visa",
     route: "/services/post-12",
+    price: 100,
   },
   {
     image: image6,
     text: "Golden Visa Assistance",
     route: "/services/post-8",
+    price: 100,
   },
 ];
 const structuredData = {
@@ -53,6 +59,10 @@ const structuredData = {
         "@type": "Offer",
         availability: "https://schema.org/InStock",
         priceCurrency: "AED",
+        priceSpecification: {
+          "@type": "UnitPriceSpecification",
+          price: service.price,
+        },
         category: "Travel Services",
       },
       image: {
@@ -71,7 +81,7 @@ const structuredData = {
             : service.text.includes("Umrah")
               ? "Umrah Assistance"
               : service.text.includes("B2B")
-                ? "B2B Booking Solutions for Travel Agencies and Corporate Entities"
+                ? "B2B Booking Solutions for Travel Agencies"
                 : service.text.includes("Flight")
                   ? "Visa Change by Flight"
                   : "Travel Services",

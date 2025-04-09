@@ -22,15 +22,50 @@ const structuredData = {
   "@type": ["Product", "Tour"],
   name: packageData.data.title,
   description: packageData.data.description,
-  url: `https://travelplatformuae.com/packages/${packageData.slug}`,
-  image: "https://travelplatformuae.com" + packageData.data.cardImage.src,
+  image: {
+    "@type": "ImageObject",
+    url: "https://travelplatformuae.com" + packageData.data.cardImage.src,
+    width: 800,
+    height: 600,
+  },
+  provider: {
+    "@type": "TravelAgency",
+    "@id": "https://travelplatformuae.com/#travelagency",
+    name: "Travel Platform UAE",
+    url: "https://travelplatformuae.com",
+    logo: "https://travelplatformuae.com/logo.png",
+    telephone: "+971 52 2345 572",
+    address: {
+      "@type": "PostalAddress",
+      streetAddress: "Al Muhaisnah 2",
+      addressLocality: "Dubai",
+      addressRegion: "Dubai",
+      postalCode: "232424",
+      addressCountry: "AE",
+    },
+  },
   offers: {
     "@type": "Offer",
-    priceCurrency: "USD",
+    url: `https://travelplatformuae.com/packages/${packageData.slug}`,
+    priceCurrency: "AED",
     price: packageData.data.price,
-    validFrom: new Date().toISOString().split("T")[0],
+    priceValidUntil: new Date(
+      new Date().setFullYear(new Date().getFullYear() + 1),
+    )
+      .toISOString()
+      .split("T")[0],
+    validFrom:
+      packageData.data.publishedTime || new Date().toISOString().split("T")[0],
     availability: "https://schema.org/InStock",
   },
+  location: {
+    "@type": "Place",
+    name: packageData.data.location,
+    address: packageData.data.location,
+  },
+  duration: packageData.data.duration
+    ? `P${packageData.data.duration.replace(/(\d+) Nights? (\d+) Days?/, "$1DT$2H")}`
+    : undefined,
   itinerary: {
     "@type": "ItemList",
     numberOfItems: packageData.data.itinerary?.length || 0,
@@ -53,14 +88,6 @@ const structuredData = {
         worstRating: 1,
       }
     : undefined,
-  location: {
-    "@type": "Place",
-    name: packageData.data.location,
-    address: packageData.data.location,
-  },
-  duration: packageData.data.duration
-    ? `P${packageData.data.duration.replace(/(\d+) Nights? (\d+) Days?/, "$1DT$2H")}`
-    : undefined,
   hasOfferCatalog: packageData.data.pdfUrl
     ? {
         "@type": "OfferCatalog",
@@ -73,11 +100,6 @@ const structuredData = {
         },
       }
     : undefined,
-  provider: {
-    "@type": "Organization",
-    name: "Travel Platform UAE",
-    logo: "https://travelplatformuae.com/logo.png",
-  },
   breadcrumb: {
     "@type": "BreadcrumbList",
     itemListElement: [

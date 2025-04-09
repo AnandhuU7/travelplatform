@@ -33,7 +33,8 @@ const structuredData = {
         serviceType: service.data.category || "TravelService",
         image: {
           "@type": "ImageObject",
-          contentUrl: "https://travelplatformuae.com" + service.data.cardImage.src,
+          contentUrl:
+            "https://travelplatformuae.com" + service.data.cardImage.src,
           creditText: "Travel Platform UAE - " + service.data.title,
           width: 800,
           height: 600,
@@ -42,21 +43,24 @@ const structuredData = {
         dateModified: service.data.modifiedTime
           ? new Date(service.data.modifiedTime).toISOString()
           : new Date(service.data.publishedTime).toISOString(),
-        "offers": {
+        offers: {
           "@type": "Offer",
-          "url": `https://travelplatformuae.com/services/${service.slug}`
+          url: `https://travelplatformuae.com/services/${service.slug}`,
+          priceCurrency: "AED",
+          price: service.data.price,
         },
-        "aggregateRating": service.data.rating && service.data.reviewCount
-          ? {
-              "@type": "AggregateRating",
-              "ratingValue": service.data.rating.toFixed(1),
-              "reviewCount": service.data.reviewCount,
-              "bestRating": 5,
-              "worstRating": 1
-            }
-          : undefined
-      }
-    }))
+        aggregateRating:
+          service.data.rating && service.data.reviewCount
+            ? {
+                "@type": "AggregateRating",
+                ratingValue: service.data.rating.toFixed(1),
+                reviewCount: service.data.reviewCount,
+                bestRating: 5,
+                worstRating: 1,
+              }
+            : undefined,
+      },
+    })),
   },
   publisher: {
     "@type": "Organization",
@@ -93,7 +97,7 @@ const structuredData = {
   serviceArea: {
     "@type": "AdministrativeArea",
     name: "United Arab Emirates",
-  }
+  },
 };
 ---
 

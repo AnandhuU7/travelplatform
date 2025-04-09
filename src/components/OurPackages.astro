@@ -10,7 +10,6 @@ const packagesData = [
     title: "Holiday's packages in Azerbaijan with your loved ones",
     description: "Valentine Special combos for Couples.",
     price: "Starting from per person",
-    pr: 990,
     route: "/packages/package-11",
   },
   {
@@ -18,7 +17,6 @@ const packagesData = [
     title: "Umrah packages",
     description: "Umrah 2025: Everything You Need to Know",
     price: "Starting from per person",
-    pr: 990,
     route: "/packages/package-12",
   },
   {
@@ -26,42 +24,13 @@ const packagesData = [
     title: "Holiday's packages in dubai",
     description: "Explore the hidden gems of the city.",
     price: "Starting from per person",
-    pr: 990,
     route: "/packages/package-13",
   },
 ];
 
-const structuredData = {
-  "@context": "https://schema.org",
-  "@type": "ItemList",
-  itemListElement: packagesData.map((pkg, index) => ({
-    "@type": "ListItem",
-    position: index + 1,
-    item: {
-      "@type": ["Product", "Tour"],
-      name: pkg.title,
-      description: pkg.description,
-      url: `https://travelplatformuae.com${pkg.route}`,
-      offers: {
-        "@type": "Offer",
-        priceSpecification: {
-          "@type": "UnitPriceSpecification",
-          price: pkg.pr,
-        },
-      },
-      image: {
-        "@type": "ImageObject",
-        url: `https://travelplatformuae.com${pkg.image.src}`,
-        width: "800",
-        height: "600",
-        caption: pkg.title,
-      },
-    },
-  })),
-};
+
 ---
 
-<script type="application/ld+json" set:html={JSON.stringify(structuredData)} />
 <div class="text-center p-0 md:p-4">
   <h2
     class="text-3xl md:text-4xl font-bold mb-4 text-center mt-12 md:mt-0 bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent p-2"

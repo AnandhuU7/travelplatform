@@ -49,11 +49,6 @@ const structuredData = {
     validFrom:
       serviceData.data.publishedTime || new Date().toISOString().split("T")[0],
     availability: "https://schema.org/InStock",
-    itemOffered: {
-      "@type": "Service",
-      name: serviceData.data.title,
-      description: serviceData.data.description,
-    },
   },
   provider: {
     "@type": "TravelAgency",
