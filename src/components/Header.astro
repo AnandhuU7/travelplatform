@@ -51,6 +51,7 @@ const structuredData = {
     "Travel Offers",
     "Travel News",
     "Travel Events",
+    "Travel Guides",
   ],
   missionStatement:
     "To deliver seamless and unforgettable travel experiences through innovation and personalized service.",
@@ -80,110 +81,57 @@ const structuredData = {
 <header class="relative overflow-hidden bg-gradient-to-b from-white to-gray-50">
   <div class="container mx-auto px-4 py-4 lg:py-10 sm:px-6 lg:px-8">
     <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center">
+      
       <!-- Image Section - Now shows on all screens -->
       <div class="relative transform transition-all duration-500">
-        <div
-          class="absolute inset-0 bg-gradient-to-r from-yellow-500/20 to-green-500/20 rounded-3xl transform rotate-3"
-        >
-        </div>
-        <Image
-          src={image1}
-          alt="Travel Platform Showcase"
+        <div class="absolute inset-0 bg-gradient-to-r from-yellow-500/20 to-green-500/20 rounded-3xl transform rotate-3"></div>
+        <Image 
+          src={image1} 
+          alt="Travel Platform Showcase" 
           class="relative rounded-3xl shadow-2xl w-full h-[300px] lg:h-[450px] object-cover border-2 border-gray-300"
         />
-      </div>
+    </div>
 
       <!-- Content Section -->
       <div class="space-y-4">
         <div class="text-center lg:text-left">
-          <h1
-            class="text-3xl sm:text-4xl font-bold text-emerald-800"
-            style="font-family: 'Poppins', sans-serif;"
-          >
-            Travel Platform
+          <h1 class="text-3xl sm:text-4xl font-bold text-emerald-800" style="font-family: 'Poppins', sans-serif;">
+            Travel Platform 
           </h1>
-          <span
-            class="block mt-3 text-xl sm:text-2xl font-medium text-yellow-500"
-          >
-            Redefining Travel Experiences with Dedication and Excellence!
-          </span>
+            <span class="block mt-3 text-xl sm:text-2xl font-medium text-yellow-500">
+              Redefining Travel Experiences with Dedication and Excellence!
+            </span>
+          </h1>
         </div>
-      </div>
 
-      <!-- Stats Grid -->
-      <div class="grid grid-cols-3 gap-4">
-        <div
-          class="group p-4 bg-white rounded-2xl shadow-sm hover:shadow-md transition-all duration-300"
-        >
-          <p
-            class="text-2xl sm:text-3xl font-bold text-red-600 group-hover:scale-110 transition-transform"
-          >
-            10
-          </p>
-          <p class="text-sm font-medium text-yellow-500">Years Experience</p>
+        <!-- Stats Grid -->
+        <div class="grid grid-cols-3 gap-4">
+          <div class="group p-4 bg-white rounded-2xl shadow-sm hover:shadow-md transition-all duration-300">
+            <p class="text-2xl sm:text-3xl font-bold text-red-600 group-hover:scale-110 transition-transform">10</p>
+            <p class="text-sm font-medium text-yellow-500">Years Experience</p>
+          </div>
+          <div class="group p-4 bg-white rounded-2xl shadow-sm hover:shadow-md transition-all duration-300">
+            <p class="text-2xl sm:text-3xl font-bold text-red-600 group-hover:scale-110 transition-transform">100+</p>
+            <p class="text-sm font-medium text-yellow-500">Tour Guide</p>
+          </div>
+          <div class="group p-4 bg-white rounded-2xl shadow-sm hover:shadow-md transition-all duration-300">
+            <p class="text-2xl sm:text-3xl font-bold text-red-600 group-hover:scale-110 transition-transform">500+</p>
+            <p class="text-sm font-medium text-yellow-500">Traveler Connect</p>
+          </div>
         </div>
-        <div
-          class="group p-4 bg-white rounded-2xl shadow-sm hover:shadow-md transition-all duration-300"
-        >
-          <p
-            class="text-2xl sm:text-3xl font-bold text-red-600 group-hover:scale-110 transition-transform"
-          >
-            100+
-          </p>
-          <p class="text-sm font-medium text-yellow-500">Tour Guide</p>
-        </div>
-        <div
-          class="group p-4 bg-white rounded-2xl shadow-sm hover:shadow-md transition-all duration-300"
-        >
-          <p
-            class="text-2xl sm:text-3xl font-bold text-red-600 group-hover:scale-110 transition-transform"
-          >
-            500+
-          </p>
-          <p class="text-sm font-medium text-yellow-500">Traveler Connect</p>
-        </div>
-      </div>
 
-      <!-- Description -->
-      <div class="bg-white/80 backdrop-blur-sm rounded-2xl p-2 shadow-sm">
-        <!-- Visible only on larger desktops -->
-        <p
-          class="hidden xl:block text-justify text-gray-700 leading-relaxed text-sm sm:text-base"
-          style="font-family: 'Poppins', sans-serif;"
-        >
-          Nestled in the lively city of Dubai, Travel Platform stands out as one
-          of the premier travel and tourism companies in the area, dedicated to
-          crafting seamless and exceptional travel experiences that cater to our
-          clients' unique needs. Our reputation as a reliable name in Dubai's
-          tourism scene is built on our unwavering customer support and the
-          passion of our dedicated team, making us a top choice for both
-          vacationers and business travelers. Proudly ranked among the top 10
-          travel agencies in Dubai, we focus on delivering personalized
-          services, from exciting excursions with local tour operators to
-          luxurious, curated experiences that ensure every journey is truly
-          unforgettable. With a host of accolades and a steadfast commitment to
-          excellence, Travel Platform remains the leading tour company in Dubai,
-          continually raising the bar for travel services and customer
-          satisfaction.
-        </p>
-
-        <!-- Visible on medium screens, tablets, and iPad Pro -->
-        <p
-          class="block xl:hidden text-justify text-gray-700 leading-relaxed text-sm sm:text-base"
-          style="font-family: 'Poppins', sans-serif;"
-        >
-          Nestled in the lively city of Dubai, Travel Platform is a premier
-          travel and tourism company dedicated to crafting seamless and
-          exceptional experiences tailored to our clients' unique needs. Ranked
-          among the top 10 travel agencies in Dubai, we offer personalized
-          services, from exciting excursions with local tour operators to
-          luxurious, curated experiences. Our strong reputation is built on
-          unwavering customer support and the passion of our dedicated team,
-          making us a top choice for vacationers and business travelers. With
-          numerous accolades and a steadfast commitment to excellence, Travel
-          Platform continues to raise the bar for travel services and customer
-          satisfaction.
-        </p>
+        <!-- Description -->
+        <div class="bg-white/80 backdrop-blur-sm rounded-2xl p-2 shadow-sm">
+          <!-- Visible only on larger desktops -->
+          <p class="hidden xl:block text-justify text-gray-700 leading-relaxed text-sm sm:text-base" style="font-family: 'Poppins', sans-serif;">
+            Nestled in the lively city of Dubai, Travel Platform stands out as one of the premier travel and tourism companies in the area, dedicated to crafting seamless and exceptional travel experiences that cater to our clients' unique needs. Our reputation as a reliable name in Dubai's tourism scene is built on our unwavering customer support and the passion of our dedicated team, making us a top choice for both vacationers and business travelers. Proudly ranked among the top 10 travel agencies in Dubai, we focus on delivering personalized services, from exciting excursions with local tour operators to luxurious, curated experiences that ensure every journey is truly unforgettable. With a host of accolades and a steadfast commitment to excellence, Travel Platform remains the leading tour company in Dubai, continually raising the bar for travel services and customer satisfaction.
+          </p>
+          
+          <!-- Visible on medium screens, tablets, and iPad Pro -->
+          <p class="block xl:hidden text-justify text-gray-700 leading-relaxed text-sm sm:text-base" style="font-family: 'Poppins', sans-serif;">
+            Nestled in the lively city of Dubai, Travel Platform is a premier travel and tourism company dedicated to crafting seamless and exceptional experiences tailored to our clients' unique needs. Ranked among the top 10 travel agencies in Dubai, we offer personalized services, from exciting excursions with local tour operators to luxurious, curated experiences. Our strong reputation is built on unwavering customer support and the passion of our dedicated team, making us a top choice for vacationers and business travelers. With numerous accolades and a steadfast commitment to excellence, Travel Platform continues to raise the bar for travel services and customer satisfaction.
+          </p>
+        </div>       
       </div>
     </div>
   </div>
