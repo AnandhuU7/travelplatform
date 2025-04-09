@@ -47,6 +47,17 @@ const servicesData = [
 const structuredData = {
   "@context": "https://schema.org",
   "@type": "ItemList",
+  breadcrumb: {
+    "@type": "BreadcrumbList",
+    itemListElement: [
+      {
+        "@type": "ListItem",
+        position: 1,
+        name: "Home",
+        item: "https://travelplatformuae.com",
+      },
+    ],
+  },
   itemListElement: servicesData.map((service, index) => ({
     "@type": "ListItem",
     position: index + 1,
@@ -59,10 +70,7 @@ const structuredData = {
         "@type": "Offer",
         availability: "https://schema.org/InStock",
         priceCurrency: "AED",
-        priceSpecification: {
-          "@type": "UnitPriceSpecification",
-          price: service.price,
-        },
+        price: service.price, 
         category: "Travel Services",
       },
       image: {

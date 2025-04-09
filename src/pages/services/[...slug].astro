@@ -24,7 +24,7 @@ if (!serviceData) {
   });
 }
 
-const structuredData = {
+const productStructuredData = {
   "@context": "https://schema.org",
   "@type": ["Service", "Product"],
   name: serviceData.data.title,
@@ -80,8 +80,12 @@ const structuredData = {
         worstRating: 1,
       }
     : undefined,
-  breadcrumb: {
-    "@type": "BreadcrumbList",
+};
+
+
+const breadcrumbStructuredData = {
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
     itemListElement: [
       {
         "@type": "ListItem",
@@ -108,8 +112,10 @@ const structuredData = {
         },
       },
     ],
-  },
-};
+  };
+
+const structuredData = [productStructuredData, breadcrumbStructuredData];
+
 ---
 
 <Layout

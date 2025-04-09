@@ -17,7 +17,7 @@ type Props = CollectionEntry<"packages">;
 const packageData = Astro.props;
 const { Content } = await packageData.render();
 
-const structuredData = {
+const productStructuredData = {
   "@context": "https://schema.org",
   "@type": ["Product", "Tour"],
   name: packageData.data.title,
@@ -100,36 +100,41 @@ const structuredData = {
         },
       }
     : undefined,
-  breadcrumb: {
-    "@type": "BreadcrumbList",
-    itemListElement: [
-      {
-        "@type": "ListItem",
-        position: 1,
-        item: {
-          "@id": "https://travelplatformuae.com",
-          name: "Home",
-        },
-      },
-      {
-        "@type": "ListItem",
-        position: 2,
-        item: {
-          "@id": "https://travelplatformuae.com/packages",
-          name: "Packages",
-        },
-      },
-      {
-        "@type": "ListItem",
-        position: 3,
-        item: {
-          "@id": `https://travelplatformuae.com/packages/${packageData.slug}`,
-          name: packageData.data.title,
-        },
-      },
-    ],
-  },
 };
+
+const breadcrumbStructuredData = {
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  itemListElement: [
+    {
+      "@type": "ListItem",
+      position: 1,
+      item: {
+        "@id": "https://travelplatformuae.com",
+        name: "Home",
+      },
+    },
+    {
+      "@type": "ListItem",
+      position: 2,
+      item: {
+        "@id": "https://travelplatformuae.com/packages",
+        name: "Packages",
+      },
+    },
+    {
+      "@type": "ListItem",
+      position: 3,
+      item: {
+        "@id": `https://travelplatformuae.com/packages/${packageData.slug}`,
+        name: packageData.data.title,
+      },
+    },
+  ],
+};
+
+
+const structuredData = [productStructuredData, breadcrumbStructuredData];
 ---
 
 <Layout
