@@ -9,9 +9,9 @@ import JoinUs from '../components/JoinUs.astro';
 import Testimonial from '../pages/testimonial/index.astro';
 import { getCollection } from 'astro:content';
 const testimonials = await getCollection('testimonials');
-const testimonialData = testimonials.map((testimonial) => testimonial.data);
+const testimonialData = testimonials.map((testimonial: any) => testimonial.data);
 
-const title: string = "Travel Platform | Your Gateway to Unforgettable Travel Experiences";
+const title: string = "Best Travel Agency in Dubai | Travel Platform UAE";
 const description: string = "At Travel Platform, we believe that travel should be an enriching and hassle-free adventure.";
 
 ---
