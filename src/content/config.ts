@@ -19,6 +19,7 @@ const servicesCollection = defineCollection({
   details: z.array(z.string()).optional(),
   price: z.number(),
   category: z.string(),
+  contact: z.string().optional(),
   }),
 });
 
