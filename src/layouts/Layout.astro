@@ -3,110 +3,129 @@ import Navbar from "../components/Navbar.astro";
 import Footer from "../components/Footer.astro";
 import { SEO } from "astro-seo";
 import Whatsapp from "../components/WhatsAppButton.tsx";
-import '../styles/base.css';
+import "../styles/base.css";
 import ScrollProgress from "../components/ScrollProgress.astro";
-import { GoogleAnalytics } from 'astro-google-analytics';
+import { GoogleAnalytics } from "astro-google-analytics";
 
 export interface Props {
   title: string;
   description: string;
-  structuredData?: object; 
+  travelplatformuae?: object;
+  ogUrl?: string;
 }
 
-const { title, description, structuredData } = Astro.props;
+const { title, description, travelplatformuae, ogUrl } = Astro.props;
 
 // Default values for SEO
 const defaultTitle = "Best Travel Agency in Dubai | Travel Platform UAE";
-const defaultDescription = "At Travel Platform, we believe that travel should be an enriching and hassle-free adventure.";
-const siteUrl = Astro.url.origin;
+const defaultDescription =
+  "At Travel Platform, we believe that travel should be an enriching and hassle-free adventure.";
 const ogImageUrl = "https://travelplatformuae.com/logo.png";
+const canonicalURL = ogUrl
+  ? new URL(ogUrl, Astro.site)
+  : new URL(Astro.url.pathname, Astro.site);
 ---
+
 <html lang="en">
   <head>
-
-    
-    <!-- Basic Meta Tags -->
     <meta charset="UTF-8" />
-    <meta name="robots" content="index">
+    <meta name="robots" content="index" />
     <link rel="icon" href="/favicon.ico" type="image/x-icon" />
+    <link rel="sitemap" type="application/xml" href="/sitemap-index.xml" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="description" content={description ?? defaultDescription} />
-    <meta name="keywords" content="travel, platform, adventure, tours, holidays, vacation, trip, travel packages, tourism, sightseeing, luxury travel, budget travel, travel deals, international tours, domestic travel, flights, hotels, travel guides, best destinations, holiday packages, travel bookings" />
+    <meta
+      name="keywords"
+      content="travel, platform, adventure, tours, holidays, vacation, trip, travel packages, tourism, sightseeing, luxury travel, budget travel, travel deals, international tours, domestic travel, flights, hotels, travel guides, best destinations, holiday packages, travel bookings"
+    />
     <meta name="author" content="Travel Platform UAE" />
 
     <!-- Open Graph Meta Tags -->
     <meta property="og:title" content={title ?? defaultTitle} />
-    <meta property="og:description" content={description ?? defaultDescription} />
+    <meta
+      property="og:description"
+      content={description ?? defaultDescription}
+    />
     <meta property="og:type" content="website" />
-    <meta property="og:url" content={siteUrl} />
+    <meta property="og:url" content={canonicalURL} />
     <meta property="og:image" content={ogImageUrl} />
     <meta property="og:image:alt" content="Travel Platform Logo" />
-    <meta property="og:image:width" content="1200">
-    <meta property="og:image:height" content="630">
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
 
     <!-- Twitter Meta Tags -->
     <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:site" content="@yourtwitterhandle" />
-    <meta name="twitter:title" content={title ?? defaultTitle} />
-    <meta name="twitter:description" content={description ?? defaultDescription} />
+    <meta name="twitter:site" content="@TravelPlatformUAE" />
+    <meta
+      name="twitter:title"
+      content={title ?? "Best Travel Agency in Dubai | Travel Platform UAE"}
+    />
+    <meta
+      name="twitter:description"
+      content={description ??
+        "At Travel Platform, we believe that travel should be an enriching and hassle-free adventure."}
+    />
     <meta name="twitter:image" content={ogImageUrl} />
 
-    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
-    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
-    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
-  
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
 
-    <meta name="robots" content="index, follow">
-    
+    <meta name="robots" content="index, follow" />
+
     <!-- Structured Data (Schema Markup) -->
     <GoogleAnalytics id="G-RGM99TGREL" />
     {
-      structuredData && (
+      travelplatformuae && (
         <script
+          is:inline
           type="application/ld+json"
-          set:html={JSON.stringify(structuredData)}
+          set:html={JSON.stringify(travelplatformuae)}
         />
       )
     }
-
-    <!-- Canonical URL -->
-    <link rel="canonical" href={siteUrl} />
 
     <!-- SEO Component -->
     <SEO
       title={title ?? defaultTitle}
       description={description ?? defaultDescription}
-      canonical={siteUrl}
+      canonical={canonicalURL}
       openGraph={{
         basic: {
           title: title ?? "Travel Platform UAE",
           type: "website",
-          image: "https://travelplatformuae.com/logo.png",
-          url: "https://travelplatformuae.com",
+          image: ogImageUrl,
+          url: canonicalURL.toString(),
         },
         optional: {
-          description: description ?? "At Travel Platform, we believe that travel should be an enriching and hassle-free adventure."
+          description:
+            description ??
+            "At Travel Platform, we believe that travel should be an enriching and hassle-free adventure.",
+          siteName: "Dubai Hikvision",
+          locale: "en_US",
         },
       }}
       twitter={{
-        card: "summary_large_image",    
-        site: "@travelplatformuae",
-        title: title ?? "Travel Platform UAE",
-        description: description ?? "At Travel Platform, we believe that travel should be an enriching and hassle-free adventure.",
+        card: "summary_large_image",
+        creator: "@TravelPlatformUAE",
+        site: "Travel Platform UAE",
+        title: title ?? "Best Travel Agency in Dubai | Travel Platform UAE",
         image: "https://travelplatformuae.com/logo.png",
         imageAlt: "Travel Platform UAE",
+        description:
+          description ??
+          "At Travel Platform, we believe that travel should be an enriching and hassle-free adventure.",
       }}
       extend={{
         meta: [
           {
             name: "keywords",
             content:
-              "Travel Platform UAE, Dubai, UAE, travel, platform, adventure, tours, holidays, vacation, trip, travel packages, tourism, sightseeing, luxury travel, budget travel, travel deals, international tours, domestic travel, flights, hotels, travel guides, best destinations, holiday packages, travel bookings, tourism companies in dubai, best travel agency in dubai, travel and tourism companies in dubai, best tour operators in dubai"
+              "Travel Platform UAE, Dubai, UAE, travel, platform, adventure, tours, holidays, vacation, trip, travel packages, tourism, sightseeing, luxury travel, budget travel, travel deals, international tours, domestic travel, flights, hotels, travel guides, best destinations, holiday packages, travel bookings, tourism companies in dubai, best travel agency in dubai, travel and tourism companies in dubai, best tour operators in dubai",
           },
           { name: "robots", content: "index, follow" },
           { name: "language", content: "English" },
           { name: "Author", content: "Travel Platform UAE" },
-         
         ],
       }}
     />

@@ -13,12 +13,15 @@ const categories = [
   ...new Set(sortedEvents.map((event) => event.data.category)),
 ];
 
+
+const title = "Our Events - Travel Platform UAE";
+const description = "Explore and book events, cultural activities, and experiences across the UAE with Travel Platform UAE";
+const ogUrl="https://www.travelplatformuae.com/events"
 const structuredData = {
   "@context": "https://schema.org",
   "@type": "ItemList",
-  headline: "Upcoming Events | Travel Platform UAE",
-  description:
-    "Explore and book events, cultural activities, and experiences across the UAE with Travel Platform UAE.",
+  headline: title,
+  description: description,
   url: "https://travelplatformuae.com/events",
   numberOfItems: events.length,
   itemListElement: events.map((event, index) => ({
@@ -35,14 +38,6 @@ const structuredData = {
         width: 800,
         height: 600,
       },
-      startDate: event.data.startdate || `${event.data.startdate}T19:00+04:00`,
-      endDate:
-        event.data.enddate ||
-        (event.data.enddate
-          ? `${event.data.enddate}T23:00+04:00`
-          : `${event.data.startdate}T23:00+04:00`),
-      eventAttendanceMode: "https://schema.org/OfflineEventAttendanceMode",
-      eventStatus: "https://schema.org/EventScheduled",
       location: {
         "@type": "Place",
         name: event.data.location,
@@ -54,15 +49,6 @@ const structuredData = {
           addressCountry: "UAE",
           postalCode: event.data.postalCode,
         },
-      },
-      offers: {
-        "@type": "Offer",
-        url: "https://b2b.travelplatformonline.com/",
-        price: event.data.price,
-        priceCurrency: "AED",
-        availability: "https://schema.org/InStock",
-        validFrom: event.data.startdate,
-        priceValidUntil: event.data.enddate || event.data.startdate,
       },
       organizer: {
         "@type": "Organization",
@@ -95,11 +81,7 @@ const structuredData = {
 };
 ---
 
-<Layout
-  title="Experience UAE | Exclusive Travel Events & Adventures"
-  description="Discover and book exclusive luxury events showcasing the very best of UAE's breathtaking landscapes, culture, and adventures"
-  structuredData={structuredData}
->
+<Layout title={title} description={description} ogUrl={ogUrl} travelplatformuae={structuredData}>
   <main class="font-sans antialiased">
     <div
       class="relative h-[40vh] sm:h-[45vh] md:h-[60vh] lg:h-[60vh] bg-gradient-to-r from-blue-900 via-purple-900 to-blue-900 overflow-hidden hero-banner"

@@ -1,7 +1,7 @@
 ---
 const subTitle: string = "Ask us anything about our travel services and get factual responses.";
 const makeId = (base: any, index: any) => `${base}${index + 1}`;
-const faqs = [
+export const faqs = [
   {
     heading: "What services does Travel Platform UAE offer?",
     content:
@@ -28,21 +28,7 @@ const faqs = [
       "You can contact Travel Platform UAE via phone at +971 52 2345 572 or by email at info@travelplatformuae.com. Additionally, their office is located near Al Khail Gate, Al Qouz, Dubai, UAE.",
   },
 ];
-
-const structuredData = {
-    "@context": "https://schema.org",
-    "@type": "FAQPage",
-    "mainEntity": faqs.map(faq => ({
-      "@type": "Question",
-      "name": faq.heading,
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": faq.content
-      }
-    }))
-}
 ---  
-<script type="application/ld+json" set:html={JSON.stringify(structuredData)} />
 <section class="pb-8 pt-4 bg-gradient-to-b from-white-50 to-white">
   <div class="container mx-auto max-w-6xl px-4">
     <div class="text-center mb-12">

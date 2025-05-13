@@ -8,7 +8,7 @@ const title: string =
 const description: string =
   "Read real testimonials from our happy travelers. Discover their experiences, stories, and feedback about their journeys with Travel Platform UAE.";
 
-interface TestimonialData {
+export interface TestimonialData {
   title: string;
   description: string;
   location: string;
@@ -23,49 +23,7 @@ const testimonials = (await getCollection("testimonials")).map(
   (t) => t.data as TestimonialData,
 );
 
-const structuredData = {
-  "@context": "https://schema.org",
-  "@type": "WebPage",
-  name: "Traveler Stories | Travel Platform UAE - Real Experiences from Our Travelers",
-  description:
-    "Read real testimonials from our happy travelers. Discover their experiences, stories, and feedback about their journeys with Travel Platform UAE.",
-  publisher: {
-    "@type": "Organization",
-    name: "Travel Platform UAE",
-    logo: {
-      "@type": "ImageObject",
-      url: "https://travelplatformuae.com/logo.png",
-      width: "300",
-      height: "60",
-    },
-  },
-  mainEntity: {
-    "@type": "ItemList",
-    itemListElement: testimonials.map((testimonial, index) => ({
-      "@type": "ListItem",
-      position: index + 1,
-      item: {
-        "@type": "Person",
-        name: testimonial.name,
-        jobTitle: testimonial.designation,
-        image: testimonial.image.src,
-        location: {
-          "@type": "Place",
-          name: testimonial.location,
-        },
-        rating: {
-          "@type": "Rating",
-          ratingValue: testimonial.rating,
-          bestRating: 5,
-          worstRating: 1,
-        },
-      },
-    })),
-  },
-};
 ---
-
-<script type="application/ld+json" set:html={JSON.stringify(structuredData)} />
 <section class="py-5 bg-gradient-to-b from-gray-50 to-white">
   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
     <div class="text-center mb-4">

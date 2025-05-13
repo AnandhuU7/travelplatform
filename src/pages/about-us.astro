@@ -3,39 +3,87 @@ import Header from "../components/Header.astro";
 import Layout from "../layouts/Layout.astro";
 import Visionmission from "../components/visionmission.astro";
 import image1 from "/src/assets/about/about1.png";
-import Faq from "../components/Faq.astro";
+import image2 from "/src/assets/about/header.webp";
+import Faq, { faqs } from "../components/Faq.astro";
 
-const title = "About Us - Your Trusted Travel Partner";
+const title = "About Us - Travel Platform UAE";
 const description =
   "Discover our mission to provide seamless and unforgettable travel experiences. Learn about our vision, values, and dedication to customer satisfaction.";
+const ogUrl="https://www.travelplatformuae.com/about-us"
 
-  const breadcrumbStructuredData = {
+const structuredData = {
   "@context": "https://schema.org",
-  "@type": "BreadcrumbList",
-  itemListElement: [
-    {
-      "@type": "ListItem",
-      position: 1,
-      item: {
-        "@id": "https://travelplatformuae.com",
+  "@type": "AboutPage",
+  name: title,
+  description: description, 
+  url: "https://travelplatformuae.com/about-us",
+  mainEntity: {
+    "@type": "Organization",
+    name: "Travel Platform UAE",
+    description:
+      "Nestled in the lively city of Dubai, Travel Platform stands out as one of the premier travel and tourism companies...",
+    url: "https://travelplatformuae.com",
+    logo: {
+      "@type": "ImageObject",
+      url: "https://travelplatformuae.com/logo.png",
+      width: "200",
+      height: "60",
+    },
+    image: {
+      "@type": "ImageObject",
+      url: `https://travelplatformuae.com${image2.src}`,
+      width: "800",
+      height: "500",
+    },
+    sameAs: [
+      "https://www.facebook.com/travellplatformuae",
+      "https://www.instagram.com/travelplatformuae/",
+    ],
+    foundingDate: "2013",
+    foundingLocation: "Dubai, UAE",
+    numberOfEmployees: "100+",
+    awards: "Top 10 Travel Agencies in Dubai",
+    missionStatement:
+      "To deliver seamless and unforgettable travel experiences through innovation and personalized service."
+  },
+  hasPart: {
+    "@type": "FAQPage",
+    "mainEntity": faqs.map(faq => ({
+      "@type": "Question",
+      "name": faq.heading,
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": faq.content
+      }
+    }))
+  },
+  breadcrumb: {
+    "@type": "BreadcrumbList",
+    itemListElement: [
+      {
+        "@type": "ListItem",
+        position: 1,
         name: "Home",
+        item: "https://travelplatformuae.com",
       },
-    },
-    {
-      "@type": "ListItem",
-      position: 2,
-      item: {
-        "@id": "https://travelplatformuae.com/about-us",
+      {
+        "@type": "ListItem",
+        position: 2,
         name: "About Us",
+        item: "https://travelplatformuae.com/about-us",
       },
-    },
-  ],
+    ],
+  },
+ 
 };
-
-
 ---
 
-<Layout title={title} description={description} structuredData={breadcrumbStructuredData}>
+<Layout
+  title={title}
+  description={description}
+  ogUrl={ogUrl}
+  travelplatformuae={structuredData}
+>
   <div
     class="relative h-[35vh] sm:h-[45vh] md:h-[60vh] lg:h-[60vh] bg-gradient-to-r from-blue-900 via-purple-900 to-blue-900 overflow-hidden hero-banner"
   >

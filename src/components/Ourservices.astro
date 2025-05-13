@@ -51,66 +51,8 @@ const servicesData = [
     price: 100,
   },
 ];
-const structuredData = {
-  "@context": "https://schema.org",
-  "@type": "ItemList",
-  breadcrumb: {
-    "@type": "BreadcrumbList",
-    itemListElement: [
-      {
-        "@type": "ListItem",
-        position: 1,
-        name: "Home",
-        item: "https://travelplatformuae.com",
-      },
-    ],
-  },
-  itemListElement: servicesData.map((service, index) => ({
-    "@type": "ListItem",
-    position: index + 1,
-    item: {
-      "@type": ["Product", "Service"],
-      name: service.text,
-      description: `Professional ${service.text} services by Travel Platform UAE`,
-      url: `https://travelplatformuae.com${service.route}`,
-      offers: {
-        "@type": "Offer",
-        availability: "https://schema.org/InStock",
-        priceCurrency: "AED",
-        price: service.price, 
-        category: "Travel Services",
-      },
-      image: {
-        "@type": "ImageObject",
-        url: `https://travelplatformuae.com${service.image.src}`,
-        width: 800,
-        height: 600,
-        caption: service.text,
-      },
-      serviceType: service.text.includes("Global")
-        ? "Global Visa Platform"
-        : service.text.includes("Family")
-          ? "Family Visa"
-          : service.text.includes("Golden")
-            ? "Golden Visa Assistance"
-            : service.text.includes("Umrah")
-              ? "Umrah Assistance"
-              : service.text.includes("B2B")
-                ? "B2B Booking Solutions for Travel Agencies"
-                : service.text.includes("Flight")
-                  ? "Visa Change by Flight"
-                  : "Travel Services",
-    },
-  })),
-  provider: {
-    "@type": "Organization",
-    name: "Travel Platform UAE",
-    url: "https://travelplatformuae.com",
-  },
-};
----
 
-<script type="application/ld+json" set:html={JSON.stringify(structuredData)} />
+---
 <div class="text-center p-0 md:p-8">
   <h2
     class="text-4xl font-bold mb-4 mt-10 md:mt-0 text-center bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent"

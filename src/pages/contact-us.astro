@@ -6,6 +6,7 @@ const title: string =
   "Contact Us | Travel Platform UAE - Get in Touch for Travel Inquiries & Support";
 const description: string =
   "Reach out to Travel Platform UAE for all your travel inquiries, assistance, and support. Contact us via email, phone, or visit our office in Dubai. We're here to help you plan your next adventure!";
+const ogUrl = "https://www.travelplatformuae.com/contact-us";
 
 const structuredData = {
   "@context": "https://schema.org",
@@ -46,7 +47,7 @@ const structuredData = {
       },
       {
         "@type": "ContactPoint",
-        telephone: "+971551328009",
+        telephone: "0551328009",
         contactType: "customer service",
         contactOption: "HearingImpairedSupported",
       },
@@ -93,7 +94,12 @@ const structuredData = {
 };
 ---
 
-<Layout title={title} description={description} structuredData={structuredData}>
+<Layout
+  title={title}
+  description={description}
+  ogUrl={ogUrl}
+  travelplatformuae={structuredData}
+>
   <div
     class="relative h-[40vh] sm:h-[45vh] md:h-[60vh] lg:h-[60vh] bg-gradient-to-r from-blue-900 via-purple-900 to-blue-900 overflow-hidden hero-banner"
   >

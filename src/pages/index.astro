@@ -1,5 +1,5 @@
 ---
-import Carousel from '../components/Carousel.astro';
+import Carousel, { slides } from '../components/Carousel.astro';
 import Header from '../components/Header.astro';
 import Layout from '../layouts/Layout.astro';
 import Ourservices from '../components/Ourservices.astro';
@@ -8,14 +8,104 @@ import OurPartner from '../components/OurPartner.astro';
 import JoinUs from '../components/JoinUs.astro';
 import Testimonial from '../pages/testimonial/index.astro';
 import { getCollection } from 'astro:content';
+import type { TestimonialData } from '../pages/testimonial/index.astro';
+import image1 from "/src/assets/about/header.webp";
+
 const testimonials = await getCollection('testimonials');
 const testimonialData = testimonials.map((testimonial: any) => testimonial.data);
 
 const title: string = "Best Travel Agency in Dubai | Travel Platform UAE";
 const description: string = "At Travel Platform, we believe that travel should be an enriching and hassle-free adventure.";
 
+const ogUrl="https://travelplatformuae.com"
+const structuredData = {
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Organization",
+      "@id": "https://travelplatformuae.com/#organization",
+      name: "Travel Platform UAE",
+      description:
+        "Nestled in the lively city of Dubai, Travel Platform stands out as one of the premier travel and tourism companies in the area, dedicated to crafting seamless and exceptional travel experiences that cater to our clients' unique needs. Our reputation as a reliable name in Dubai's tourism scene is built on our unwavering customer support and the passion of our dedicated team, making us a top choice for both vacationers and business travelers. Proudly ranked among the top 10 travel agencies in Dubai, we focus on delivering personalized services, from exciting excursions with local tour operators to luxurious, curated experiences that ensure every journey is truly unforgettable. With a host of accolades and a steadfast commitment to excellence, Travel Platform remains the leading tour company in Dubai, continually raising the bar for travel services and customer satisfaction.",
+      url: "https://travelplatformuae.com",
+      logo: {
+        "@type": "ImageObject",
+        url: "https://travelplatformuae.com/logo.png",
+        width: 300,
+        height: 60
+      },
+      image: {
+        "@type": "ImageObject",
+        url: `https://travelplatformuae.com${image1.src}`,
+        width: "800",
+        height: "500",
+      },
+    },
+    {
+      "@type": "WebPage",
+      name: title,
+      description: description,
+      url: ogUrl,
+      breadcrumb: {
+        "@type": "BreadcrumbList",
+        itemListElement: [
+          {
+            "@type": "ListItem",
+            position: 1,
+            name: "Home",
+            item: "https://travelplatformuae.com",
+          },
+        ],
+      },
+    },
+    {
+      "@type": "ItemList",
+      name: "Promotional Banners",
+      description:
+        "Explore our promotional banners showcasing Travel Platform UAE.",
+        itemListElement: slides.map((slide, index) => ({
+        "@type": "ListItem",
+        position: index + 1,
+        item: {
+          "@type": "ImageObject",
+          name: slide.title,
+          description: `Promotional banner for ${slide.title}`,
+          contentUrl: "https://travelplatformuae.com" + slide.imgMain.src,
+          creditText: "Travel Platform UAE",
+          width: "1920",
+          height: "1080",
+        },
+      })),
+    },
+    {
+      "@type": "ItemList",
+      name: "Traveler Stories",
+      description: "Read real testimonials from our happy travelers.",
+      itemListElement: testimonialData.map((testimonial: TestimonialData, index: number) => ({
+        "@type": "ListItem",
+        position: index + 1,
+        item: {
+          "@type": "Person",
+          name: testimonial.name,
+          jobTitle: testimonial.designation,
+          image: "https://travelplatformuae.com" + testimonial.image.src,
+          location: {
+            "@type": "Place",
+            name: testimonial.location,
+          },
+          rating: {
+            "@type": "Rating",
+            ratingValue: testimonial.rating,
+            bestRating: 5,
+            worstRating: 1,
+          },
+        },
+      })),
+    },
+  ],
+};
 ---
-<Layout title={title} description={description}>
+<Layout title={title} description={description} ogUrl={ogUrl} travelplatformuae={structuredData}>
   <Carousel />
   <Header />
   <Ourservices />

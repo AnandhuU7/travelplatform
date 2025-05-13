@@ -6,9 +6,10 @@ import image2 from "/src/assets/testi/testi1.png";
 import logo from "/src/assets/logo.png";
 import banner from "/src/assets/about/about1.png";
 
-const title = "Travel Platform - Our News";
+const title = "Our News - Travel Platform UAE";
 const description = "Stay updated with the latest travel news and updates.";
 const newsArticles = await getCollection("news");
+const ogUrl="https://www.travelplatformuae.com/news"
 
 const structuredData = {
   "@context": "https://schema.org",
@@ -65,7 +66,7 @@ const structuredData = {
 };
 ---
 
-<Layout title={title} description={description} structuredData={structuredData}>
+<Layout title={title} description={description} ogUrl={ogUrl} travelplatformuae={structuredData}>
   <div
     class="relative h-[35vh] sm:h-[45vh] md:h-[60vh] lg:h-[60vh] bg-gradient-to-r from-blue-900 via-purple-900 to-blue-900 overflow-hidden hero-banner"
   >
