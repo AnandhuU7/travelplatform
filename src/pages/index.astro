@@ -15,7 +15,7 @@ const testimonials = await getCollection('testimonials');
 const testimonialData = testimonials.map((testimonial: any) => testimonial.data);
 
 const title: string = "Best Travel Agency in Dubai | Travel Platform UAE";
-const description: string = "At Travel Platform, we believe that travel should be an enriching and hassle-free adventure.";
+const description: string = "Nestled in the lively city of Dubai, Travel Platform stands out as one of the premier travel and tourism companies in the area, dedicated to crafting seamless and exceptional travel experiences that cater to our clients' unique needs. Our reputation as a reliable name in Dubai's tourism scene is built on our unwavering customer support and the passion of our dedicated team, making us a top choice for both vacationers and business travelers. Proudly ranked among the top 10 travel agencies in Dubai, we focus on delivering personalized services, from exciting excursions with local tour operators to luxurious, curated experiences that ensure every journey is truly unforgettable. With a host of accolades and a steadfast commitment to excellence, Travel Platform remains the leading tour company in Dubai, continually raising the bar for travel services and customer satisfaction.";
 
 const ogUrl="https://travelplatformuae.com"
 const structuredData = {
@@ -46,7 +46,7 @@ const structuredData = {
       name: title,
       description: description,
       url: ogUrl,
-      breadcrumb: {
+      breadcrumbList: {
         "@type": "BreadcrumbList",
         itemListElement: [
           {

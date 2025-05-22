@@ -19,7 +19,7 @@ const { title, description, travelplatformuae, ogUrl } = Astro.props;
 // Default values for SEO
 const defaultTitle = "Best Travel Agency in Dubai | Travel Platform UAE";
 const defaultDescription =
-  "At Travel Platform, we believe that travel should be an enriching and hassle-free adventure.";
+  "Nestled in the lively city of Dubai, Travel Platform stands out as one of the premier travel and tourism companies in the area, dedicated to crafting seamless and exceptional travel experiences that cater to our clients' unique needs. Our reputation as a reliable name in Dubai's tourism scene is built on our unwavering customer support and the passion of our dedicated team, making us a top choice for both vacationers and business travelers. Proudly ranked among the top 10 travel agencies in Dubai, we focus on delivering personalized services, from exciting excursions with local tour operators to luxurious, curated experiences that ensure every journey is truly unforgettable. With a host of accolades and a steadfast commitment to excellence, Travel Platform remains the leading tour company in Dubai, continually raising the bar for travel services and customer satisfaction.";
 const ogImageUrl = "https://travelplatformuae.com/logo.png";
 const canonicalURL = ogUrl
   ? new URL(ogUrl, Astro.site)
@@ -34,10 +34,6 @@ const canonicalURL = ogUrl
     <link rel="sitemap" type="application/xml" href="/sitemap-index.xml" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="description" content={description ?? defaultDescription} />
-    <meta
-      name="keywords"
-      content="travel, platform, adventure, tours, holidays, vacation, trip, travel packages, tourism, sightseeing, luxury travel, budget travel, travel deals, international tours, domestic travel, flights, hotels, travel guides, best destinations, holiday packages, travel bookings"
-    />
     <meta name="author" content="Travel Platform UAE" />
 
     <!-- Open Graph Meta Tags -->
@@ -58,12 +54,11 @@ const canonicalURL = ogUrl
     <meta name="twitter:site" content="@TravelPlatformUAE" />
     <meta
       name="twitter:title"
-      content={title ?? "Best Travel Agency in Dubai | Travel Platform UAE"}
+      content={title ?? defaultTitle}
     />
     <meta
       name="twitter:description"
-      content={description ??
-        "At Travel Platform, we believe that travel should be an enriching and hassle-free adventure."}
+      content={description ?? defaultDescription}
     />
     <meta name="twitter:image" content={ogImageUrl} />
 
@@ -92,7 +87,7 @@ const canonicalURL = ogUrl
       canonical={canonicalURL}
       openGraph={{
         basic: {
-          title: title ?? "Travel Platform UAE",
+          title: title ?? defaultTitle,
           type: "website",
           image: ogImageUrl,
           url: canonicalURL.toString(),
@@ -100,8 +95,8 @@ const canonicalURL = ogUrl
         optional: {
           description:
             description ??
-            "At Travel Platform, we believe that travel should be an enriching and hassle-free adventure.",
-          siteName: "Dubai Hikvision",
+            defaultDescription,
+          siteName: "Travel Platform UAE",
           locale: "en_US",
         },
       }}
@@ -109,19 +104,17 @@ const canonicalURL = ogUrl
         card: "summary_large_image",
         creator: "@TravelPlatformUAE",
         site: "Travel Platform UAE",
-        title: title ?? "Best Travel Agency in Dubai | Travel Platform UAE",
+        title: title ?? defaultTitle,
         image: "https://travelplatformuae.com/logo.png",
         imageAlt: "Travel Platform UAE",
-        description:
-          description ??
-          "At Travel Platform, we believe that travel should be an enriching and hassle-free adventure.",
+        description: description ?? defaultDescription,
       }}
       extend={{
         meta: [
           {
             name: "keywords",
             content:
-              "Travel Platform UAE, Dubai, UAE, travel, platform, adventure, tours, holidays, vacation, trip, travel packages, tourism, sightseeing, luxury travel, budget travel, travel deals, international tours, domestic travel, flights, hotels, travel guides, best destinations, holiday packages, travel bookings, tourism companies in dubai, best travel agency in dubai, travel and tourism companies in dubai, best tour operators in dubai",
+              "Travel Platform UAE, Best Travel Agency in Dubai, Dubai travel agency, best tour operators in Dubai, luxury travel Dubai, budget travel UAE, international tours, domestic travel packages, flights and hotels, holiday deals, adventure tours, sightseeing Dubai, travel guides, tourism companies in Dubai",
           },
           { name: "robots", content: "index, follow" },
           { name: "language", content: "English" },

@@ -10,10 +10,11 @@ const packageData = (await getCollection("packages")).sort((a, b) => {
   return a.data.id - b.data.id;
 });
 
-const pageTitle: string = `Our Travel Packages | Your Trusted Travel Partner`;
+const pageTitle: string = `Our Travel Packages | Best Travel Agency in Dubai`;
 const description: string =
-  "Explore our curated travel packages designed to make your journey unforgettable. From budget-friendly trips to luxury getaways, we have something for everyone.";
+  "Explore the world with ease and style, Curated travel experiences | Group and custom trips, Let your journey begin here";
 const ogUrl = "https://travelplatformuae.com/packages";
+
 
 const structuredData = {
   "@context": "https://schema.org",
@@ -28,7 +29,7 @@ const structuredData = {
       "@type": "ListItem",
       position: index + 1,
       item: {
-        "@type": ["Product", "Tour"],
+        "@type": "Tour",
         name: pkg.data.title,
         description: pkg.data.description,
         image: {
@@ -51,34 +52,32 @@ const structuredData = {
       height: "60",
     },
   },
-  breadcrumb: {
+  breadcrumbList: {
     "@type": "BreadcrumbList",
     itemListElement: [
       {
         "@type": "ListItem",
         position: 1,
-        item: {
-          "@id": "https://travelplatformuae.com",
-          name: "Home",
-        },
+        name: "Home",
+        item: "https://travelplatformuae.com"
       },
       {
         "@type": "ListItem",
         position: 2,
-        item: {
-          "@id": "https://travelplatformuae.com/packages",
-          name: "Packages",
-        },
-      },
-    ],
-  },
+        name: "Packages",
+        item: "https://travelplatformuae.com/packages"
+      }
+    ]
+  }
 };
+
 ---
 
 <Layout
   title={pageTitle}
   description={description}
-  structuredData={structuredData}
+  ogUrl={ogUrl}
+  travelplatformuae={structuredData}
 >
   <div
     class="relative h-[35vh] sm:h-[45vh] md:h-[60vh] lg:h-[60vh] bg-gradient-to-r from-blue-900 via-purple-900 to-blue-900 overflow-hidden hero-banner"

@@ -9,6 +9,7 @@ import logo from "/src/assets/logo.png";
 const title = "Our Travel Services | Your Trusted Travel Partner";
 const description =
   "Explore our curated travel services designed to make your journey seamless and unforgettable. From budget-friendly options to luxury experiences, we have something for everyone.";
+  const ogUrl = "https://travelplatformuae.com/services";
 
 const serviceData = (await getCollection("services")).sort((a, b) => {
   return a.data.id - b.data.id;
@@ -27,9 +28,8 @@ const structuredData = {
       "@type": "ListItem",
       position: index + 1,
       item: {
-        "@type": ["Service", "Product"],
+        "@type": "Service",
         name: service.data.title,
-        description: service.data.description,
         serviceType: service.data.category || "TravelService",
         image: {
           "@type": "ImageObject",
@@ -39,26 +39,6 @@ const structuredData = {
           width: 800,
           height: 600,
         },
-        datePublished: service.data.publishedTime,
-        dateModified: service.data.modifiedTime
-          ? new Date(service.data.modifiedTime).toISOString()
-          : new Date(service.data.publishedTime).toISOString(),
-        offers: {
-          "@type": "Offer",
-          url: `https://travelplatformuae.com/services/${service.slug}`,
-          priceCurrency: "AED",
-          price: service.data.price,
-        },
-        aggregateRating:
-          service.data.rating && service.data.reviewCount
-            ? {
-                "@type": "AggregateRating",
-                ratingValue: service.data.rating.toFixed(1),
-                reviewCount: service.data.reviewCount,
-                bestRating: 5,
-                worstRating: 1,
-              }
-            : undefined,
       },
     })),
   },
@@ -73,35 +53,36 @@ const structuredData = {
       height: "60",
     },
   },
-  breadcrumb: {
+  areaServed: {
+    "@type": "Country",
+    name: "United Arab Emirates",
+  },
+  breadcrumbList: {
     "@type": "BreadcrumbList",
     itemListElement: [
       {
         "@type": "ListItem",
         position: 1,
-        item: {
-          "@id": "https://travelplatformuae.com",
-          name: "Home",
-        },
+        name: "Home",
+        item: "https://travelplatformuae.com"
       },
       {
         "@type": "ListItem",
         position: 2,
-        item: {
-          "@id": "https://travelplatformuae.com/services",
-          name: "Services",
-        },
+        name: "Services",
+        item: "https://travelplatformuae.com/services",
       },
-    ],
-  },
-  serviceArea: {
-    "@type": "AdministrativeArea",
-    name: "United Arab Emirates",
-  },
+    ]
+  }
 };
 ---
 
-<Layout title={title} description={description} structuredData={structuredData}>
+<Layout
+  title={title}
+  description={description}
+  ogUrl={ogUrl}
+  travelplatformuae={structuredData}
+>
   <!-- Hero Section -->
   <div
     class="relative h-[35vh] sm:h-[45vh] md:h-[60vh] lg:h-[60vh] bg-gradient-to-r from-blue-900 via-purple-900 to-blue-900 overflow-hidden hero-banner"

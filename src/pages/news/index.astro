@@ -34,27 +34,6 @@ const structuredData = {
       articleSection: article.data.category,
     },
   })),
-  breadcrumb: {
-    "@type": "BreadcrumbList",
-    itemListElement: [
-      {
-        "@type": "ListItem",
-        position: 1,
-        item: {
-          "@id": "https://travelplatformuae.com",
-          name: "Home",
-        },
-      },
-      {
-        "@type": "ListItem",
-        position: 2,
-        item: {
-          "@id": "https://travelplatformuae.com/news",
-          name: "News",
-        },
-      },
-    ],
-  },
   publisher: {
     "@type": "Organization",
     name: "Travel Platform UAE",
@@ -63,6 +42,23 @@ const structuredData = {
       url: "https://travelplatformuae.com/logo.png",
     },
   },
+  breadcrumbList: {
+    "@type": "BreadcrumbList",
+    itemListElement: [
+      {
+        "@type": "ListItem",
+        position: 1,
+        name: "Home",
+        item: "https://travelplatformuae.com"
+      },
+      {
+        "@type": "ListItem",
+        position: 2,
+        name: "News",
+        item: "https://travelplatformuae.com/news"
+      },
+    ]
+  }
 };
 ---
 

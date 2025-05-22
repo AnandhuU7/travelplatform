@@ -17,6 +17,8 @@ type Props = CollectionEntry<"services">;
 const serviceData = Astro.props;
 const { Content } = await serviceData.render();
 
+const ogUrl = `https://travelplatformuae.com/services/${serviceData.slug}`;
+
 if (!serviceData) {
   return new Response(null, {
     status: 404,
@@ -24,9 +26,9 @@ if (!serviceData) {
   });
 }
 
-const productStructuredData = {
+const structuredData = {
   "@context": "https://schema.org",
-  "@type": ["Service", "Product"],
+  "@type": "Service",
   name: serviceData.data.title,
   description: serviceData.data.description,
   serviceType: serviceData.data.category || "TravelService",
@@ -36,33 +38,18 @@ const productStructuredData = {
     width: 800,
     height: 600,
   },
-  offers: {
-    "@type": "Offer",
-    url: `https://travelplatformuae.com/services/${serviceData.slug}`,
-    priceCurrency: "AED",
-    price: serviceData.data.price,
-    priceValidUntil: new Date(
-      new Date().setFullYear(new Date().getFullYear() + 1),
-    )
-      .toISOString()
-      .split("T")[0],
-    validFrom:
-      serviceData.data.publishedTime || new Date().toISOString().split("T")[0],
-    availability: "https://schema.org/InStock",
-  },
   provider: {
     "@type": "TravelAgency",
-    "@id": "https://travelplatformuae.com/#travelagency",
     name: "Travel Platform UAE",
     url: "https://travelplatformuae.com",
     logo: "https://travelplatformuae.com/logo.png",
-    telephone: "+971 52 2345 572",
+    telephone: "+971522345572",
     address: {
       "@type": "PostalAddress",
       streetAddress: "Al Muhaisnah 2",
       addressLocality: "Dubai",
       addressRegion: "Dubai",
-      postalCode: "232424",
+      postalCode: "202321",
       addressCountry: "AE",
     },
   },
@@ -71,57 +58,38 @@ const productStructuredData = {
     name: "United Arab Emirates",
     sameAs: "https://en.wikipedia.org/wiki/United_Arab_Emirates",
   },
-  aggregateRating: serviceData.data.rating
-    ? {
-        "@type": "AggregateRating",
-        ratingValue: serviceData.data.rating,
-        reviewCount: serviceData.data.reviewCount || 1,
-        bestRating: 5,
-        worstRating: 1,
-      }
-    : undefined,
-};
-
-
-const breadcrumbStructuredData = {
-  "@context": "https://schema.org",
-  "@type": "BreadcrumbList",
+  breadcrumbList: {
+    "@type": "BreadcrumbList",
     itemListElement: [
       {
         "@type": "ListItem",
         position: 1,
-        item: {
-          "@id": "https://travelplatformuae.com",
-          name: "Home",
-        },
+        name: "Home",
+        item: "https://travelplatformuae.com"
       },
       {
         "@type": "ListItem",
         position: 2,
-        item: {
-          "@id": "https://travelplatformuae.com/services",
-          name: "Services",
-        },
+        name: "Services",
+        item: "https://travelplatformuae.com/services",
       },
       {
         "@type": "ListItem",
         position: 3,
-        item: {
-          "@id": `https://travelplatformuae.com/services/${serviceData.slug}`,
-          name: serviceData.data.title,
-        },
-      },
-    ],
-  };
-
-const structuredData = [productStructuredData, breadcrumbStructuredData];
+        name: serviceData.data.title,
+        item: `https://travelplatformuae.com/services/${serviceData.slug}`,
+      }
+    ]
+  }
+};
 
 ---
 
 <Layout
   title={serviceData.data.title}
   description={serviceData.data.description}
-  structuredData={structuredData}
+  ogUrl={ogUrl}
+  travelplatformuae={structuredData}
 >
   <!-- Hero Section -->
   <div

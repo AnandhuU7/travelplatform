@@ -17,9 +17,11 @@ type Props = CollectionEntry<"packages">;
 const packageData = Astro.props;
 const { Content } = await packageData.render();
 
-const productStructuredData = {
+const ogUrl = `https://travelplatformuae.com/packages/${packageData.slug}`;
+
+const structuredData = {
   "@context": "https://schema.org",
-  "@type": ["Product", "Tour"],
+  "@type": "Tour",
   name: packageData.data.title,
   description: packageData.data.description,
   image: {
@@ -28,66 +30,38 @@ const productStructuredData = {
     width: 800,
     height: 600,
   },
+  location: {
+    name: packageData.data.title.split(" - ")[0]?.trim().replace(" Tour", ""),
+  },
+  duration: `P${packageData.data.title.split(" - ")[1]?.trim().split(" ")[0] || "1"}D`,
+  itinerary: {
+    "@type": "ItemList",
+    "itemListOrder": "ItemListOrderAscending",
+    "numberOfItems": packageData.data.itinerary?.length || 0,
+    "itemListElement": (packageData.data.itinerary || []).map((item, index) => ({
+      "@type": "ListItem",
+      "position": index + 1,
+      "item": {
+        "@type": ["TouristAttraction", "Place"],
+        "name": item.split(":")[1]?.trim() || item,
+        "description": item,
+      },
+    })),
+  },
   provider: {
     "@type": "TravelAgency",
-    "@id": "https://travelplatformuae.com/#travelagency",
     name: "Travel Platform UAE",
     url: "https://travelplatformuae.com",
     logo: "https://travelplatformuae.com/logo.png",
-    telephone: "+971 52 2345 572",
     address: {
       "@type": "PostalAddress",
       streetAddress: "Al Muhaisnah 2",
       addressLocality: "Dubai",
       addressRegion: "Dubai",
-      postalCode: "232424",
+      postalCode: "202321",
       addressCountry: "AE",
     },
   },
-  offers: {
-    "@type": "Offer",
-    url: `https://travelplatformuae.com/packages/${packageData.slug}`,
-    priceCurrency: "AED",
-    price: packageData.data.price,
-    priceValidUntil: new Date(
-      new Date().setFullYear(new Date().getFullYear() + 1),
-    )
-      .toISOString()
-      .split("T")[0],
-    validFrom:
-      packageData.data.publishedTime || new Date().toISOString().split("T")[0],
-    availability: "https://schema.org/InStock",
-  },
-  location: {
-    "@type": "Place",
-    name: packageData.data.location,
-    address: packageData.data.location,
-  },
-  duration: packageData.data.duration
-    ? `P${packageData.data.duration.replace(/(\d+) Nights? (\d+) Days?/, "$1DT$2H")}`
-    : undefined,
-  itinerary: {
-    "@type": "ItemList",
-    numberOfItems: packageData.data.itinerary?.length || 0,
-    itemListElement: (packageData.data.itinerary || []).map((item, index) => ({
-      "@type": "ListItem",
-      position: index + 1,
-      item: {
-        "@type": "Place",
-        name: item.split(":")[1]?.trim() || item,
-        description: item,
-      },
-    })),
-  },
-  aggregateRating: packageData.data.rating && packageData.data.reviewCount
-    ? {
-        "@type": "AggregateRating",
-        ratingValue: packageData.data.rating,
-        reviewCount: packageData.data.reviewCount,
-        bestRating: 5,
-        worstRating: 1,
-      }
-    : undefined,
   hasOfferCatalog: packageData.data.pdfUrl
     ? {
         "@type": "OfferCatalog",
@@ -100,50 +74,40 @@ const productStructuredData = {
         },
       }
     : undefined,
-};
-
-const breadcrumbStructuredData = {
-  "@context": "https://schema.org",
-  "@type": "BreadcrumbList",
-  itemListElement: [
-    {
-      "@type": "ListItem",
-      position: 1,
-      item: {
-        "@id": "https://travelplatformuae.com",
+  breadcrumbList: {
+    "@type": "BreadcrumbList",
+    itemListElement: [
+      {
+        "@type": "ListItem",
+        position: 1,
         name: "Home",
+        item: "https://travelplatformuae.com"
       },
-    },
-    {
-      "@type": "ListItem",
-      position: 2,
-      item: {
-        "@id": "https://travelplatformuae.com/packages",
+      {
+        "@type": "ListItem",
+        position: 2,
         name: "Packages",
+        item: "https://travelplatformuae.com/packages"
       },
-    },
-    {
-      "@type": "ListItem",
-      position: 3,
-      item: {
-        "@id": `https://travelplatformuae.com/packages/${packageData.slug}`,
+      {
+        "@type": "ListItem",
+        position: 3,
         name: packageData.data.title,
+        item: `https://travelplatformuae.com/packages/${packageData.slug}`
       },
-    },
-  ],
+    ]
+  }
 };
-
-
-const structuredData = [productStructuredData, breadcrumbStructuredData];
 ---
 
 <Layout
   title={packageData.data.title}
   description={packageData.data.description}
-  structuredData={structuredData}
+  ogUrl={ogUrl}
+  travelplatformuae={structuredData}
 >
   <div
-    class="relative h-[35vh] sm:h-[45vh] md:h-[60vh] lg:h-[60vh] bg-gradient-to-r from-blue-900 via-purple-900 to-blue-900 overflow-hidden hero-banner"
+    class="relative h-[35vh] sm:h-[45vh] md:h-[60vh] lg:h-[60vh] bg-gradient-to-r from-blue-900 via-purple-900 to-blue-900 overflow-hidden"
   >
     <div
       class="absolute inset-0 transform-gpu"
@@ -170,7 +134,7 @@ const structuredData = [productStructuredData, breadcrumbStructuredData];
           >
         </h1>
         <p
-          class="text-xl sm:text-xl md:text-2xl text-gray-200 max-w-3xl mx-auto animate-fade-in-up"
+          class="text-xl sm:text-xl md:text-2xl text-gray-200 max-w-3xl mx-auto opacity-0 translate-y-8 animate-fade-in-up"
         >
           Discover Handpicked Travel Packages Tailored for Your Perfect Getaway
         </p>
@@ -192,36 +156,63 @@ const structuredData = [productStructuredData, breadcrumbStructuredData];
             class="w-full h-auto object-cover rounded-xl"
           />
         </div>
-        <p class="mt-4 text-gray-600">{packageData.data.description}</p>
-        <ul class="mt-4 space-y-2 text-gray-700">
-          <li class="flex items-center gap-2">
-            <span class="text-green-500">&#10004;</span> Hassle-Free Booking
-          </li>
-          <li class="flex items-center gap-2">
-            <span class="text-green-500">&#10004;</span> Best Price Guarantee
-          </li>
-          <li class="flex items-center gap-2">
-            <span class="text-green-500">&#10004;</span> Instant Confirmations
-          </li>
-          <li class="flex items-center gap-2">
-            <span class="text-green-500">&#10004;</span> Trusted by Thousands
-          </li>
-        </ul>
-        <div class="mt-6 flex flex-col sm:flex-row gap-4">
+        <p class="mt-4 font-bold" style="color: #828386;">{packageData.data.description}</p>
+        
+        <!-- Enhanced Itinerary List -->
+        <div class="space-y-3 mt-4">
+          <h3 class="text-xl font-bold text-gray-800 mb-4 flex items-center gap-2">
+            <span class="w-8 h-8 bg-gradient-to-r from-green-400 to-blue-500 rounded-full flex items-center justify-center">
+              <svg class="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+              </svg>
+            </span>
+            What's Included
+          </h3>
+          <ul class="space-y-3">
+            {packageData.data.itinerary?.map((item, index) => (
+              <li 
+                class="flex items-start gap-3 p-3 bg-gradient-to-r from-green-50 to-blue-50 rounded-xl border border-green-100/50 hover:shadow-md transition-all duration-300 opacity-0 translate-y-8 animate-fade-in-up" 
+                style={`animation-delay: ${index * 100}ms`}
+              >
+                <span class="flex-shrink-0 w-6 h-6 bg-gradient-to-r from-green-400 to-green-500 rounded-full flex items-center justify-center mt-0.5 shadow-lg">
+                  <svg class="w-3 h-3 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"></path>
+                  </svg>
+                </span>
+                <span class="text-gray-700 font-medium flex-1">{item}</span>
+              </li>
+            ))}
+          </ul>
+        </div>
+        
+        <!-- Enhanced Action Buttons -->
+        <div class="flex flex-col sm:flex-row gap-4 pt-6">
           <a
             href="https://b2b.travelplatformonline.com/"
-            class="rounded-md bg-yellow-600 px-8 py-3 text-base font-semibold text-white shadow-sm hover:bg-yellow-500 transform transition-all duration-200 hover:-translate-y-1 hover:shadow-lg active:translate-y-0"
+            class="group relative overflow-hidden rounded-2xl bg-gradient-to-r from-yellow-500 to-orange-500 px-8 py-4 text-lg font-bold text-white shadow-xl hover:shadow-2xl transform transition-all duration-300 hover:-translate-y-2 hover:scale-105 active:translate-y-0 before:content-[''] before:absolute before:top-0 before:-left-full before:w-full before:h-full before:bg-gradient-to-r before:from-transparent before:via-white/20 before:to-transparent before:transition-all before:duration-500 hover:before:left-full"
           >
-            Book Now
+            <span class="relative z-10 flex items-center justify-center gap-2">
+              <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8"></path>
+              </svg>
+              Book Now
+            </span>
+            <div class="absolute inset-0 bg-gradient-to-r from-yellow-600 to-orange-600 transform scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left"></div>
           </a>
           <a
             href={packageData.data.pdfUrl}
             target="_blank"
             rel="noopener noreferrer"
-            class="rounded-md bg-blue-600 px-8 py-3 text-base font-semibold text-white shadow-sm hover:bg-blue-500 transform transition-all duration-200 hover:-translate-y-1 hover:shadow-lg active:translate-y-0"
+            class="group relative overflow-hidden rounded-2xl bg-gradient-to-r from-blue-500 to-purple-500 px-8 py-4 text-lg font-bold text-white shadow-xl hover:shadow-2xl transform transition-all duration-300 hover:-translate-y-2 hover:scale-105 active:translate-y-0 before:content-[''] before:absolute before:top-0 before:-left-full before:w-full before:h-full before:bg-gradient-to-r before:from-transparent before:via-white/20 before:to-transparent before:transition-all before:duration-500 hover:before:left-full"
             download
           >
-            Download PDF
+            <span class="relative z-10 flex items-center justify-center gap-2">
+              <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
+              </svg>
+              Get Brochure
+            </span>
+            <div class="absolute inset-0 bg-gradient-to-r from-blue-600 to-purple-600 transform scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left"></div>
           </a>
         </div>
       </div>
@@ -236,7 +227,23 @@ const structuredData = [productStructuredData, breadcrumbStructuredData];
   </div>
   <JoinUs />
 </Layout>
+
 <style>
+  @keyframes fade-in-up {
+    0% {
+      opacity: 0;
+      transform: translateY(30px);
+    }
+    100% {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  .animate-fade-in-up {
+    animation: fade-in-up 0.6s ease-out both;
+  }
+
   @media only screen and (min-width: 768px) and (max-width: 1024px),
     only screen and (min-width: 834px) and (max-width: 1194px) {
     .hero-banner {
