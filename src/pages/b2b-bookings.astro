@@ -1,56 +1,61 @@
 ---
-import Layout from '../layouts/Layout.astro';
+import Layout from "../layouts/Layout.astro";
 
-const title: string = "B2B Travel Bookings | Streamline Your Business Travel Needs";
-const description: string = "Simplify your business travel bookings with Travel Platform's B2B solutions. Enjoy seamless reservations, exclusive deals, and dedicated support for corporate travelers.";
+const title: string =
+  "B2B Travel Bookings | Streamline Your Business Travel Needs";
+const description: string =
+  "Simplify your business travel bookings with Travel Platform's B2B solutions. Enjoy seamless reservations, exclusive deals, and dedicated support for corporate travelers.";
 
 const structuredData = {
   "@context": "https://schema.org",
   "@type": "WebPage",
-  "name": title,
-  "description": description,
-  "url": `${Astro.site}/b2booking`,
-  "about": "B2B Travel Bookings",
-  "keywords": ["B2B travel", "business travel", "corporate travel", "travel solutions"],
-  "provider": {
+  name: title,
+  description: description,
+  url: `https://travelplatformuae.com/b2booking`,
+  about: "B2B Travel Bookings",
+  datePublished: "2025-01-01",
+  dateModified: "2025-01-01",
+  provider: {
     "@type": "Organization",
-    "name": "Travel Platform",
-    "url": `${Astro.site}/`,
-    "contactPoint": [
+    name: "Travel Platform UAE",
+    url: `https://travelplatformuae.com`,
+    contactPoint: [
       {
         "@type": "ContactPoint",
-        "telephone": "+971 52 2345 572",
-        "email": "info@travelplatformuae.com",
-        "contactType": "customer service",
-        "areaServed": "AE",
-        "availableLanguage": ["English"]
-      }
-    ]
+        telephone: "+971522345572",
+        email: "info@travelplatformuae.com",
+        contactType: "customer service",
+        areaServed: "AE",
+        availableLanguage: ["English"],
+      },
+    ],
   },
-  "breadcrumb": {
+  breadcrumbList: {
     "@type": "BreadcrumbList",
-    "itemListElement": [
+    itemListElement: [
       {
         "@type": "ListItem",
-        "position": 1,
-        "name": "Home",
-        "item": `${Astro.site}/`
+        position: 1,
+        name: "Home",
+        item: "https://travelplatformuae.com"
       },
       {
         "@type": "ListItem",
-        "position": 2,
-        "name": "B2B Travel Bookings",
-        "item": `${Astro.site}/b2booking`
+        position: 2,
+        name: "B2B Travel Bookings",
+        item: "https://travelplatformuae.com/b2booking"
       }
     ]
   }
 };
 ---
-<Layout title={title} description={description} structuredData={structuredData}>
+
+<Layout title={title} description={description} travelplatformuae={structuredData}>
   <!-- Main Content -->
   <h1 class="text-3xl font-bold underline text-red-700">B2B Bookings</h1>
   <p class="mt-4 text-lg text-gray-700">
-    Simplify your business travel bookings with Travel Platform's B2B solutions. 
-    Enjoy seamless reservations, exclusive deals, and dedicated support for corporate travelers.
+    Simplify your business travel bookings with Travel Platform's B2B solutions.
+    Enjoy seamless reservations, exclusive deals, and dedicated support for
+    corporate travelers.
   </p>
 </Layout>

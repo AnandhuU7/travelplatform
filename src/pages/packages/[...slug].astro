@@ -62,18 +62,6 @@ const structuredData = {
       addressCountry: "AE",
     },
   },
-  hasOfferCatalog: packageData.data.pdfUrl
-    ? {
-        "@type": "OfferCatalog",
-        name: `${packageData.data.title} Brochure`,
-        itemListElement: {
-          "@type": "DigitalDocument",
-          name: "Tour Package Details",
-          url: "https://travelplatformuae.com" + packageData.data.pdfUrl,
-          fileFormat: "application/pdf",
-        },
-      }
-    : undefined,
   breadcrumbList: {
     "@type": "BreadcrumbList",
     itemListElement: [

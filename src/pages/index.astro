@@ -1,23 +1,26 @@
 ---
-import Carousel, { slides } from '../components/Carousel.astro';
-import Header from '../components/Header.astro';
-import Layout from '../layouts/Layout.astro';
-import Ourservices from '../components/Ourservices.astro';
-import OurPackages from '../components/OurPackages.astro';
-import OurPartner from '../components/OurPartner.astro';
-import JoinUs from '../components/JoinUs.astro';
-import Testimonial from '../pages/testimonial/index.astro';
-import { getCollection } from 'astro:content';
-import type { TestimonialData } from '../pages/testimonial/index.astro';
+import Carousel, { slides } from "../components/Carousel.astro";
+import Header from "../components/Header.astro";
+import Layout from "../layouts/Layout.astro";
+import Ourservices from "../components/Ourservices.astro";
+import OurPackages from "../components/OurPackages.astro";
+import OurPartner from "../components/OurPartner.astro";
+import JoinUs from "../components/JoinUs.astro";
+import Testimonial from "../pages/testimonial/index.astro";
+import { getCollection } from "astro:content";
+import type { TestimonialData } from "../pages/testimonial/index.astro";
 import image1 from "/src/assets/about/header.webp";
 
-const testimonials = await getCollection('testimonials');
-const testimonialData = testimonials.map((testimonial: any) => testimonial.data);
+const testimonials = await getCollection("testimonials");
+const testimonialData = testimonials.map(
+  (testimonial: any) => testimonial.data,
+);
 
 const title: string = "Best Travel Agency in Dubai | Travel Platform UAE";
-const description: string = "Nestled in the lively city of Dubai, Travel Platform stands out as one of the premier travel and tourism companies in the area, dedicated to crafting seamless and exceptional travel experiences that cater to our clients' unique needs. Our reputation as a reliable name in Dubai's tourism scene is built on our unwavering customer support and the passion of our dedicated team, making us a top choice for both vacationers and business travelers. Proudly ranked among the top 10 travel agencies in Dubai, we focus on delivering personalized services, from exciting excursions with local tour operators to luxurious, curated experiences that ensure every journey is truly unforgettable. With a host of accolades and a steadfast commitment to excellence, Travel Platform remains the leading tour company in Dubai, continually raising the bar for travel services and customer satisfaction.";
+const description: string =
+  "Nestled in the lively city of Dubai, Travel Platform stands out as one of the premier travel and tourism companies in the area, dedicated to crafting seamless and exceptional travel experiences that cater to our clients' unique needs. Our reputation as a reliable name in Dubai's tourism scene is built on our unwavering customer support and the passion of our dedicated team, making us a top choice for both vacationers and business travelers. Proudly ranked among the top 10 travel agencies in Dubai, we focus on delivering personalized services, from exciting excursions with local tour operators to luxurious, curated experiences that ensure every journey is truly unforgettable. With a host of accolades and a steadfast commitment to excellence, Travel Platform remains the leading tour company in Dubai, continually raising the bar for travel services and customer satisfaction.";
 
-const ogUrl="https://travelplatformuae.com"
+const ogUrl = "https://travelplatformuae.com";
 const structuredData = {
   "@context": "https://schema.org",
   "@graph": [
@@ -32,14 +35,18 @@ const structuredData = {
         "@type": "ImageObject",
         url: "https://travelplatformuae.com/logo.png",
         width: 300,
-        height: 60
+        height: 60,
       },
       image: {
         "@type": "ImageObject",
         url: `https://travelplatformuae.com${image1.src}`,
-        width: "800",
-        height: "500",
+        width: 800,
+        height: 500,
       },
+      sameAs: [
+      "https://www.facebook.com/travellplatformuae",
+      "https://www.instagram.com/travelplatformuae/",
+    ],
     },
     {
       "@type": "WebPage",
@@ -63,7 +70,7 @@ const structuredData = {
       name: "Promotional Banners",
       description:
         "Explore our promotional banners showcasing Travel Platform UAE.",
-        itemListElement: slides.map((slide, index) => ({
+      itemListElement: slides.map((slide, index) => ({
         "@type": "ListItem",
         position: index + 1,
         item: {
@@ -81,31 +88,39 @@ const structuredData = {
       "@type": "ItemList",
       name: "Traveler Stories",
       description: "Read real testimonials from our happy travelers.",
-      itemListElement: testimonialData.map((testimonial: TestimonialData, index: number) => ({
-        "@type": "ListItem",
-        position: index + 1,
-        item: {
-          "@type": "Person",
-          name: testimonial.name,
-          jobTitle: testimonial.designation,
-          image: "https://travelplatformuae.com" + testimonial.image.src,
-          location: {
-            "@type": "Place",
-            name: testimonial.location,
+      itemListElement: testimonialData.map(
+        (testimonial: TestimonialData, index: number) => ({
+          "@type": "ListItem",
+          position: index + 1,
+          item: {
+            "@type": "Person",
+            name: testimonial.name,
+            jobTitle: testimonial.designation,
+            image: "https://travelplatformuae.com" + testimonial.image.src,
+            location: {
+              "@type": "Place",
+              name: testimonial.location,
+            },
+            rating: {
+              "@type": "Rating",
+              ratingValue: testimonial.rating,
+              bestRating: 5,
+              worstRating: 1,
+            },
           },
-          rating: {
-            "@type": "Rating",
-            ratingValue: testimonial.rating,
-            bestRating: 5,
-            worstRating: 1,
-          },
-        },
-      })),
+        }),
+      ),
     },
   ],
 };
 ---
-<Layout title={title} description={description} ogUrl={ogUrl} travelplatformuae={structuredData}>
+
+<Layout
+  title={title}
+  description={description}
+  ogUrl={ogUrl}
+  travelplatformuae={structuredData}
+>
   <Carousel />
   <Header />
   <Ourservices />
