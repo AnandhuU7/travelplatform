@@ -113,6 +113,11 @@ const structuredData = {
               delay-${index * 100}
             `}
           >
+            <a
+              href="#"
+              class="absolute inset-0 z-10"
+              aria-label={`View details for ${article.data.title}`}
+            ></a>
             <div class="relative h-56 overflow-hidden">
               <img
                 src={article.data.image.src}

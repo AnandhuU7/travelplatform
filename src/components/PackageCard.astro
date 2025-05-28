@@ -22,11 +22,13 @@ const { title, description, cardImage, price, rating, reviewCount, location } = 
 ---
 
 <div class="relative border border-gray-200 rounded-lg overflow-hidden shadow-md transition-all duration-300 hover:-translate-y-1 hover:shadow-lg bg-white group">
+  <!-- Full-card clickable anchor (invisible, covers entire card) -->
   <a
     href={`/packages/${packageData.slug}`}
     class="absolute inset-0 z-10"
     aria-label={`View details for ${title}`}
   ></a>
+
   <!-- Image Section with proper aspect ratio -->
   <div class="relative w-full aspect-[3/2] overflow-hidden">
     <Image
@@ -53,8 +55,8 @@ const { title, description, cardImage, price, rating, reviewCount, location } = 
     {description && <p class="text-sm text-gray-600 mt-1 line-clamp-2 transition-colors duration-300 group-hover:text-gray-700">{description}</p>}
   </div>
      
-  <!-- View Details with enhanced animations -->
-  <div class="relative p-4 text-center border-t border-gray-200 overflow-hidden transition-all duration-300 group-hover:border-yellow-200 group-hover:bg-gradient-to-r group-hover:from-yellow-50 group-hover:to-yellow-100">
+  <!-- View Details Button (with pointer-events-none on parent) -->
+  <div class="relative p-4 text-center border-t border-gray-200 overflow-hidden transition-all duration-300 group-hover:border-yellow-200 group-hover:bg-gradient-to-r group-hover:from-yellow-50 group-hover:to-yellow-100 pointer-events-none">
     <!-- Background animated circles -->
     <div class="absolute inset-0 pointer-events-none">
       <!-- Large background circle that scales in -->
@@ -70,14 +72,13 @@ const { title, description, cardImage, price, rating, reviewCount, location } = 
     
     <a
       href={`/packages/${packageData.slug}`}
-      class="relative z-10 text-yellow-500 font-semibold flex items-center justify-center gap-2 hover:text-yellow-600 transition-all duration-300 transform group-hover:scale-105 group-hover:font-bold"
+      class="relative z-10 text-yellow-500 font-semibold flex items-center justify-center gap-2 hover:text-yellow-600 transition-all duration-300 transform group-hover:scale-105 group-hover:font-bold pointer-events-auto"
       aria-label={`View details for ${title}`}
     >
       <span class="transition-all duration-300">View Details</span>
     </a>
   </div>
 </div>
-
 <style>
   @keyframes float-up {
     0% {
