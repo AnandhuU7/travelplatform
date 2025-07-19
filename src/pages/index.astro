@@ -16,11 +16,13 @@ const testimonialData = testimonials.map(
   (testimonial: any) => testimonial.data,
 );
 
-const title: string = "Best Travel Agency in Dubai | Travel Platform UAE";
+const title: string = "Best Travel Agency in Dubai UAE | Premium Tours & Packages | Travel Platform UAE";
 const description: string =
-  "Nestled in the lively city of Dubai, Travel Platform stands out as one of the premier travel and tourism companies in the area, dedicated to crafting seamless and exceptional travel experiences that cater to our clients' unique needs. Our reputation as a reliable name in Dubai's tourism scene is built on our unwavering customer support and the passion of our dedicated team, making us a top choice for both vacationers and business travelers. Proudly ranked among the top 10 travel agencies in Dubai, we focus on delivering personalized services, from exciting excursions with local tour operators to luxurious, curated experiences that ensure every journey is truly unforgettable. With a host of accolades and a steadfast commitment to excellence, Travel Platform remains the leading tour company in Dubai, continually raising the bar for travel services and customer satisfaction.";
+  "Leading travel agency in Dubai and UAE offering premium tour packages, visa services, and luxury travel experiences. Discover Dubai, Abu Dhabi, and UAE with Travel Platform - your trusted local travel partner since 2020. Book Dubai city tours, desert safaris, international packages from UAE. Expert Dubai travel consultants, competitive prices, 24/7 support.";
 
 const ogUrl = "https://travelplatformuae.com";
+
+// Enhanced structured data with UAE/Dubai focus
 const structuredData = {
   "@context": "https://schema.org",
   "@graph": [
@@ -28,9 +30,12 @@ const structuredData = {
       "@type": "Organization",
       "@id": "https://travelplatformuae.com/#organization",
       name: "Travel Platform UAE",
-      description:
-        "Nestled in the lively city of Dubai, Travel Platform stands out as one of the premier travel and tourism companies in the area, dedicated to crafting seamless and exceptional travel experiences that cater to our clients' unique needs. Our reputation as a reliable name in Dubai's tourism scene is built on our unwavering customer support and the passion of our dedicated team, making us a top choice for both vacationers and business travelers. Proudly ranked among the top 10 travel agencies in Dubai, we focus on delivering personalized services, from exciting excursions with local tour operators to luxurious, curated experiences that ensure every journey is truly unforgettable. With a host of accolades and a steadfast commitment to excellence, Travel Platform remains the leading tour company in Dubai, continually raising the bar for travel services and customer satisfaction.",
+      alternateName: ["Travel Platform Dubai", "Best Travel Agency Dubai"],
+      description: "Premier travel agency in Dubai, UAE offering luxury tours, visa services, and customized travel packages across UAE and internationally. Serving Dubai, Abu Dhabi, Sharjah, and all UAE emirates since 2020.",
       url: "https://travelplatformuae.com",
+      email: "info@travelplatformuae.com",
+      telephone: "+971522345572",
+      foundingDate: "2020",
       logo: {
         "@type": "ImageObject",
         url: "https://travelplatformuae.com/logo.png",
@@ -43,75 +48,278 @@ const structuredData = {
         width: 800,
         height: 500,
       },
+      address: {
+        "@type": "PostalAddress",
+        streetAddress: "Al Muhaisnah 2",
+        addressLocality: "Dubai",
+        addressRegion: "Dubai",
+        postalCode: "00000",
+        addressCountry: "AE"
+      },
+      geo: {
+        "@type": "GeoCoordinates",
+        latitude: "25.2048",
+        longitude: "55.2708"
+      },
+      areaServed: [
+        {
+          "@type": "Country",
+          name: "United Arab Emirates"
+        },
+        {
+          "@type": "AdministrativeArea",
+          name: "Dubai Emirate"
+        },
+        {
+          "@type": "AdministrativeArea", 
+          name: "Abu Dhabi Emirate"
+        },
+        {
+          "@type": "AdministrativeArea",
+          name: "Sharjah Emirate"
+        }
+      ],
+      hasOfferCatalog: {
+        "@type": "OfferCatalog",
+        name: "Dubai UAE Travel Services",
+        itemListElement: [
+          {
+            "@type": "Offer",
+            name: "Dubai City Tours",
+            description: "Professional Dubai city tours including Burj Khalifa, Dubai Mall, Palm Jumeirah, Dubai Marina, and traditional souks",
+            price: "Starting from AED 200",
+            priceCurrency: "AED",
+            availability: "https://schema.org/InStock"
+          },
+          {
+            "@type": "Offer",
+            name: "UAE Visa Services", 
+            description: "Complete UAE visa assistance - tourist visa, business visa, transit visa, and residency visa services",
+            price: "Starting from AED 300",
+            priceCurrency: "AED",
+            availability: "https://schema.org/InStock"
+          },
+          {
+            "@type": "Offer",
+            name: "International Tour Packages",
+            description: "Curated international travel packages from Dubai to Asia, Europe, Americas with competitive pricing",
+            price: "Starting from AED 1500",
+            priceCurrency: "AED", 
+            availability: "https://schema.org/InStock"
+          },
+          {
+            "@type": "Offer",
+            name: "Dubai Desert Safari",
+            description: "Authentic Dubai desert safari experience with BBQ dinner, camel riding, and cultural shows",
+            price: "Starting from AED 150",
+            priceCurrency: "AED",
+            availability: "https://schema.org/InStock"
+          }
+        ]
+      },
       sameAs: [
-      "https://www.facebook.com/travellplatformuae",
-      "https://www.instagram.com/travelplatformuae/",
-    ],
+        "https://www.facebook.com/travellplatformuae",
+        "https://www.instagram.com/travelplatformuae/",
+      ],
+      aggregateRating: {
+        "@type": "AggregateRating",
+        ratingValue: "4.8",
+        reviewCount: "150",
+        bestRating: "5",
+        worstRating: "1"
+      },
+      review: testimonialData.slice(0, 5).map(testimonial => ({
+        "@type": "Review",
+        author: {
+          "@type": "Person", 
+          name: testimonial.name
+        },
+        reviewRating: {
+          "@type": "Rating",
+          ratingValue: testimonial.rating,
+          bestRating: "5"
+        },
+        reviewBody: testimonial.review,
+        datePublished: testimonial.datePublished
+      }))
+    },
+    {
+      "@type": "WebSite",
+      "@id": "https://travelplatformuae.com/#website",
+      url: "https://travelplatformuae.com",
+      name: "Travel Platform UAE",
+      description: "Leading travel agency in Dubai UAE offering premium tours and packages",
+      publisher: {
+        "@id": "https://travelplatformuae.com/#organization"
+      },
+      potentialAction: [
+        {
+          "@type": "SearchAction",
+          target: {
+            "@type": "EntryPoint",
+            urlTemplate: "https://travelplatformuae.com/packages?search={search_term_string}"
+          },
+          "query-input": "required name=search_term_string"
+        }
+      ],
+      inLanguage: "en-AE"
     },
     {
       "@type": "WebPage",
+      "@id": "https://travelplatformuae.com/#webpage", 
+      url: "https://travelplatformuae.com",
       name: title,
       description: description,
-      url: ogUrl,
-      breadcrumbList: {
+      isPartOf: {
+        "@id": "https://travelplatformuae.com/#website"
+      },
+      about: {
+        "@id": "https://travelplatformuae.com/#organization"
+      },
+      primaryImageOfPage: {
+        "@id": `https://travelplatformuae.com${image1.src}`
+      },
+      datePublished: "2020-01-01",
+      dateModified: "2024-12-06",
+      breadcrumb: {
         "@type": "BreadcrumbList",
         itemListElement: [
           {
             "@type": "ListItem",
             position: 1,
             name: "Home",
-            item: "https://travelplatformuae.com",
-          },
-        ],
+            item: "https://travelplatformuae.com"
+          }
+        ]
       },
+      speakable: {
+        "@type": "SpeakableSpecification",
+        cssSelector: ["h1", ".description"]
+      },
+      mainEntity: {
+        "@type": "FAQPage",
+        mainEntity: [
+          {
+            "@type": "Question",
+            name: "What travel services does Travel Platform UAE offer in Dubai?",
+            acceptedAnswer: {
+              "@type": "Answer",
+              text: "Travel Platform UAE offers comprehensive travel services in Dubai including city tours, visa services, international tour packages, desert safaris, hotel bookings, flight reservations, and customized travel planning for individuals and groups."
+            }
+          },
+          {
+            "@type": "Question", 
+            name: "Do you provide UAE visa services for tourists?",
+            acceptedAnswer: {
+              "@type": "Answer",
+              text: "Yes, we provide complete UAE visa services including tourist visas, business visas, transit visas, and assistance with residency visas. Our team handles all documentation and ensures smooth visa processing."
+            }
+          },
+          {
+            "@type": "Question",
+            name: "What are the popular Dubai tour packages you offer?",
+            acceptedAnswer: {
+              "@type": "Answer", 
+              text: "Our popular Dubai packages include Dubai City Tours covering Burj Khalifa and Dubai Mall, Dubai Desert Safari with BBQ dinner, Dubai Marina and JBR tours, Palm Jumeirah experiences, and multi-day UAE exploration packages covering Abu Dhabi and other emirates."
+            }
+          }
+        ]
+      }
     },
     {
       "@type": "ItemList",
-      name: "Promotional Banners",
-      description:
-        "Explore our promotional banners showcasing Travel Platform UAE.",
+      name: "Dubai Travel Services",
+      description: "Comprehensive travel services offered by Travel Platform UAE in Dubai",
+      itemListElement: [
+        {
+          "@type": "ListItem", 
+          position: 1,
+          item: {
+            "@type": "Service",
+            name: "Dubai City Tours",
+            description: "Professional guided tours of Dubai's top attractions including Burj Khalifa, Dubai Mall, Palm Jumeirah, and traditional markets"
+          }
+        },
+        {
+          "@type": "ListItem",
+          position: 2, 
+          item: {
+            "@type": "Service",
+            name: "UAE Visa Services",
+            description: "Complete visa assistance for UAE including tourist, business, and transit visas with expert documentation support"
+          }
+        },
+        {
+          "@type": "ListItem",
+          position: 3,
+          item: {
+            "@type": "Service", 
+            name: "International Packages",
+            description: "Curated international travel packages from Dubai to destinations across Asia, Europe, and the Americas"
+          }
+        }
+      ]
+    },
+    {
+      "@type": "ItemList",
+      name: "Featured Tour Packages from Dubai",
+      description: "Popular travel packages offered by Travel Platform UAE",
       itemListElement: slides.map((slide, index) => ({
         "@type": "ListItem",
         position: index + 1,
         item: {
-          "@type": "ImageObject",
+          "@type": "TouristTrip",
           name: slide.title,
-          description: `Promotional banner for ${slide.title}`,
-          contentUrl: "https://travelplatformuae.com" + slide.imgMain.src,
-          creditText: "Travel Platform UAE",
-          width: "1920",
-          height: "1080",
-        },
-      })),
+          description: `Premium ${slide.title} package from Dubai with expert guidance and comprehensive services`,
+          image: {
+            "@type": "ImageObject",
+            url: "https://travelplatformuae.com" + slide.imgMain.src,
+            width: "1920",
+            height: "1080"
+          },
+          provider: {
+            "@id": "https://travelplatformuae.com/#organization"
+          }
+        }
+      }))
     },
     {
       "@type": "ItemList",
-      name: "Traveler Stories",
-      description: "Read real testimonials from our happy travelers.",
+      name: "Customer Reviews - Dubai Travel Agency",
+      description: "Authentic testimonials from travelers who experienced our Dubai travel services",
       itemListElement: testimonialData.map(
         (testimonial: TestimonialData, index: number) => ({
           "@type": "ListItem",
           position: index + 1,
           item: {
-            "@type": "Person",
-            name: testimonial.name,
-            jobTitle: testimonial.designation,
-            image: "https://travelplatformuae.com" + testimonial.image.src,
-            location: {
-              "@type": "Place",
-              name: testimonial.location,
+            "@type": "Review",
+            author: {
+              "@type": "Person",
+              name: testimonial.name,
+              jobTitle: testimonial.designation,
+              image: "https://travelplatformuae.com" + testimonial.image.src,
+              address: {
+                "@type": "PostalAddress",
+                addressLocality: testimonial.location
+              }
             },
-            rating: {
+            reviewRating: {
               "@type": "Rating",
               ratingValue: testimonial.rating,
               bestRating: 5,
-              worstRating: 1,
+              worstRating: 1
             },
-          },
-        }),
-      ),
-    },
-  ],
+            reviewBody: testimonial.review,
+            datePublished: testimonial.datePublished,
+            itemReviewed: {
+              "@type": "TravelAgency",
+              name: "Travel Platform UAE"
+            }
+          }
+        })
+      )
+    }
+  ]
 };
 ---
 

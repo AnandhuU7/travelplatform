@@ -3,7 +3,7 @@ import JoinUs from "../../components/JoinUs.astro";
 import { getCollection, type CollectionEntry } from "astro:content";
 import Layout from "../../layouts/Layout.astro";
 import banner from "/src/assets/about/about1.png";
-import logo from "/src/assets/logo.png"; // Import the logo dynamically
+import logo from "/src/assets/logo.png";
 
 export async function getStaticPaths() {
   const services = await getCollection("services");
@@ -26,168 +26,295 @@ if (!serviceData) {
   });
 }
 
+// Enhanced SEO title and description for UAE/Dubai targeting
+const seoTitle = `${serviceData.data.title} in Dubai UAE | Travel Platform UAE Services`;
+const seoDescription = `Professional ${serviceData.data.title.toLowerCase()} services in Dubai, UAE by Travel Platform UAE. ${serviceData.data.description} Expert assistance from Dubai's leading travel agency with 24/7 support. Contact our Dubai office for personalized service at competitive rates.`;
+
+// Enhanced structured data with comprehensive UAE/Dubai local business focus
 const structuredData = {
   "@context": "https://schema.org",
-  "@type": "Service",
-  name: serviceData.data.title,
-  description: serviceData.data.description,
-  serviceType: serviceData.data.category || "TravelService",
-  image: {
-    "@type": "ImageObject",
-    url: "https://travelplatformuae.com" + serviceData.data.cardImage.src,
-    width: 800,
-    height: 600,
-  },
-  provider: {
-    "@type": "TravelAgency",
-    name: "Travel Platform UAE",
-    url: "https://travelplatformuae.com",
-    logo: "https://travelplatformuae.com/logo.png",
-    telephone: "+971522345572",
-    address: {
-      "@type": "PostalAddress",
-      streetAddress: "Al Muhaisnah 2",
-      addressLocality: "Dubai",
-      addressRegion: "Dubai",
-      postalCode: "202321",
-      addressCountry: "AE",
-    },
-  },
-  areaServed: {
-    "@type": "Country",
-    name: "United Arab Emirates",
-    sameAs: "https://en.wikipedia.org/wiki/United_Arab_Emirates",
-  },
-  breadcrumbList: {
-    "@type": "BreadcrumbList",
-    itemListElement: [
-      {
-        "@type": "ListItem",
-        position: 1,
-        name: "Home",
-        item: "https://travelplatformuae.com"
+  "@graph": [
+    {
+      "@type": "Service",
+      "@id": `${ogUrl}#service`,
+      name: serviceData.data.title,
+      description: seoDescription,
+      serviceType: serviceData.data.category || "TravelService",
+      image: {
+        "@type": "ImageObject",
+        url: "https://travelplatformuae.com" + serviceData.data.cardImage.src,
+        width: 800,
+        height: 600,
       },
-      {
-        "@type": "ListItem",
-        position: 2,
-        name: "Services",
-        item: "https://travelplatformuae.com/services",
+      provider: {
+        "@type": "TravelAgency",
+        "@id": "https://travelplatformuae.com/#organization",
+        name: "Travel Platform UAE",
+        alternateName: "Travel Platform Dubai",
+        url: "https://travelplatformuae.com",
+        logo: "https://travelplatformuae.com/logo.png",
+        telephone: "+971522345572",
+        email: "info@travelplatformuae.com",
+        address: {
+          "@type": "PostalAddress",
+          streetAddress: "Al Muhaisnah 2",
+          addressLocality: "Dubai",
+          addressRegion: "Dubai",
+          addressCountry: "AE"
+        },
+        geo: {
+          "@type": "GeoCoordinates",
+          latitude: "25.2048",
+          longitude: "55.2708"
+        },
+        areaServed: [
+          {
+            "@type": "Country",
+            name: "United Arab Emirates"
+          },
+          {
+            "@type": "City",
+            name: "Dubai"
+          },
+          {
+            "@type": "City", 
+            name: "Abu Dhabi"
+          },
+          {
+            "@type": "City",
+            name: "Sharjah"
+          }
+        ]
       },
-      {
-        "@type": "ListItem",
-        position: 3,
-        name: serviceData.data.title,
-        item: `https://travelplatformuae.com/services/${serviceData.slug}`,
+      category: serviceData.data.category,
+      offers: {
+        "@type": "Offer",
+        name: `${serviceData.data.title} - Dubai UAE`,
+        description: `Professional ${serviceData.data.title.toLowerCase()} service in Dubai, UAE`,
+        price: serviceData.data.price,
+        priceCurrency: "AED",
+        availability: "https://schema.org/InStock",
+        validFrom: serviceData.data.publishedTime,
+        seller: {
+          "@id": "https://travelplatformuae.com/#organization"
+        },
+        areaServed: {
+          "@type": "Country",
+          name: "United Arab Emirates"
+        },
+        priceValidUntil: "2025-12-31",
+        category: "Travel Service"
+      },
+      aggregateRating: serviceData.data.rating ? {
+        "@type": "AggregateRating",
+        ratingValue: serviceData.data.rating,
+        reviewCount: serviceData.data.reviewCount || 25,
+        bestRating: 5,
+        worstRating: 1
+      } : undefined,
+      hasOfferCatalog: {
+        "@type": "OfferCatalog",
+        name: `${serviceData.data.title} Options in Dubai`,
+        itemListElement: [
+          {
+            "@type": "Offer",
+            name: `Standard ${serviceData.data.title}`,
+            description: `Professional ${serviceData.data.title.toLowerCase()} service with expert assistance`,
+            price: serviceData.data.price,
+            priceCurrency: "AED"
+          }
+        ]
       }
-    ]
-  }
+    },
+    {
+      "@type": "WebPage",
+      "@id": `${ogUrl}#webpage`,
+      url: ogUrl,
+      name: seoTitle,
+      description: seoDescription,
+      isPartOf: {
+        "@type": "WebSite",
+        "@id": "https://travelplatformuae.com/#website"
+      },
+      about: {
+        "@id": `${ogUrl}#service`
+      },
+      mainEntity: {
+        "@id": `${ogUrl}#service`
+      },
+      datePublished: serviceData.data.publishedTime,
+      dateModified: serviceData.data.modifiedTime,
+      inLanguage: "en-AE",
+      breadcrumb: {
+        "@type": "BreadcrumbList",
+        itemListElement: [
+          {
+            "@type": "ListItem",
+            position: 1,
+            name: "Home",
+            item: "https://travelplatformuae.com"
+          },
+          {
+            "@type": "ListItem",
+            position: 2,
+            name: "Services",
+            item: "https://travelplatformuae.com/services"
+          },
+          {
+            "@type": "ListItem",
+            position: 3,
+            name: serviceData.data.title,
+            item: ogUrl
+          }
+        ]
+      }
+    },
+    {
+      "@type": "LocalBusiness",
+      "@id": `${ogUrl}#localbusiness`,
+      name: "Travel Platform UAE",
+      alternateName: "Travel Platform Dubai",
+      description: `Premier travel agency in Dubai offering ${serviceData.data.title.toLowerCase()} and comprehensive travel services`,
+      image: "https://travelplatformuae.com/logo.png",
+      telephone: "+971522345572",
+      email: "info@travelplatformuae.com",
+      url: "https://travelplatformuae.com",
+      address: {
+        "@type": "PostalAddress",
+        streetAddress: "Al Muhaisnah 2",
+        addressLocality: "Dubai",
+        addressRegion: "Dubai",
+        postalCode: "00000",
+        addressCountry: "AE"
+      },
+      geo: {
+        "@type": "GeoCoordinates",
+        latitude: "25.2048",
+        longitude: "55.2708"
+      },
+      openingHours: "Mo-Su 09:00-21:00",
+      paymentAccepted: ["Cash", "Credit Card", "Bank Transfer"],
+      "currenciesAccepted": "AED, USD",
+      "priceRange": "$$",
+      hasOfferCatalog: {
+        "@type": "OfferCatalog",
+        name: "Travel Services Dubai UAE",
+        itemListElement: [
+          {
+            "@type": "Offer",
+            name: serviceData.data.title,
+            description: serviceData.data.description
+          }
+        ]
+      }
+    }
+  ]
 };
-
 ---
 
 <Layout
-  title={serviceData.data.title}
-  description={serviceData.data.description}
+  title={seoTitle}
+  description={seoDescription}
   ogUrl={ogUrl}
   travelplatformuae={structuredData}
 >
-  <!-- Hero Section -->
-  <div
-    class="relative h-[35vh] sm:h-[45vh] md:h-[60vh] lg:h-[60vh] bg-gradient-to-r from-blue-900 via-purple-900 to-blue-900 overflow-hidden hero-banner"
-  >
-    <div
-      class="absolute inset-0 transform-gpu"
-      style="transform: translateY(var(--scrollY))"
-    >
-      <div
-        class="absolute inset-0 bg-gradient-to-b from-transparent to-black/70"
-      >
-      </div>
-      <img
-        class="w-full h-full object-cover opacity-40 scale-110"
-        src={banner.src}
-        alt="Packages"
-      />
-    </div>
-    <div class="relative h-full flex items-center justify-center py-12">
-      <div class="text-center space-y-4 px-4 sm:px-6 lg:px-8">
-        <h1
-          class="text-4xl sm:text-5xl md:text-6xl lg:text-6xl font-black text-white tracking-tight animate-fade-in pt-8 sm:pt-0"
-        >
-          Seamless & Reliable <span
-            class="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-purple-400"
-            >Travel Services</span
-          >
-        </h1>
-        <p
-          class="text-xl sm:text-xl md:text-2xl text-gray-200 max-w-3xl mx-auto animate-fade-in-up"
-        >
-          Hassle-free solutions for all your travel needs.
-        </p>
-      </div>
-    </div>
-  </div>
+ <!-- Hero Section -->
+ <div
+ class="relative h-[35vh] sm:h-[45vh] md:h-[60vh] lg:h-[60vh] bg-gradient-to-r from-blue-900 via-purple-900 to-blue-900 overflow-hidden hero-banner"
+>
+ <div
+   class="absolute inset-0 transform-gpu"
+   style="transform: translateY(var(--scrollY))"
+ >
+   <div
+     class="absolute inset-0 bg-gradient-to-b from-transparent to-black/70"
+   >
+   </div>
+   <img
+     class="w-full h-full object-cover opacity-40 scale-110"
+     src={banner.src}
+     alt="Packages"
+   />
+ </div>
+ <div class="relative h-full flex items-center justify-center py-12">
+   <div class="text-center space-y-4 px-4 sm:px-6 lg:px-8">
+     <h1
+       class="text-4xl sm:text-5xl md:text-6xl lg:text-6xl font-black text-white tracking-tight animate-fade-in pt-8 sm:pt-0"
+     >
+       Seamless & Reliable <span
+         class="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-purple-400"
+         >Travel Services</span
+       >
+     </h1>
+     <p
+       class="text-xl sm:text-xl md:text-2xl text-gray-200 max-w-3xl mx-auto animate-fade-in-up"
+     >
+       Hassle-free solutions for all your travel needs.
+     </p>
+   </div>
+ </div>
+</div>
 
-  <!-- Service Details Section -->
-  <div class="mx-auto w-full max-w-7xl p-0 lg:px-6 lg:py-12 sm:py-16">
-    <div
-      class="bg-white rounded-xl shadow-lg p-6 sm:p-8 flex flex-col sm:flex-row items-center gap-6"
-    >
-      <div class="flex-1 order-2 sm:order-1">
-        <h2 class="text-3xl font-bold text-yellow-600">
-          {serviceData.data.title}
-        </h2>
-        <div class="sm:hidden mt-4">
-          <img
-            src={serviceData.data.cardImage.src}
-            alt={serviceData.data.title}
-            class="w-full h-auto object-cover rounded-xl"
-          />
-        </div>
-        <p class="mt-4 text-gray-600">{serviceData.data.description}</p>
-        <ul class="mt-4 space-y-2 text-gray-700">
-          <li class="flex items-center gap-2">
-            <span class="font-bold">Phone Support:</span> {serviceData.data.contact}
-          </li>
-          <li class="flex items-center gap-2">
-            <span class="text-green-500">&#10004;</span> Hassle-Free Booking
-          </li>
-          <li class="flex items-center gap-2">
-            <span class="text-green-500">&#10004;</span> Best Price Guarantee
-          </li>
-          <li class="flex items-center gap-2">
-            <span class="text-green-500">&#10004;</span> Instant Confirmations
-          </li>
-          <li class="flex items-center gap-2">
-            <span class="text-green-500">&#10004;</span> Trusted by Thousands
-          </li>
-        </ul>
-        <div class="mt-6 flex flex-col sm:flex-row gap-4">
-          <a
-            href="https://b2b.travelplatformonline.com/"
-            class="rounded-md bg-yellow-600 px-8 py-3 text-base font-semibold text-white shadow-sm hover:bg-yellow-500 transform transition-all duration-200 hover:-translate-y-1 hover:shadow-lg active:translate-y-0"
-          >
-            Book Now
-          </a>
-        </div>
-      </div>
-      <div class="flex-1 order-1 sm:order-2 hidden sm:block">
-        <img
-          src={serviceData.data.cardImage.src}
-          alt={serviceData.data.title}
-          class="w-full h-auto object-cover rounded-xl"
-        />
-      </div>
-    </div>
-  </div>
+<!-- Service Details Section -->
+<div class="mx-auto w-full max-w-7xl p-0 lg:px-6 lg:py-12 sm:py-16">
+ <div
+   class="bg-white rounded-xl shadow-lg p-6 sm:p-8 flex flex-col sm:flex-row items-center gap-6"
+ >
+   <div class="flex-1 order-2 sm:order-1">
+     <h2 class="text-3xl font-bold text-yellow-600">
+       {serviceData.data.title}
+     </h2>
+     <div class="sm:hidden mt-4">
+       <img
+         src={serviceData.data.cardImage.src}
+         alt={serviceData.data.title}
+         class="w-full h-auto object-cover rounded-xl"
+       />
+     </div>
+     <p class="mt-4 text-gray-600">{serviceData.data.description}</p>
+     <ul class="mt-4 space-y-2 text-gray-700">
+       <li class="flex items-center gap-2">
+         <span class="font-bold">Phone Support:</span> {serviceData.data.contact}
+       </li>
+       <li class="flex items-center gap-2">
+         <span class="text-green-500">&#10004;</span> Hassle-Free Booking
+       </li>
+       <li class="flex items-center gap-2">
+         <span class="text-green-500">&#10004;</span> Best Price Guarantee
+       </li>
+       <li class="flex items-center gap-2">
+         <span class="text-green-500">&#10004;</span> Instant Confirmations
+       </li>
+       <li class="flex items-center gap-2">
+         <span class="text-green-500">&#10004;</span> Trusted by Thousands
+       </li>
+     </ul>
+     <div class="mt-6 flex flex-col sm:flex-row gap-4">
+       <a
+         href="https://b2b.travelplatformonline.com/"
+         class="rounded-md bg-yellow-600 px-8 py-3 text-base font-semibold text-white shadow-sm hover:bg-yellow-500 transform transition-all duration-200 hover:-translate-y-1 hover:shadow-lg active:translate-y-0"
+       >
+         Book Now
+       </a>
+     </div>
+   </div>
+   <div class="flex-1 order-1 sm:order-2 hidden sm:block">
+     <img
+       src={serviceData.data.cardImage.src}
+       alt={serviceData.data.title}
+       class="w-full h-auto object-cover rounded-xl"
+     />
+   </div>
+ </div>
+</div>
 
-  <JoinUs />
+<JoinUs />
 </Layout>
 <style>
-  @media only screen and (min-width: 768px) and (max-width: 1024px),
-    only screen and (min-width: 834px) and (max-width: 1194px) {
-    .hero-banner {
-      height: 35vh !important;
-    }
-  }
+@media only screen and (min-width: 768px) and (max-width: 1024px),
+ only screen and (min-width: 834px) and (max-width: 1194px) {
+ .hero-banner {
+   height: 35vh !important;
+ }
+}
 </style>

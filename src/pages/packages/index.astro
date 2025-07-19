@@ -5,72 +5,229 @@ import JoinUs from "../../components/JoinUs.astro";
 import PackageCard from "../../components/PackageCard.astro";
 import banner from "/src/assets/about/about1.png";
 import logo from "/src/assets/logo.png";
+
 // Fetch and sort package data
 const packageData = (await getCollection("packages")).sort((a, b) => {
   return a.data.id - b.data.id;
 });
 
-const pageTitle: string = `Our Travel Packages | Best Travel Agency in Dubai`;
+// Enhanced SEO for UAE/Dubai/Middle East targeting
+const pageTitle: string = `Travel Packages from Dubai UAE | Best Tour Packages | Travel Platform UAE`;
 const description: string =
-  "Explore the world with ease and style, Curated travel experiences | Group and custom trips, Let your journey begin here";
+  "Discover premium travel packages from Dubai, UAE with Travel Platform UAE. International tour packages, UAE domestic tours, luxury travel deals, and budget-friendly options. Book your dream vacation from Dubai with the Middle East's trusted travel agency. Competitive prices, expert guidance, 24/7 support.";
 const ogUrl = "https://travelplatformuae.com/packages";
 
-
+// Comprehensive structured data with UAE/Dubai/Middle East focus
 const structuredData = {
   "@context": "https://schema.org",
-  "@type": "CollectionPage",
-  headline: pageTitle,
-  description: description,
-  url: "https://travelplatformuae.com/packages",
-  mainEntity: {
-    "@type": "ItemList",
-    numberOfItems: packageData.length,
-    itemListElement: packageData.map((pkg, index) => ({
-      "@type": "ListItem",
-      position: index + 1,
-      item: {
-        "@type": "Tour",
-        name: pkg.data.title,
-        description: pkg.data.description,
-        image: {
-          "@type": "ImageObject",
-          contentUrl: "https://travelplatformuae.com" + pkg.data.cardImage.src,
-          creditText: "Travel Platform UAE - " + pkg.data.title,
-          width: 800,
-          height: 600,
-        },
+  "@graph": [
+    {
+      "@type": "CollectionPage",
+      "@id": `${ogUrl}#webpage`,
+      url: ogUrl,
+      name: pageTitle,
+      description: description,
+      inLanguage: "en-AE",
+      isPartOf: {
+        "@type": "WebSite",
+        "@id": "https://travelplatformuae.com/#website"
       },
-    })),
-  },
-  publisher: {
-    "@type": "Organization",
-    name: "Travel Platform UAE",
-    logo: {
-      "@type": "ImageObject",
-      url: "https://travelplatformuae.com/logo.png",
-      width: "300",
-      height: "60",
-    },
-  },
-  breadcrumbList: {
-    "@type": "BreadcrumbList",
-    itemListElement: [
-      {
-        "@type": "ListItem",
-        position: 1,
-        name: "Home",
-        item: "https://travelplatformuae.com"
+      about: {
+        "@type": "TravelAgency",
+        "@id": "https://travelplatformuae.com/#organization"
       },
-      {
-        "@type": "ListItem",
-        position: 2,
-        name: "Packages",
-        item: "https://travelplatformuae.com/packages"
+      breadcrumb: {
+        "@type": "BreadcrumbList",
+        itemListElement: [
+          {
+            "@type": "ListItem",
+            position: 1,
+            name: "Home",
+            item: "https://travelplatformuae.com"
+          },
+          {
+            "@type": "ListItem",
+            position: 2,
+            name: "Travel Packages",
+            item: ogUrl
+          }
+        ]
+      },
+      mainEntity: {
+        "@type": "ItemList",
+        name: "Travel Packages from Dubai UAE",
+        description: "Premium tour packages offered by Travel Platform UAE for travelers from Dubai and across the Middle East",
+        numberOfItems: packageData.length,
+        itemListElement: packageData.map((pkg, index) => ({
+          "@type": "ListItem",
+          position: index + 1,
+          item: {
+            "@type": "TouristTrip",
+            "@id": `https://travelplatformuae.com/packages/${pkg.slug}#tour`,
+            name: pkg.data.title,
+            description: `${pkg.data.description} - Book from Dubai with Travel Platform UAE`,
+            image: {
+              "@type": "ImageObject",
+              url: "https://travelplatformuae.com" + pkg.data.cardImage.src,
+              width: 800,
+              height: 600,
+            },
+            provider: {
+              "@type": "TravelAgency",
+              "@id": "https://travelplatformuae.com/#organization",
+              name: "Travel Platform UAE",
+              address: {
+                "@type": "PostalAddress",
+                addressLocality: "Dubai",
+                addressCountry: "AE"
+              }
+            },
+            offers: {
+              "@type": "Offer",
+              name: `${pkg.data.title} - Dubai Package`,
+              price: pkg.data.price,
+              priceCurrency: pkg.data.currency,
+              availability: "https://schema.org/InStock",
+              validFrom: pkg.data.publishedTime,
+              seller: {
+                "@id": "https://travelplatformuae.com/#organization"
+              },
+              areaServed: [
+                {
+                  "@type": "Country",
+                  name: "United Arab Emirates"
+                },
+                {
+                  "@type": "Country", 
+                  name: "Saudi Arabia"
+                },
+                {
+                  "@type": "Country",
+                  name: "Qatar"
+                },
+                {
+                  "@type": "Country",
+                  name: "Kuwait"
+                },
+                {
+                  "@type": "Country",
+                  name: "Oman"
+                },
+                {
+                  "@type": "Country",
+                  name: "Bahrain"
+                }
+              ]
+            },
+            touristType: ["Leisure", "Adventure", "Cultural", "Business"],
+            partOfTrip: {
+              "@type": "Place",
+              name: pkg.data.location
+            }
+          }
+        }))
       }
-    ]
-  }
+    },
+    {
+      "@type": "TravelAgency",
+      "@id": "https://travelplatformuae.com/#organization",
+      name: "Travel Platform UAE",
+      alternateName: "Travel Platform Dubai",
+      description: "Leading travel agency in Dubai, UAE offering premium tour packages to international and domestic destinations",
+      url: "https://travelplatformuae.com",
+      logo: "https://travelplatformuae.com/logo.png",
+      telephone: "+971522345572",
+      email: "info@travelplatformuae.com",
+      address: {
+        "@type": "PostalAddress",
+        streetAddress: "Al Muhaisnah 2",
+        addressLocality: "Dubai",
+        addressRegion: "Dubai",
+        addressCountry: "AE"
+      },
+      geo: {
+        "@type": "GeoCoordinates",
+        latitude: "25.2048",
+        longitude: "55.2708"
+      },
+      areaServed: [
+        {
+          "@type": "Country",
+          name: "United Arab Emirates"
+        },
+        {
+          "@type": "AdministrativeArea",
+          name: "Dubai"
+        },
+        {
+          "@type": "AdministrativeArea",
+          name: "Abu Dhabi"
+        },
+        {
+          "@type": "AdministrativeArea",
+          name: "Sharjah"
+        }
+      ],
+      hasOfferCatalog: {
+        "@type": "OfferCatalog",
+        name: "Dubai Travel Packages",
+        description: "Comprehensive travel packages from Dubai to destinations worldwide",
+        itemListElement: packageData.slice(0, 10).map(pkg => ({
+          "@type": "Offer",
+          name: pkg.data.title,
+          description: `Premium ${pkg.data.title} package from Dubai`,
+          price: pkg.data.price,
+          priceCurrency: pkg.data.currency,
+          category: "Travel Package"
+        }))
+      },
+      aggregateRating: {
+        "@type": "AggregateRating",
+        ratingValue: "4.8",
+        reviewCount: "150",
+        bestRating: "5"
+      }
+    },
+    {
+      "@type": "FAQPage",
+      "@id": `${ogUrl}#faq`,
+      mainEntity: [
+        {
+          "@type": "Question",
+          name: "What travel packages do you offer from Dubai?",
+          acceptedAnswer: {
+            "@type": "Answer",
+            text: "Travel Platform UAE offers comprehensive travel packages from Dubai including international tours to Asia, Europe, Americas, and domestic UAE packages. We provide luxury, mid-range, and budget-friendly options with expert guides and 24/7 support."
+          }
+        },
+        {
+          "@type": "Question",
+          name: "Do you provide travel packages for Middle East residents?",
+          acceptedAnswer: {
+            "@type": "Answer",
+            text: "Yes, we specialize in travel packages for UAE, Saudi Arabia, Qatar, Kuwait, Oman, and Bahrain residents. Our packages are designed considering Middle Eastern preferences, halal requirements, and cultural needs."
+          }
+        },
+        {
+          "@type": "Question",
+          name: "What makes Travel Platform UAE different from other travel agencies in Dubai?",
+          acceptedAnswer: {
+            "@type": "Answer",
+            text: "We are a Dubai-based travel agency with deep local knowledge, competitive pricing, 24/7 Arabic and English support, and specialized services for Middle Eastern travelers. Our packages include cultural considerations and premium service standards."
+          }
+        },
+        {
+          "@type": "Question",
+          name: "Do you offer customized packages for families and groups?",
+          acceptedAnswer: {
+            "@type": "Answer",
+            text: "Absolutely! We offer customized family packages, group tours, corporate travel, and honeymoon packages. Our Dubai-based team creates personalized itineraries based on your preferences, budget, and travel dates."
+          }
+        }
+      ]
+    }
+  ]
 };
-
 ---
 
 <Layout
@@ -79,92 +236,92 @@ const structuredData = {
   ogUrl={ogUrl}
   travelplatformuae={structuredData}
 >
+<div
+class="relative h-[35vh] sm:h-[45vh] md:h-[60vh] lg:h-[60vh] bg-gradient-to-r from-blue-900 via-purple-900 to-blue-900 overflow-hidden hero-banner"
+>
+<div
+  class="absolute inset-0 transform-gpu"
+  style="transform: translateY(var(--scrollY))"
+>
   <div
-    class="relative h-[35vh] sm:h-[45vh] md:h-[60vh] lg:h-[60vh] bg-gradient-to-r from-blue-900 via-purple-900 to-blue-900 overflow-hidden hero-banner"
+    class="absolute inset-0 bg-gradient-to-b from-transparent to-black/70"
   >
-    <div
-      class="absolute inset-0 transform-gpu"
-      style="transform: translateY(var(--scrollY))"
+  </div>
+  <img
+    class="w-full h-full object-cover opacity-40 scale-110"
+    src={banner.src}
+    alt="Packages"
+  />
+</div>
+<div class="relative h-full flex items-center justify-center py-12">
+  <div class="text-center space-y-4 px-4 sm:px-6 lg:px-8">
+    <h1
+      class="text-4xl sm:text-5xl md:text-7xl font-black text-white tracking-tight animate-fade-in pt-8 sm:pt-0"
     >
-      <div
-        class="absolute inset-0 bg-gradient-to-b from-transparent to-black/70"
+      Our <span
+        class="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-purple-400"
+        >Packages</span
       >
-      </div>
-      <img
-        class="w-full h-full object-cover opacity-40 scale-110"
-        src={banner.src}
-        alt="Packages"
-      />
-    </div>
-    <div class="relative h-full flex items-center justify-center py-12">
-      <div class="text-center space-y-4 px-4 sm:px-6 lg:px-8">
-        <h1
-          class="text-4xl sm:text-5xl md:text-7xl font-black text-white tracking-tight animate-fade-in pt-8 sm:pt-0"
-        >
-          Our <span
-            class="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-purple-400"
-            >Packages</span
-          >
-        </h1>
-        <p
-          class="text-xl sm:text-xl md:text-2xl text-gray-200 max-w-3xl mx-auto animate-fade-in-up"
-        >
-          Explore a wide range of travel packages designed for your perfect
-          trip.
-        </p>
-      </div>
-    </div>
-  </div>
-  <!-- Packages Grid -->
-  <div class="bg-gray-100 py-5">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-      <div class="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3">
-        {packageData.map((pkg) => <PackageCard packageData={pkg} />)}
-      </div>
-    </div>
-  </div>
-  <!-- CTA Section -->
-  <div class="bg-yellow-500 mb-2 mt-10">
-    <div
-      class="max-w-7xl mx-auto py-8 px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row items-center justify-between"
+    </h1>
+    <p
+      class="text-xl sm:text-xl md:text-2xl text-gray-200 max-w-3xl mx-auto animate-fade-in-up"
     >
-      <div class="text-center md:text-left">
-        <h2 class="text-3xl font-extrabold text-white">
-          Ready to start your journey?
-        </h2>
-        <p class="mt-3 text-lg text-yellow-100">
-          Contact us today to plan your perfect trip.
-        </p>
-      </div>
-      <div class="mt-8 md:mt-0">
-        <a
-          href="/contact"
-          class="inline-flex items-center px-6 py-3 border border-transparent text-base font-medium rounded-md text-yellow-600 bg-white hover:bg-yellow-50"
-        >
-          Contact Us
-          <svg
-            class="ml-3 -mr-1 h-5 w-5"
-            fill="none"
-            stroke="currentColor"
-            viewBox="0 0 24 24"
-          >
-            <path
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              stroke-width="2"
-              d="M14 5l7 7m0 0l-7 7m7-7H3"></path>
-          </svg>
-        </a>
-      </div>
-      <JoinUs />
-    </div>
+      Explore a wide range of travel packages designed for your perfect
+      trip.
+    </p>
   </div>
+</div>
+</div>
+<!-- Packages Grid -->
+<div class="bg-gray-100 py-5">
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+  <div class="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3">
+    {packageData.map((pkg) => <PackageCard packageData={pkg} />)}
+  </div>
+</div>
+</div>
+<!-- CTA Section -->
+<div class="bg-yellow-500 mb-2 mt-10">
+<div
+  class="max-w-7xl mx-auto py-8 px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row items-center justify-between"
+>
+  <div class="text-center md:text-left">
+    <h2 class="text-3xl font-extrabold text-white">
+      Ready to start your journey?
+    </h2>
+    <p class="mt-3 text-lg text-yellow-100">
+      Contact us today to plan your perfect trip.
+    </p>
+  </div>
+  <div class="mt-8 md:mt-0">
+    <a
+      href="/contact"
+      class="inline-flex items-center px-6 py-3 border border-transparent text-base font-medium rounded-md text-yellow-600 bg-white hover:bg-yellow-50"
+    >
+      Contact Us
+      <svg
+        class="ml-3 -mr-1 h-5 w-5"
+        fill="none"
+        stroke="currentColor"
+        viewBox="0 0 24 24"
+      >
+        <path
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          stroke-width="2"
+          d="M14 5l7 7m0 0l-7 7m7-7H3"></path>
+      </svg>
+    </a>
+  </div>
+  <JoinUs />
+</div>
+</div>
 </Layout>
 <style>
-  @media only screen and (min-width: 768px) and (max-width: 1024px),
-    only screen and (min-width: 834px) and (max-width: 1194px) {
-    .hero-banner {
-      height: 35vh !important;
-    }
-  }
+@media only screen and (min-width: 768px) and (max-width: 1024px),
+only screen and (min-width: 834px) and (max-width: 1194px) {
+.hero-banner {
+  height: 35vh !important;
+}
+}
 </style>

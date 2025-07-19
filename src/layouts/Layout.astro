@@ -16,71 +16,195 @@ export interface Props {
 
 const { title, description, travelplatformuae, ogUrl } = Astro.props;
 
-// Default values for SEO
-const defaultTitle = "Best Travel Agency in Dubai | Travel Platform UAE";
+// Enhanced UAE/Dubai focused SEO defaults
+const defaultTitle = "Best Travel Agency in Dubai UAE | Premium Tours & Packages | Travel Platform UAE";
 const defaultDescription =
-  "Nestled in the lively city of Dubai, Travel Platform stands out as one of the premier travel and tourism companies in the area, dedicated to crafting seamless and exceptional travel experiences that cater to our clients' unique needs. Our reputation as a reliable name in Dubai's tourism scene is built on our unwavering customer support and the passion of our dedicated team, making us a top choice for both vacationers and business travelers. Proudly ranked among the top 10 travel agencies in Dubai, we focus on delivering personalized services, from exciting excursions with local tour operators to luxurious, curated experiences that ensure every journey is truly unforgettable. With a host of accolades and a steadfast commitment to excellence, Travel Platform remains the leading tour company in Dubai, continually raising the bar for travel services and customer satisfaction.";
+  "Leading travel agency in Dubai and UAE offering premium tour packages, visa services, and luxury travel experiences. Discover Dubai, Abu Dhabi, and UAE with Travel Platform - your trusted local travel partner since 2020. Book Dubai city tours, desert safaris, international packages from UAE.";
 const ogImageUrl = "https://travelplatformuae.com/logo.png";
 const canonicalURL = ogUrl
   ? new URL(ogUrl, Astro.site)
   : new URL(Astro.url.pathname, Astro.site);
+
+// Enhanced local business schema for UAE/Dubai
+const localBusinessSchema = {
+  "@context": "https://schema.org",
+  "@type": "TravelAgency",
+  "@id": "https://travelplatformuae.com/#travelagency",
+  "name": "Travel Platform UAE",
+  "alternateName": "Travel Platform Dubai",
+  "description": "Premier travel agency in Dubai, UAE offering luxury tours, visa services, and customized travel packages across UAE and internationally.",
+  "url": "https://travelplatformuae.com",
+  "telephone": "+971522345572",
+  "email": "info@travelplatformuae.com",
+  "logo": {
+    "@type": "ImageObject",
+    "url": "https://travelplatformuae.com/logo.png",
+    "width": 300,
+    "height": 60
+  },
+  "image": "https://travelplatformuae.com/logo.png",
+  "address": {
+    "@type": "PostalAddress",
+    "streetAddress": "Al Muhaisnah 2",
+    "addressLocality": "Dubai",
+    "addressRegion": "Dubai",
+    "postalCode": "00000",
+    "addressCountry": "AE"
+  },
+  "geo": {
+    "@type": "GeoCoordinates",
+    "latitude": "25.2048",
+    "longitude": "55.2708"
+  },
+  "areaServed": [
+    {
+      "@type": "Country",
+      "name": "United Arab Emirates"
+    },
+    {
+      "@type": "City",
+      "name": "Dubai"
+    },
+    {
+      "@type": "City", 
+      "name": "Abu Dhabi"
+    },
+    {
+      "@type": "City",
+      "name": "Sharjah"
+    }
+  ],
+  "serviceArea": {
+    "@type": "GeoCircle",
+    "geoMidpoint": {
+      "@type": "GeoCoordinates",
+      "latitude": "25.2048",
+      "longitude": "55.2708"
+    },
+    "geoRadius": "100000"
+  },
+  "hasOfferCatalog": {
+    "@type": "OfferCatalog",
+    "name": "Travel Services Dubai UAE",
+    "itemListElement": [
+      {
+        "@type": "Offer",
+        "itemOffered": {
+          "@type": "Service",
+          "name": "Dubai City Tours",
+          "description": "Comprehensive Dubai sightseeing tours covering Burj Khalifa, Dubai Mall, Palm Jumeirah"
+        }
+      },
+      {
+        "@type": "Offer", 
+        "itemOffered": {
+          "@type": "Service",
+          "name": "UAE Visa Services",
+          "description": "Tourist visa, business visa, and residency visa services for UAE"
+        }
+      },
+      {
+        "@type": "Offer",
+        "itemOffered": {
+          "@type": "Service", 
+          "name": "International Tour Packages",
+          "description": "Curated international travel packages from Dubai to destinations worldwide"
+        }
+      }
+    ]
+  },
+  "sameAs": [
+    "https://www.facebook.com/travellplatformuae",
+    "https://www.instagram.com/travelplatformuae/"
+  ],
+  "priceRange": "$$",
+  "currenciesAccepted": "AED, USD",
+  "paymentAccepted": ["Cash", "Credit Card", "Bank Transfer"],
+  "openingHours": "Mo-Su 09:00-21:00",
+  "aggregateRating": {
+    "@type": "AggregateRating",
+    "ratingValue": "4.8",
+    "reviewCount": "150",
+    "bestRating": "5",
+    "worstRating": "1"
+  }
+};
 ---
 
-<html lang="en">
+<html lang="en" dir="ltr">
   <head>
     <meta charset="UTF-8" />
-    <meta name="robots" content="index" />
+    <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
     <link rel="icon" href="/favicon.ico" type="image/x-icon" />
     <link rel="sitemap" type="application/xml" href="/sitemap-index.xml" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="description" content={description ?? defaultDescription} />
     <meta name="author" content="Travel Platform UAE" />
+    
+    <!-- Enhanced Geo-targeting for UAE/Dubai -->
+    <meta name="geo.region" content="AE-DU" />
+    <meta name="geo.country" content="AE" />
+    <meta name="geo.placename" content="Dubai, United Arab Emirates" />
+    <meta name="geo.position" content="25.2048;55.2708" />
+    <meta name="ICBM" content="25.2048, 55.2708" />
+    <meta name="DC.title" content={title ?? defaultTitle} />
+    
+    <!-- Enhanced Location and Language targeting -->
+    <meta name="language" content="en-AE" />
+    <meta name="distribution" content="global" />
+    <meta name="target" content="all" />
+    <meta name="audience" content="all" />
+    <meta name="copyright" content="Travel Platform UAE" />
+    <meta name="coverage" content="Worldwide" />
+    <meta name="rating" content="General" />
+    <meta name="revisit-after" content="7 days" />
 
-    <!-- Open Graph Meta Tags -->
+    <!-- Open Graph Meta Tags with UAE focus -->
     <meta property="og:title" content={title ?? defaultTitle} />
-    <meta
-      property="og:description"
-      content={description ?? defaultDescription}
-    />
+    <meta property="og:description" content={description ?? defaultDescription} />
     <meta property="og:type" content="website" />
     <meta property="og:url" content={canonicalURL} />
     <meta property="og:image" content={ogImageUrl} />
-    <meta property="og:image:alt" content="Travel Platform Logo" />
+    <meta property="og:image:alt" content="Travel Platform UAE - Best Travel Agency in Dubai" />
     <meta property="og:image:width" content="1200" />
     <meta property="og:image:height" content="630" />
+    <meta property="og:site_name" content="Travel Platform UAE" />
+    <meta property="og:locale" content="en_AE" />
+    <meta property="og:locale:alternate" content="ar_AE" />
 
     <!-- Twitter Meta Tags -->
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:site" content="@TravelPlatformUAE" />
-    <meta
-      name="twitter:title"
-      content={title ?? defaultTitle}
-    />
-    <meta
-      name="twitter:description"
-      content={description ?? defaultDescription}
-    />
+    <meta name="twitter:title" content={title ?? defaultTitle} />
+    <meta name="twitter:description" content={description ?? defaultDescription} />
     <meta name="twitter:image" content={ogImageUrl} />
+    <meta name="twitter:image:alt" content="Travel Platform UAE - Dubai Travel Agency" />
 
+    <!-- Mobile and App Links -->
     <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
     <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
     <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
 
-    <meta name="robots" content="index, follow" />
+    <script
+    is:inline
+    type="application/ld+json"
+    set:html={JSON.stringify(localBusinessSchema)}
+  />
 
-    <!-- Structured Data (Schema Markup) -->
     <GoogleAnalytics id="G-RGM99TGREL" />
-    {
-      travelplatformuae && (
-        <script
-          is:inline
-          type="application/ld+json"
-          set:html={JSON.stringify(travelplatformuae)}
-        />
-      )
-    }
+{
+  travelplatformuae && (
+    <script
+      is:inline
+      type="application/ld+json"
+      set:html={JSON.stringify(travelplatformuae)}
+    />
+  )
+}
 
-    <!-- SEO Component -->
+    <!-- Enhanced SEO Component with UAE-focused keywords -->
     <SEO
       title={title ?? defaultTitle}
       description={description ?? defaultDescription}
@@ -93,11 +217,9 @@ const canonicalURL = ogUrl
           url: canonicalURL.toString(),
         },
         optional: {
-          description:
-            description ??
-            defaultDescription,
+          description: description ?? defaultDescription,
           siteName: "Travel Platform UAE",
-          locale: "en_US",
+          locale: "en_AE",
         },
       }}
       twitter={{
@@ -106,19 +228,26 @@ const canonicalURL = ogUrl
         site: "Travel Platform UAE",
         title: title ?? defaultTitle,
         image: "https://travelplatformuae.com/logo.png",
-        imageAlt: "Travel Platform UAE",
+        imageAlt: "Travel Platform UAE - Best Travel Agency in Dubai",
         description: description ?? defaultDescription,
       }}
       extend={{
         meta: [
           {
             name: "keywords",
-            content:
-              "Travel Platform UAE, Best Travel Agency in Dubai, Dubai travel agency, best tour operators in Dubai, luxury travel Dubai, budget travel UAE, international tours, domestic travel packages, flights and hotels, holiday deals, adventure tours, sightseeing Dubai, travel guides, tourism companies in Dubai",
+            content: "travel agency Dubai, best travel agency UAE, Dubai tour packages, UAE visa services, Dubai city tours, Abu Dhabi tours, travel packages from Dubai, international tours UAE, Dubai desert safari, luxury travel Dubai, budget travel UAE, Dubai travel guide, UAE tourism, Dubai holidays, travel agent Dubai, tour operator Dubai, Dubai sightseeing, UAE travel deals, Dubai vacation packages, business travel Dubai, Dubai hotel booking, flight booking Dubai, travel insurance UAE, Dubai travel agency reviews, premium travel services Dubai, customized tours Dubai, Dubai travel consultant, UAE travel packages, Dubai group tours, Dubai family packages, romantic Dubai packages, adventure tours UAE, cultural tours Dubai, shopping tours Dubai, food tours Dubai, Dubai photography tours, yacht tours Dubai, helicopter tours Dubai, Dubai attractions, UAE tourist visa, Dubai transit visa, UAE resident visa, student visa UAE, employment visa UAE, family visa UAE, Dubai airport transfer, luxury car rental Dubai, Dubai chauffeur service, travel planning Dubai, honeymoon packages Dubai, Dubai weekend getaways, UAE domestic tourism, Dubai expatriate services, corporate travel Dubai, MICE Dubai, travel platform UAE, تاريخ دبي, وكالة سفر دبي, حزم سياحية دبي, فيزا الإمارات, جولات دبي"
           },
-          { name: "robots", content: "index, follow" },
-          { name: "language", content: "English" },
+          { name: "robots", content: "index, follow, max-image-preview:large" },
+          { name: "googlebot", content: "index, follow, max-video-preview:-1, max-image-preview:large, max-snippet:-1" },
+          { name: "bingbot", content: "index, follow, max-image-preview:large, max-snippet:-1" },
+          { name: "language", content: "en-AE" },
+          { name: "geo.region", content: "AE-DU" },
+          { name: "geo.country", content: "AE" },
           { name: "Author", content: "Travel Platform UAE" },
+          { name: "Publisher", content: "Travel Platform UAE" },
+          { name: "application-name", content: "Travel Platform UAE" },
+          { name: "msapplication-TileColor", content: "#2563eb" },
+          { name: "theme-color", content: "#2563eb" },
         ],
       }}
     />

@@ -17,6 +17,7 @@ export interface TestimonialData {
   review: string;
   image: { src: string };
   rating: number;
+  datePublished: string;
 }
 
 const testimonials = (await getCollection("testimonials")).map(
